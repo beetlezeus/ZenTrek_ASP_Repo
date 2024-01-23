@@ -1,0 +1,7 @@
+How to connect to the MongoDB with Mongoose
+How to connect Node.js App to MongoDB with Mongoose || Connect Nodejs with mongodb database 2023 
+https://www.youtube.com/watch?v=kecEjqCE21w&ab_channel=BugFree 
+
+Backbone of the Project
+Node.js With Passport Authentication | Full Project
+https://www.youtube.com/watch?v=6FOq4cUdH8k&ab_channel=TraversyMedias
