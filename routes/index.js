@@ -11,5 +11,11 @@ res.render('dashboard',{
     name: req.user.name
 }));
 
+// //User Details
+// router.get('/userDetails',ensureAuthenticated,(req, res)=>
+// res.render('userDetails',{
+//     name: req.user.name
+// }));
+
 
 module.exports =router;

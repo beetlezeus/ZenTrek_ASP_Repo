@@ -1,0 +1,120 @@
+<div class="row mt-5">
+    <div class="col-md-6 m-auto">
+        <div class="card card-body">
+            <h1 class="text-center mb-3">
+                <i class="fas fa-user-edit"></i> Edit User Details
+            </h1>
+            <%- include('./partials/messages.ejs') %>
+            <form action="/userDetails/edit" method="POST">
+                <div class="form-group">
+                    <label for="first_name">First Name</label>
+                    <input
+                        type="text"
+                        id="first_name"
+                        name="first_name"
+                        class="form-control"
+                        placeholder="Enter First Name"
+                        value="<%= first_name %>"
+                    />
+                </div>
+                <div class="form-group">
+                    <label for="last_name">Last Name</label>
+                    <input
+                        type="text"
+                        id="last_name"
+                        name="last_name"
+                        class="form-control"
+                        placeholder="Enter Last Name"
+                        value="<%= last_name %>"
+                    />
+                </div>
+                <div class="form-group">
+                    <label for="age">Age</label>
+                    <input
+                        type="number"
+                        id="age"
+                        name="age"
+                        class="form-control"
+                        placeholder="Enter Age"
+                        value="<%= age %>"
+                    />
+                </div>
+                <div class="form-group">
+                    <label for="weight">Weight (kg)</label>
+                    <input
+                        type="number"
+                        id="weight"
+                        name="weight"
+                        class="form-control"
+                        placeholder="Enter Weight"
+                        value="<%= weight %>"
+                        min="15"
+                        max="250"
+                    />
+                </div>
+                <div class="form-group">
+                    <label for="height">Height (cm)</label>
+                    <input
+                        type="number"
+                        id="height"
+                        name="height"
+                        class="form-control"
+                        placeholder="Enter Height"
+                        value="<%= height %>"
+                    />
+                </div>
+                <div class="form-group">
+                    <label for="gender">Gender</label>
+                    <select
+                        id="gender"
+                        name="gender"
+                        class="form-control"
+                    >
+                        <option value="male" <%= gender === 'male' ? 'selected' : '' %>>Male</option>
+                        <option value="female" <%= gender === 'female' ? 'selected' : '' %>>Female</option>
+                        <option value="other" <%= gender === 'other' ? 'selected' : '' %>>Other</option>
+                        <option value="prefer not to say" <%= gender === 'prefer not to say' ? 'selected' : '' %>>Prefer Not to Say</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="fitness_level">Fitness Level</label>
+                    <input
+                        type="range"
+                        id="fitness_level"
+                        name="fitness_level"
+                        class="form-range"
+                        min="0"
+                        max="10"
+                        step="0.5"
+                        value="<%= fitness_level %>"
+                    />
+                </div>
+                <div class="form-group">
+                    <label for="general_health">General Health</label>
+                    <input
+                        type="range"
+                        id="general_health"
+                        name="general_health"
+                        class="form-range"
+                        min="0"
+                        max="10"
+                        step="0.5"
+                        value="<%= general_health %>"
+                    />
+                </div>
+                <div class="form-group">
+                    <label for="goals_next_30_days">Goals for the Next 30 Days</label>
+                    <textarea
+                        id="goals_next_30_days"
+                        name="goals_next_30_days"
+                        class="form-control"
+                        placeholder="Enter your goals"
+                    ><%= goals_next_30_days %></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">
+                    Save Changes
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
