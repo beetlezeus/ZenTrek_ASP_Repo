@@ -208,7 +208,14 @@ app.use('/', require('./routes/index'));
 app.use('/users', require('./routes/users'));
 //User Details
 app.use('/userDetails', require('./routes/userDetails'));
-
+// Exercise router
+app.use('/exercise', require('./routes/exercise'));
+// Meditation router
+app.use('/meditation', require('./routes/meditation')); 
+// Daily Reflections router
+app.use('/dailyReflections', require('./routes/dailyReflections'));
+// Progress router
+app.use('/progress', require('./routes/progress'));  
 
 const PORT = process.env.PORT || 5000;
 
