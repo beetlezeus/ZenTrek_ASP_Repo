@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Reflections</title>
+    <!-- Add your stylesheets or other head elements here -->
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">Daily Reflections</h1>
+
+        <div class="row mt-5">
+            <div class="col-md-6 m-auto">
+                <div class="card card-body">
+                    <!-- Journaling Area -->
+                    <h2 class="text-center mb-3">Journaling Area</h2>
+                    <form action="/dailyReflections/submitReflections" method="post">
+                        <!-- Question for the day -->
+                        <p><strong>Question of the Day:</strong> <%= questionOfTheDay %></p>
+
+                        <!-- Answer area -->
+                        <label for="journalEntry">Reflect on your day:</label>
+                        <textarea id="journalEntry" name="journalEntry" rows="5"></textarea>
+
+                        <!-- Mood selection -->
+                        <label for="mood">Select your mood for the day:</label>
+                        <select id="mood" name="mood">
+                            <option value="happy">Happy</option>
+                            <option value="neutral">Neutral</option>
+                            <option value="sad">Sad</option>
+                            <!-- Add more mood options as needed -->
+                        </select>
+
+                        <!-- Previous and Next day navigation -->
+                        <a href="/dailyReflections/previousDay" class="btn btn-secondary mt-3">Previous Day</a>
+                        <a href="/dailyReflections/nextDay" class="btn btn-secondary mt-3">Next Day</a>
+
+                        <!-- Submit Button -->
+                        <button type="submit" class="btn btn-primary mt-3">Submit Reflections</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Food and Water Log Section -->
+        <div class="row mt-5">
+            <div class="col-md-6 m-auto">
+                <div class="card card-body">
+                    <!-- Water Log Section -->
+                    <h2 class="text-center mb-3">Water Log</h2>
+                    <!-- Water icons representing units (interactivity can be added with JavaScript) -->
+                    <!-- Log and display remaining units at the end of the day -->
+                    
+                    <!-- Food Log Section -->
+                    <h2 class="text-center mb-3">Food Log</h2>
+                    <!-- Food icons representing units (interactivity can be added with JavaScript) -->
+                    <!-- Log and display remaining units at the end of the day -->
+
+                    <!-- Fruit Log Section -->
+                    <h2 class="text-center mb-3">Fruit Log</h2>
+                    <!-- Fruit icons representing units (interactivity can be added with JavaScript) -->
+                    <!-- Log and display remaining units at the end of the day -->
+
+                    <!-- Back button -->
+                    <a href="/home" class="btn btn-secondary mt-3">Back to Home</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add your scripts or other body elements here -->
+</body>
+</html>

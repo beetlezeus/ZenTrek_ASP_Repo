@@ -5,17 +5,13 @@ const {ensureAuthenticated} = require('../config/auth')
 //Welcome Page
 router.get('/',(req, res)=>res.render('welcome'));
 
-//Dashboard Page
-router.get('/dashboard',ensureAuthenticated,(req, res)=>
-res.render('dashboard',{
+//Home Page
+router.get('/home',ensureAuthenticated,(req, res)=>
+res.render('home',{
     name: req.user.name
 }));
 
-// //User Details
-// router.get('/userDetails',ensureAuthenticated,(req, res)=>
-// res.render('userDetails',{
-//     name: req.user.name
-// }));
 
 
 module.exports =router;
+

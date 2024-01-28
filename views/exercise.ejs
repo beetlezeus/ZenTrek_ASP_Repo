@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise Page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+Wy4L4J/P4pEYI9jJ4IuUJFwG6d5I9w1bC"
+        crossorigin="anonymous">
+    <!-- Add your custom stylesheets or other head elements here -->
+    <style>
+        body {
+            font-family: "Roboto", sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        .card {
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .category-link {
+            color: #007bff;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .log-section {
+            margin-top: 20px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        .back-button {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="text-center">Exercise Page</h1>
+
+        <div class="row mt-5">
+            <div class="col-md-6 m-auto">
+                <div class="card card-body">
+                    <!-- Exercise content -->
+                    <h2 class="text-center mb-3">Choose Your Activity</h2>
+
+                    <div class="category-links">
+                        <p><span class="category-link" onclick="showCategory('strength')">Strength Training</span></p>
+                        <p><span class="category-link" onclick="showCategory('cardio')">Cardio</span></p>
+                        <p><span class="category-link" onclick="showCategory('yoga')">Yoga</span></p>
+                    </div>
+
+                    <!-- Strength Training Category -->
+                    <div id="strength-category" class="category-content" style="display: none;">
+                        <h3>Strength Training Resources</h3>
+                        <p>Watch training videos to learn exercises with proper form.</p>
+                        <!-- Add more strength training resources -->
+
+                        <!-- Strength Training Log -->
+                        <div class="log-section">
+                            <h3>Strength Training Log</h3>
+                            <!-- Strength Training Log Form -->
+                            <form action="/logStrengthTraining" method="post">
+                                <label for="exerciseType">Exercise Type:</label>
+                                <input type="text" id="exerciseType" name="exerciseType" required>
+
+                                <label for="numOfReps">Number of Reps:</label>
+                                <input type="number" id="numOfReps" name="numOfReps" required>
+
+                                <button type="submit" class="btn btn-primary mt-2">Log Strength Training</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Cardio Category -->
+                    <div id="cardio-category" class="category-content" style="display: none;">
+                        <h3>Cardio Resources</h3>
+                        <p>Follow a warm-up guide and choose from different running plans.</p>
+                        <!-- Add more cardio resources -->
+
+                        <!-- Cardio Log -->
+                        <div class="log-section">
+                            <h3>Cardio Log</h3>
+                            <!-- Cardio Log Form -->
+                            <form action="/logCardio" method="post">
+                                <label for="runningStats">Running Stats:</label>
+                                <input type="text" id="runningStats" name="runningStats" required>
+
+                                <button type="submit" class="btn btn-primary mt-2">Log Cardio</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Yoga Category -->
+                    <div id="yoga-category" class="category-content" style="display: none;">
+                        <h3>Yoga Resources</h3>
+                        <p>Follow yoga videos for a relaxing session.</p>
+                        <!-- Add more yoga resources -->
+
+                        <!-- Yoga Log -->
+                        <div class="log-section">
+                            <h3>Yoga Log</h3>
+                            <!-- Yoga Log Form -->
+                            <form action="/logYoga" method="post">
+                                <label for="timeSpent">Time Spent (minutes):</label>
+                                <input type="number" id="timeSpent" name="timeSpent" required>
+
+                                <button type="submit" class="btn btn-primary mt-2">Log Yoga</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Back button -->
+                    <a href="/home" class="btn btn-secondary mt-3 back-button">Back to Home</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"
+        integrity="sha384-eMN0/0w0eWR1Vf+hJxJK6uUpAU3Nj1e6ECqOFJZb6fpEmP93yCb75NAwK8EGI1g"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+Wy4L4J/P4pEYI9jJ4IuUJFwG6d5I9w1bC"
+        crossorigin="anonymous"></script>
+    <script>
+        function showCategory(category) {
+            // Hide all categories
+            document.getElementById('strength-category').style.display = 'none';
+            document.getElementById('cardio-category').style.display = 'none';
+            document.getElementById('yoga-category').style.display = 'none';
+
+            // Show selected category
+            document.getElementById(`${category}-category`).style.display = 'block';
+        }
+    </script>
+</body>
+
+</html>
