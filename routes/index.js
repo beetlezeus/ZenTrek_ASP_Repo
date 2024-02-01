@@ -8,7 +8,8 @@ router.get('/',(req, res)=>res.render('welcome'));
 //Home Page
 router.get('/home',ensureAuthenticated,(req, res)=>
 res.render('home',{
-    name: req.user.name
+    name: req.user.name,
+    layout: 'layoutLoggedIn'
 }));
 
 

@@ -10,7 +10,7 @@ router.get('/', ensureAuthenticated, (req, res) => {
         // Add any necessary data for the meditation page
     };
 
-    res.render('meditation', meditationData);
+    res.render('meditation', {meditationData , layout: 'layoutLoggedIn'});
 });
 
 // Export the router to use in your main app file

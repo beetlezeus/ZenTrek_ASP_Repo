@@ -114,6 +114,7 @@ router.get('/', async (req, res) => {
     try {
         const userDetails = await UserDetails.findOne({ user: req.user._id });
         res.render('userDetails', {
+            layout: 'layoutLoggedIn',
             name: req.user ? req.user.name : '',
             first_name: userDetails ? userDetails.first_name : '',
             last_name: userDetails ? userDetails.last_name : '',
@@ -138,6 +139,7 @@ router.get('/edit', async (req, res) => {
     try {
         const userDetails = await UserDetails.findOne({ user: req.user._id });
         res.render('editUserDetails', {
+            layout: 'layoutLoggedIn',
             name,
             first_name: userDetails ? userDetails.first_name : '',
             last_name: userDetails ? userDetails.last_name : '',
@@ -170,6 +172,7 @@ router.post('/edit', async (req, res) => {
 
     if (errors.length > 0) {
         res.render('editUserDetails', {
+            layout: 'layoutLoggedIn',
             errors,
             name,
             first_name,
@@ -198,6 +201,7 @@ router.post('/edit', async (req, res) => {
                 const updatedUserDetails = await UserDetails.findOne({ user: req.user._id });
 
                 res.render('userDetailsSuccess', {
+                    layout: 'layoutLoggedIn',
                     name,
                     first_name: updatedUserDetails.first_name,
                     last_name: updatedUserDetails.last_name,
@@ -227,6 +231,7 @@ router.post('/edit', async (req, res) => {
                 const savedDetails = await newUserDetails.save();
 
                 res.render('userDetailsSuccess', {
+                    layout: 'layoutLoggedIn',
                     name,
                     first_name: savedDetails.first_name,
                     last_name: savedDetails.last_name,

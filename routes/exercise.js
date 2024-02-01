@@ -59,7 +59,7 @@ const { ensureAuthenticated } = require('../config/auth');
 
 // Exercise Page Route
 router.get('/', ensureAuthenticated, (req, res) => {
-    res.render('exercise');
+    res.render('exercise' , {layout: 'layoutLoggedIn'});
 });
 
 // Exercise Submission Route (this is just an example; adjust based on your application logic)
