@@ -127,7 +127,9 @@ async function connect(){
         await mongoose.connect(db)
         console.log('Mongo connected...')
     }catch(err){
-        console.log(err)
+        //console.log(err)
+        console.error(err);
+        process.exit(1); //Bail out we can't connect to the DB
     }
 }
 //Connect to Mongo
@@ -175,7 +177,7 @@ app.use(expressLayouts);
 app.set('view engine', 'ejs')
 
 //Bodyparser
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({extended: true}));
 
 //Express Session
 app.use(session({
@@ -201,7 +203,12 @@ app.use((req, res, next)=>{
     next();
 })
 
+
 //Routes
+
+//giving access to public directory for images & css file
+app.use(express.static(__dirname + "/public"));
+
 //Index
 app.use('/', require('./routes/index'));
 //Users
@@ -217,6 +224,8 @@ app.use('/dailyReflections', require('./routes/dailyReflections'));
 // Progress router
 app.use('/progress', require('./routes/progress'));  
 
-const PORT = process.env.PORT || 5000;
+
+const PORT = process.env.PORT || 8000;
+
 
 app.listen(PORT, console.log(`Server started on port ${PORT}`));

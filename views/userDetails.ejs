@@ -1,79 +1,87 @@
 <div class="row mt-5">
-    <div class="col-md-6 m-auto">
-        <div class="card card-body">
-            <h1 class="text-center mb-3">
-                <i class="fas fa-user-plus"></i> User Details
-            </h1>
-            <%- include('./partials/messages.ejs') %>
-            
-            <!-- Display User Name -->
-            <div class="form-group">
-                <label for="user_name">User Name:</label>
-                <span><%= name %></span>
-            </div>
+  <div class="col-md-6 m-auto">
+    <div class="card card-body">
+      <h1 class="text-center mb-3">
+        <i class="fas fa-user-plus"></i> User Details
+      </h1>
+      <%- include('./partials/messages.ejs') %>
 
-            <!-- Display First Name -->
-            <div class="form-group">
-                <label for="first_name">First Name:</label>
-                <span><%= first_name %></span>
-            </div>
-            
-            <!-- Display Last Name -->
-            <div class="form-group">
-                <label for="last_name">Last Name:</label>
-                <span><%= last_name %></span>
-            </div>
+      <!-- Display User Name -->
+      <div class="form-group">
+        <label for="user_name">User Name:</label>
+        <span><%= name %></span>
+      </div>
 
-            <!-- Display Age -->
-            <div class="form-group">
-                <label for="age">Age:</label>
-                <span><%= age %></span>
-            </div>
+      <!-- Display First Name -->
+      <div class="form-group">
+        <label for="first_name">First Name:</label>
+        <span><%= first_name %></span>
+      </div>
 
-            <!-- Display Weight -->
-            <div class="form-group">
-                <label for="weight">Weight (kg):</label>
-                <span><%= weight %></span>
-            </div>
+      <!-- Display Last Name -->
+      <div class="form-group">
+        <label for="last_name">Last Name:</label>
+        <span><%= last_name %></span>
+      </div>
 
-            <!-- Display Height -->
-            <div class="form-group">
-                <label for="height">Height (cm):</label>
-                <span><%= height %></span>
-            </div>
+      <!-- Display Age -->
+      <div class="form-group">
+        <label for="age">Age:</label>
+        <span><%= age %></span>
+      </div>
 
-            <!-- Display Gender -->
-            <div class="form-group">
-                <label for="gender">Gender:</label>
-                <span><%= gender %></span>
-            </div>
+      <!-- Display Weight -->
+      <div class="form-group">
+        <label for="weight">Weight (kg):</label>
+        <span><%= weight %></span>
+      </div>
 
-            <!-- Display Fitness Level -->
-            <div class="form-group">
-                <label for="fitness_level">Fitness Level:</label>
-                <span><%= fitness_level %></span>
-            </div>
+      <!-- Display Height -->
+      <div class="form-group">
+        <label for="height">Height (cm):</label>
+        <span><%= height %></span>
+      </div>
 
-            <!-- Display General Health -->
-            <div class="form-group">
-                <label for="general_health">General Health:</label>
-                <span><%= general_health %></span>
-            </div>
+      <!-- Display Gender -->
+      <div class="form-group">
+        <label for="gender">Gender:</label>
+        <span><%= gender %></span>
+      </div>
 
-            <!-- Display Goals for the Next 30 Days -->
-            <div class="form-group">
-                <label for="goals_next_30_days">Goals for the Next 30 Days:</label>
-                <span><%= goals_next_30_days %></span>
-            </div>
+      <!-- Display Fitness Level -->
+      <div class="form-group">
+        <label for="fitness_level">Fitness Level:</label>
+        <span><%= fitness_level %></span>
+      </div>
 
-            <!-- Edit Details Button -->
-            <a href="/userDetails/edit" class="btn btn-secondary btn-block">
-                Edit Details
-            </a>
-            <!-- Home Button -->
-            <a href="/home" class="btn btn-secondary btn-block">
-                Home
-            </a>
-        </div>
+      <!-- Display General Health -->
+      <div class="form-group">
+        <label for="general_health">General Health:</label>
+        <span><%= general_health %></span>
+      </div>
+
+      <!-- Display Goals for the Next 30 Days -->
+      <div class="form-group">
+        <label for="goals_next_30_days">Goals for the Next 30 Days:</label>
+        <span><%= goals_next_30_days %></span>
+      </div>
+
+      <!-- Edit Details Button -->
+      <a
+        href="/userDetails/edit"
+        class="btn btn-secondary btn-block"
+        style="background-color: #180075; margin-top: 10px; margin-bottom: 5px"
+      >
+        Edit Details
+      </a>
+      <!-- Home Button -->
+      <a
+        href="/home"
+        class="btn btn-secondary btn-block"
+        style="background-color: #6c46fa"
+      >
+        Home
+      </a>
     </div>
+  </div>
 </div>

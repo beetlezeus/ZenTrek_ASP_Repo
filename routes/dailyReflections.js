@@ -9,7 +9,7 @@ router.get('/', ensureAuthenticated, (req, res) => {
     const questionOfTheDay = "How did today go for you?";
     
     // Render the dailyReflections.ejs template and pass the questionOfTheDay
-    res.render('dailyReflections', { questionOfTheDay });
+    res.render('dailyReflections', {title:'daily reflections', layout:'layoutLoggedIn', questionOfTheDay});
 });
 
 // Route to handle the submission of daily reflections
