@@ -30,10 +30,7 @@
 
   <body style="background-color: #bad3fe">
     <!-- Bootstrap Navbar -->
-    <nav
-      class="navbar navbar-expand-lg navbar-light bg-light sticky-top"
-      style="background-color: #ded1f9; border-color: #6c46fa; color: #6c46fa"
-    >
+    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
       <a class="navbar-brand" href="/home">
         <img
           style="margin-right: 10px"
@@ -50,22 +47,27 @@
         aria-controls="navbarNav"
         aria-expanded="false"
         aria-label="Toggle navigation"
-        style="margin: 10px"
+        style="margin: 10px; color: #6c46fa; stroke: #6c46fa"
       >
-        <span class="navbar-toggler-icon"></span>
+        <span
+          class="navbar-toggler-icon"
+          style="color: #6c46fa; stroke: #6c46fa"
+        >
+        </span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-auto" style="margin-left: 20px">
-          <li class="nav-item">
+          <!-- NAV LINK STYLE - LEAVING FOR NOW FOR EVALUATION-->
+          <!-- <li class="nav-item">
             <a class="nav-link" style="color: #6c46fa" href="/home">Home</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" style="color: #6c46fa" href="/exercise"
               >Exercise</a
             >
-          </li>
+          </li> -->
           <!-- Add About Us link in the navigation bar -->
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link" style="color: #6c46fa" href="/meditation"
               >Meditation</a
             >
@@ -86,6 +88,69 @@
           <li class="nav-item">
             <a class="nav-link" style="color: #6c46fa" href="/progress"
               >Progress</a
+            >
+          </li> 
+          <li class="nav-item">
+            <a class="nav-link" style="color: #6c46fa" href="/userDetails"
+              >User Details</a
+            >
+          </li> 
+          <li class="nav-item">
+            <a class="nav-link" style="color: #6c46fa" href="/users/logout"
+              >Log Out</a
+            >
+          </li> 
+        
+        -->
+          <!-- BUTTON STYLE LINKS   -->
+          <li class="nav-item">
+            <a
+              href="/home"
+              class="btn btn-primary mr-2"
+              style="background-color: #6c46fa"
+              >Home</a
+            >
+            <a
+              href="/exercise"
+              class="btn btn-primary mr-2"
+              style="background-color: #6c46fa"
+              >Exercise</a
+            >
+            <a
+              href="/meditation"
+              class="btn btn-primary mr-2"
+              style="background-color: #6c46fa"
+              >Meditation</a
+            >
+            <a
+              href="/dailyReflections"
+              class="btn btn-primary mr-2"
+              style="background-color: #6c46fa"
+              >Journaling</a
+            >
+            <a
+              href="/dailyReflections"
+              class="btn btn-primary mr-2"
+              style="background-color: #6c46fa"
+              >Nutrition</a
+            >
+            <a
+              href="/progress"
+              class="btn btn-primary mr-2"
+              style="background-color: #6c46fa"
+              >Progress</a
+            >
+            <a
+              href="/userDetails"
+              class="btn btn-primary mr-2"
+              style="background-color: #6c46fa"
+              >User Details</a
+            >
+            <a
+              href="/users/logout"
+              class="btn btn-secondary"
+              style="background-color: #6c46fa"
+              >Logout</a
             >
           </li>
         </ul>
