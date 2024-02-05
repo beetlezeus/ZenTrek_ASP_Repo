@@ -1,170 +1,189 @@
 <!-- //////////////////////////////////////////////// -->
 
-<div class="container-fluid text-center"">
+<div class="container-fluid text-center">
   <div class="d-flex justify-content-between align-items-center">
     <p class="lead mb-3 fw-bold">Home</p>
   </div>
 
   <div class="row align-items-center">
     <div class="col-md-12 m-auto text-center">
-      <h2 class="display-5" style=" margin-top: 20px">
-        Welcome, <%= name %>!
-      </h2>
-      <p class="lead" style="margin-bottom: 10px;">
+      <h2 class="display-5" style="margin-top: 20px">Welcome, <%= name %>!</h2>
+      <p class="lead" style="margin-bottom: 10px">
         Select a Cetegory to Get Started
       </p>
-      </div>
-      </div>
-
-  <div id="carouselFade" class="carousel slide carousel-fade">
-    <div class="carousel-indicators">
-      <button
-        type="button"
-        data-bs-target="#carouselFade"
-        data-bs-slide-to="0"
-        class="active"
-        aria-current="true"
-        aria-label="Slide 1"
-      ></button>
-
-      <button
-        type="button"
-        data-bs-target="#carouselFade"
-        data-bs-slide-to="1"
-        aria-label="Slide 2"
-      ></button>
-
-      <button
-        type="button"
-        data-bs-target="#carouselFade"
-        data-bs-slide-to="2"
-        aria-label="Slide 3"
-      ></button>
-
-      <button
-        type="button"
-        data-bs-target="#carouselFade"
-        data-bs-slide-to="3"
-        aria-label="Slide 4"
-      ></button>
-
-      <button
-        type="button"
-        data-bs-target="#carouselFade"
-        data-bs-slide-to="4"
-        aria-label="Slide 5"
-      ></button>
     </div>
+  </div>
+  <div class="col-md-12 align-items-center">
+    <div
+      id="carouselFade"
+      class="carousel slide carousel-fade"
+      style="max-width: 800px; max-height: 500px; margin: auto"
+    >
+      <div class="carousel-indicators">
+        <button
+          type="button"
+          data-bs-target="#carouselFade"
+          data-bs-slide-to="0"
+          class="active"
+          aria-current="true"
+          aria-label="Slide 1"
+        ></button>
 
-    <div class="carousel-inner">
-      <div class="carousel-item active">
-        <a href="/exercise">
-          <img
-            src="/resources/activity5.png"
-            class="d-block"
-            alt="exercise image"
-            style="margin: auto; width:100%; border-radius: 60px;"
-          />
-        </a>
-        <div class="carousel-caption d-none d-md-block">
-          <h2>Recommended Activities</h2>
-          <p class="lead">A curated list of activities for physical vitality.</p>
-        </div>
+        <button
+          type="button"
+          data-bs-target="#carouselFade"
+          data-bs-slide-to="1"
+          aria-label="Slide 2"
+        ></button>
+
+        <button
+          type="button"
+          data-bs-target="#carouselFade"
+          data-bs-slide-to="2"
+          aria-label="Slide 3"
+        ></button>
+
+        <button
+          type="button"
+          data-bs-target="#carouselFade"
+          data-bs-slide-to="3"
+          aria-label="Slide 4"
+        ></button>
+
+        <button
+          type="button"
+          data-bs-target="#carouselFade"
+          data-bs-slide-to="4"
+          aria-label="Slide 5"
+        ></button>
       </div>
 
-      <div class="carousel-item">
-        <a href="/meditation">
-          <img
-            src="/resources/meditation1.png"
-            class="d-block"
-            alt="meditation image"
-            style="margin: auto; width:100%; border-radius: 60px;"
-          />
-        </a>
-        <div class="carousel-caption d-none d-md-block">
-          <h2>Guided Breathing</h2>
-          <p class="lead">Learn Techniques for Reducing Stress.</p>
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <a href="/exercise">
+            <img
+              src="/resources/activity4.png"
+              class="d-block"
+              alt="exercise image"
+              style="margin: auto; width: 100%; border-radius: 60px"
+            />
+          </a>
+          <div class="carousel-caption d-none d-md-block">
+            <h2>Recommended Activities</h2>
+            <p class="lead">
+              A curated list of activities for physical vitality.
+            </p>
+          </div>
         </div>
-      </div>
 
-      <div class="carousel-item">
-        <a href="/dailyReflections">
-          <img
-            src="/resources/nutrition2.png"
-            class="d-block"
-            alt="healthy nutrition"
-            style="margin: auto; width:100%; border-radius: 60px;"
-          />
-        </a>
-        <div class="carousel-caption d-none d-md-block">
-          <h2>Nutrition Log</h2>
-          <p class="lead"> Tracking water & healthy food intake helps ensure you're drinking enough to support your energy levels and mental clarity.</p>
+        <div class="carousel-item">
+          <a href="/meditation">
+            <img
+              src="/resources/meditation1.png"
+              class="d-block"
+              alt="meditation image"
+              style="margin: auto; width: 100%; border-radius: 60px"
+            />
+          </a>
+          <div class="carousel-caption d-none d-md-block">
+            <h2>Guided Breathing</h2>
+            <p class="lead">Learn Techniques for Reducing Stress.</p>
+          </div>
         </div>
-      </div>
 
-      <div class="carousel-item">
-        <a href="/dailyReflections">
-          <img
-            src="/resources/journal.png"
-            class="d-block"
-            alt="journaling"
-            style="margin: auto; width:100%; border-radius: 60px;"
-          />
-        </a>
-        <div class="carousel-caption d-none d-md-block">
-          <h2>Journaling</h2>
-          <p class="lead">Open Your Mind to Mindfulness. Journaling space for Reflection on your physical & mental health.</p>
+        <div class="carousel-item">
+          <a href="/dailyReflections">
+            <img
+              src="/resources/nutrition2.png"
+              class="d-block"
+              alt="healthy nutrition"
+              style="margin: auto; width: 100%; border-radius: 60px"
+            />
+          </a>
+          <div class="carousel-caption d-none d-md-block">
+            <h2>Nutrition Log</h2>
+            <p class="lead">
+              Tracking water & healthy food intake helps ensure you're drinking
+              enough to support your energy levels and mental clarity.
+            </p>
+          </div>
         </div>
-      </div>
 
-      <div class="carousel-item">
-        <a href="/progress">
-          <img
-            src="/resources/progress.png"
-            class="d-block"
-            alt="progress"
-            style="margin: auto; width:100%; border-radius: 60px;"
-          />
-        </a>
-        <div class="carousel-caption d-none d-md-block">
-          <h2>Progress</h2>
-          <p class="lead">Track your progression & celebrate your wins.</p>
+        <div class="carousel-item">
+          <a href="/dailyReflections">
+            <img
+              src="/resources/journal.png"
+              class="d-block"
+              alt="journaling"
+              style="margin: auto; width: 100%; border-radius: 60px"
+            />
+          </a>
+          <div class="carousel-caption d-none d-md-block">
+            <h2>Journaling</h2>
+            <p class="lead">
+              Open Your Mind to Mindfulness. Journaling space for Reflection on
+              your physical & mental health.
+            </p>
+          </div>
+        </div>
+
+        <div class="carousel-item">
+          <a href="/progress">
+            <img
+              src="/resources/progress.png"
+              class="d-block"
+              alt="progress"
+              style="margin: auto; width: 100%; border-radius: 60px"
+            />
+          </a>
+          <div class="carousel-caption d-none d-md-block">
+            <h2>Progress</h2>
+            <p class="lead">Track your progression & celebrate your wins.</p>
+          </div>
         </div>
       </div>
+      <button
+        class="carousel-control-prev"
+        type="button"
+        data-bs-target="#carouselFade"
+        data-bs-slide="prev"
+      >
+        <span
+          class="carousel-control-prev-icon"
+          aria-hidden="true"
+          style="
+            width: 50px;
+            height: 50px;
+            background-color: rgba(0, 0, 0, 0.3);
+            background-size: 100%, 100%;
+            border-radius: 50%;
+            border: 4px solid #6c46fa;
+          "
+        >
+        </span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button
+        class="carousel-control-next"
+        type="button"
+        data-bs-target="#carouselFade"
+        data-bs-slide="next"
+      >
+        <span
+          class="carousel-control-next-icon"
+          aria-hidden="true"
+          style="
+            width: 50px;
+            height: 50px;
+            background-color: rgba(0, 0, 0, 0.3);
+            background-size: 100%, 100%;
+            border-radius: 50%;
+            border: 4px solid #6c46fa;
+          "
+        >
+        </span>
+        <span class="visually-hidden">Next</span>
+      </button>
     </div>
-    <button
-      class="carousel-control-prev"
-      type="button"
-      data-bs-target="#carouselFade"
-      data-bs-slide="prev"
-    >
-      <span class="carousel-control-prev-icon" aria-hidden="true"
-      style="    
-      width: 50px;
-      height: 50px;
-      background-color: rgba(0, 0, 0, 0.3);
-      background-size: 100%, 100%;
-      border-radius: 50%;
-      border: 4px solid #6c46fa;">
-      </span>
-      <span class="visually-hidden">Previous</span>
-    </button>
-    <button
-      class="carousel-control-next"
-      type="button"
-      data-bs-target="#carouselFade"
-      data-bs-slide="next"
-    >
-      <span class="carousel-control-next-icon" aria-hidden="true" 
-      style="
-      width: 50px;
-      height: 50px;    
-      background-color: rgba(0, 0, 0, 0.3);
-      background-size: 100%, 100%;
-      border-radius: 50%;
-      border: 4px solid #6c46fa;">
-      </span>
-      <span class="visually-hidden">Next</span>
-    </button>
   </div>
 </div>
