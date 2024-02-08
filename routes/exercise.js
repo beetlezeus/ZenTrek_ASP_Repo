@@ -69,7 +69,7 @@ const options = {
     path: '/v1/exercises?type=strength',
     method: 'GET',
     headers: {
-        'X-Api-Key': 'SAJ9NGvJnlosDDDJ0Cy7Iw==o0E2erpGQR6oBZ6z'
+        'X-Api-Key': '3mutvzPWZvZ2vxqGE64jTNGUX0sg2hzz3SoOL6Yl'
     }
 };
 
@@ -108,6 +108,8 @@ router.post('/logYoga', ensureAuthenticated, (req, res) => {
 
     res.redirect('/exercise');
 });
+
+
 const req = http.request(options, (res) => {
     let data = '';
 
@@ -116,13 +118,20 @@ const req = http.request(options, (res) => {
     });
 
     res.on('end', () => {
-        console.log('API Response:', JSON.parse(data));
-        // Qui puoi fare qualsiasi cosa con i dati della risposta
+        console.log('Raw API Response:', data);
+        // Now you can inspect the raw response data before parsing it as JSON
+        try {
+            const jsonData = JSON.parse(data);
+            console.log('Parsed JSON Data:', jsonData);
+            // Further processing with the parsed JSON data
+        } catch (error) {
+            console.error('Error parsing JSON:', error);
+        }
     });
 });
 
 req.on('error', (error) => {
-    console.error('Errore nella richiesta:', error);
+    console.error('Error in request:', error);
 });
 
 req.end();

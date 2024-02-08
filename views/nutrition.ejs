@@ -1,0 +1,376 @@
+
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diet Page</title>
+<style>
+
+#month-label {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 20px;
+    color: var(--green-color);
+	z-index: 2;
+}
+#meal-track {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #333; /* Dark gray color for text */
+}
+
+.right-small-div {
+    width: 30%;
+    height: 600px;
+    background-color: transparent;
+    float: left;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+.moreright-small-div {
+    width: 30%;
+    height: 600px;
+    background-color: transparent;
+    float: left;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+	gap: 200px;
+    align-items: center;
+	flex-direction: column;
+}
+
+
+.food-intake {
+    width: 100%;
+    text-align: center;
+    color:black;
+    font-size: 20px;
+}
+
+.button {
+    width: calc(33.33% - 40px);
+    height: 80px;
+    background-color: aliceblue;
+    margin: 5px;
+    transition: background-color 0.3s;
+	border-radius: 20%;
+}
+
+.button.clicked {
+    background-color: #3498db;
+}
+
+
+.widget {
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 20px;
+	display: flex;
+	flex-direction: column;
+	grid-column-gap: 20px;
+	justify-content: center;
+	align-content: center;
+	gap: 50px;
+}
+
+
+
+#day-indicator {
+    position: absolute;
+    background-color: red;
+    border-radius: 50%;
+    width: 40px; 
+    height: 40px;
+    transform: translate(180%, 170%);
+    z-index: 2; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: white; 
+}
+
+
+#circle-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 4px solid #3498db;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
+	z-index: 1;
+}
+#date-widget {
+    margin-top: 20px;
+}
+.oval-button {
+    width: 150px; 
+    height: 60px; 
+    border-radius: 30px; 
+    margin-left: auto;
+	margin-top: 20px; 
+    cursor: pointer;
+}
+.centered-content {
+    text-align: center;
+    margin-top: 50px; 
+}
+.Dietcontainer{
+	 display: flex;
+    flex-direction: column;
+}
+.canvasone{
+	height: 300px;
+	width: 200px;
+	
+}
+.canvas2{
+	height: 300px;
+	width: 200px;
+	
+}
+.bigcontent{
+	display: flex;
+	flex-direction: row;
+}
+.food-intake2{
+	border-color: aqua;
+	background-color: aqua;
+	
+}
+.colourSwatches{
+
+
+
+width: 70px;
+height: 70px;
+
+margin: -2px;
+z-index: 5;
+}
+.everything{
+display: flex;
+
+}
+.historynotes {
+background-color: #ccc; /* Set your desired grey background color */
+/* Additional styles for historynotes go here */
+    width: 300px;
+height: 300px;
+}
+
+.wrapper {
+    display: grid;
+    height: 100%;
+    grid-template-columns: 70px 230px  minmax(500px, 1fr);
+    grid-template-rows: 35px minmax(500px, 1fr) 70px;
+    grid-template-areas:
+           "header header header sidebar2 "
+            "sidebar content  content sidebar2"
+            "options options options sidebar2";
+    background-color: pink;
+    color: darkcyan;
+}
+
+
+
+.header {
+background-color: #999;
+}
+/* Styles moved from the head section of the HTML file */
+.left-big-div {
+width: 70%;
+height: 600px;
+background-color: #3498db;
+float: left;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+.widget {
+width: 80%;
+height: 80%;
+background-color: #ffffff;
+text-align: center;
+padding: 20px;
+border-radius: 10px;
+}
+
+.right-small-div {
+width: 30%;
+height: 600px;
+background-color: #2ecc71;
+float: left;
+display: flex;
+flex-wrap: wrap;
+justify-content: space-between;
+align-items: center;
+}
+
+.food-intake {
+width: 100%;
+text-align: center;
+color: #ffffff;
+font-size: 20px;
+}
+
+.button {
+width: calc(33.33% - 10px);
+height: 80px;
+background-color: #ffffff;
+margin: 5px;
+cursor: pointer;
+}
+
+.left-big-div {
+width: 70%;
+height: 600px;
+background-color: transparent;
+float: left;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+
+</style>
+</head>
+<body>
+  <div class="Dietcontainer">
+    <button class="oval-button"  onclick="goBack()">Go Back to Homepage</button>
+      <div class="centered-content">
+
+    <h1>Staying Nourished & Hydrated</h1>
+	<p>Let food be thy medicine and medicine be thy food. " - Hippocrates</p>
+	</div>
+</div>
+	<div class="bigcontent">
+    <div class="left-big-div">
+        <div class="widget" id="widget-container">
+			 <canvas class= "canvasone "id="foodIntakeWidget" width="150" height="150"></canvas>
+            <canvas class= "canvas2" id="waterIntakeWidget" width="150" height="150"></canvas>
+          
+        </div>
+    </div>
+
+
+
+    <div class="right-small-div">
+        <div class="food-intake">Food Intake</div>
+
+       <button class="button meals" onclick="toggleButton(this, 'meals')"></button>
+<button class="button meals" onclick="toggleButton(this, 'meals')"></button>
+<button class="button meals" onclick="toggleButton(this, 'meals')"></button>
+
+        <div class="food-intake">Water Intake</div>
+
+ <button class="button water" onclick="toggleButton(this, 'water')"></button>
+<button class="button water" onclick="toggleButton(this, 'water')"></button>
+<button class="button water" onclick="toggleButton(this, 'water')"></button>
+<button class="button water" onclick="toggleButton(this, 'water')"></button>
+<button class="button water" onclick="toggleButton(this, 'water')"></button>
+<button class="button water" onclick="toggleButton(this, 'water')"></button>
+    </div>
+	  <div class="moreright-small-div">
+        <div class="food-intake2">food intake</div>
+
+
+        <div class="food-intake2">water intake</div>
+
+    </div>
+		</div>
+	
+		
+	
+
+<script>
+    function goBack() {
+    window.history.back();
+}
+
+
+
+
+    function calculateWaterIntake() {
+        var waterIntake = 5; 
+
+        // Save the water intake to localStorage
+        sessionStorage.setItem('center-water', waterIntake);
+
+    }
+// Function to get water intake data from sessionStorage
+function getWaterIntake() {
+    return sessionStorage.getItem('center-water') || 0;
+}
+// Function to draw a speedometer-like widget
+  // Function to draw a speedometer-like widget
+        function drawSpeedometer(canvasId, currentValue, maxValue, label) {
+            const canvas = document.getElementById(canvasId);
+            const ctx = canvas.getContext('2d');
+
+
+
+    // Calculate the percentage filled
+    const percentageFilled = (currentValue / maxValue) * 100;
+
+    // Draw the background half-circle
+    ctx.beginPath();
+    ctx.arc(75, 75, 70, Math.PI, 2 * Math.PI);
+    ctx.strokeStyle = '#ddd';
+    ctx.lineWidth = 15;
+    ctx.stroke();
+
+    // Draw the filled portion of the half-circle
+    ctx.beginPath();
+    ctx.arc(75, 75, 70, Math.PI, Math.PI + (percentageFilled / 100) * Math.PI);
+    ctx.strokeStyle = '#3498db'; // Use your preferred color
+    ctx.lineWidth = 15;
+    ctx.stroke();
+
+    // Display the label in the center
+    ctx.font = '14px Arial';
+    ctx.fillStyle = '#333';
+    ctx.textAlign = 'center';
+    ctx.fillText(label, 75, 75);
+        }
+    function updateWidgets() {
+            const mealsCount = document.querySelectorAll('.button.meals.clicked').length;
+            const waterCount = document.querySelectorAll('.button.water.clicked').length;
+
+            // Draw the speedometer for food intake
+            drawSpeedometer('foodIntakeWidget', mealsCount, 3, 'Food Intake');
+
+            // Draw the speedometer for water intake
+            drawSpeedometer('waterIntakeWidget', waterCount, 6, 'Water Intake');
+        }
+
+
+
+// Call updateWidgets whenever a button is clicked
+
+function toggleButton(button, type) {
+    button.classList.toggle('clicked');
+
+    const mealsCount = document.querySelectorAll('.button.meals.clicked').length;
+    const waterCount = document.querySelectorAll('.button.water.clicked').length;
+
+	    updateWidgets();
+
+}
+        updateWidgets();
+
+
+
+</script>
+</body>
+</html>

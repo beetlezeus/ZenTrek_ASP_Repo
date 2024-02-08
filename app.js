@@ -222,6 +222,8 @@ app.use('/meditation', require('./routes/meditation'));
 
 // Daily Reflections router
 app.use('/dailyReflections', require('./routes/dailyReflections'));
+//nutrition router
+app.use('/nutrition', require('./routes/nutrition'));
 // Progress router
 app.use('/progress', require('./routes/progress'));  
 
