@@ -122,10 +122,8 @@ const req = http.request(options, (res) => {
         // Now you can inspect the raw response data before parsing it as JSON
         try {
             const jsonData = JSON.parse(data);
-            console.log('Parsed JSON Data:', jsonData);
             // Further processing with the parsed JSON data
         } catch (error) {
-            console.error('Error parsing JSON:', error);
         }
     });
 });
