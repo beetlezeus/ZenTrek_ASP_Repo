@@ -56,11 +56,22 @@
 const express = require('express');
 const router = express.Router();
 const { ensureAuthenticated } = require('../config/auth');
+const http = require('http');
+
 
 // Exercise Page Route
 router.get('/', ensureAuthenticated, (req, res) => {
     res.render('exercise' , {layout: 'layoutLoggedIn'});
 });
+
+const options = {
+    hostname: 'api.api-ninjas.com',
+    path: '/v1/exercises?type=strength',
+    method: 'GET',
+    headers: {
+        'X-Api-Key': 'SAJ9NGvJnlosDDDJ0Cy7Iw==o0E2erpGQR6oBZ6z'
+    }
+};
 
 // Exercise Submission Route (this is just an example; adjust based on your application logic)
 router.post('/submitExercise', ensureAuthenticated, (req, res) => {
@@ -97,6 +108,24 @@ router.post('/logYoga', ensureAuthenticated, (req, res) => {
 
     res.redirect('/exercise');
 });
+const req = http.request(options, (res) => {
+    let data = '';
+
+    res.on('data', (chunk) => {
+        data += chunk;
+    });
+
+    res.on('end', () => {
+        console.log('API Response:', JSON.parse(data));
+        // Qui puoi fare qualsiasi cosa con i dati della risposta
+    });
+});
+
+req.on('error', (error) => {
+    console.error('Errore nella richiesta:', error);
+});
+
+req.end();
 
 // Export the router to use in your main app file
 module.exports = router;

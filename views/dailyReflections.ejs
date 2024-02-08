@@ -3,72 +3,145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daily Reflections</title>
-    <!-- Add your stylesheets or other head elements here -->
+    <title>Your Journal App</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+    <style>
+        /* Aggiungi qui il CSS personalizzato */
+    </style>
 </head>
 <body>
     <div class="container">
-        <h1 class="text-center">Daily Reflections</h1>
+        <!-- Header -->
+        <div class="header">
+            <h1 class="text-center">How are you feeling today?</h1>
+            <p class="text-center">"I can shake off everything as I write; my sorrows disappear, my courage is reborn." - Anne Frank</p>
+        </div>
 
+        <!-- Journaling Area -->
         <div class="row mt-5">
-            <div class="col-md-6 m-auto">
-                <div class="card card-body">
-                    <!-- Journaling Area -->
-                    <h2 class="text-center mb-3">Journaling Area</h2>
-                    <form action="/dailyReflections/submitReflections" method="post">
-                        <!-- Question for the day -->
-                        <p><strong>Question of the Day:</strong> <%= questionOfTheDay %></p>
+            <div class="col-md-8 m-auto">
+                <div class="form-outline">
+                    <div class="editableLabel">
+                        <input type="text" class="form-control editableInput" id="noteNameInput" value="New Note">
+                        <button class="btn btn-primary" onclick="updateNoteName()">ok</button>
+                    </div>
+                    <textarea class="form-control" id="textAreaExample1" rows="8"></textarea>
+                </div>
+                <button class="btn btn-primary mt-3" onclick="saveNote()">Save Note</button>
+            </div>
 
-                        <!-- Answer area -->
-                        <label for="journalEntry">Reflect on your day:</label>
-                        <textarea id="journalEntry" name="journalEntry" rows="5"></textarea>
-
-                        <!-- Mood selection -->
-                        <label for="mood">Select your mood for the day:</label>
-                        <select id="mood" name="mood">
-                            <option value="happy">Happy</option>
-                            <option value="neutral">Neutral</option>
-                            <option value="sad">Sad</option>
-                            <!-- Add more mood options as needed -->
-                        </select>
-
-                        <!-- Previous and Next day navigation -->
-                        <a href="/dailyReflections/previousDay" class="btn btn-secondary mt-3">Previous Day</a>
-                        <a href="/dailyReflections/nextDay" class="btn btn-secondary mt-3">Next Day</a>
-
-                        <!-- Submit Button -->
-                        <button type="submit" class="btn btn-primary mt-3">Submit Reflections</button>
-                    </form>
+            <div class="col-md-4">
+                <div id="olderNotes" class="savedNotes">
+                    <h3>Saved Notes</h3>
+                    <div id="savedNotesList"></div>
                 </div>
             </div>
         </div>
 
-        <!-- Food and Water Log Section -->
+        <!-- Navigation and Mood Menu -->
         <div class="row mt-5">
             <div class="col-md-6 m-auto">
-                <div class="card card-body">
-                    <!-- Water Log Section -->
-                    <h2 class="text-center mb-3">Water Log</h2>
-                    <!-- Water icons representing units (interactivity can be added with JavaScript) -->
-                    <!-- Log and display remaining units at the end of the day -->
-                    
-                    <!-- Food Log Section -->
-                    <h2 class="text-center mb-3">Food Log</h2>
-                    <!-- Food icons representing units (interactivity can be added with JavaScript) -->
-                    <!-- Log and display remaining units at the end of the day -->
+                <!-- Previous and Next day navigation -->
+                <a href="/dailyReflections/previousDay" class="btn btn-secondary">Previous Day</a>
+                <a href="/dailyReflections/nextDay" class="btn btn-secondary">Next Day</a>
+            </div>
+        </div>
 
-                    <!-- Fruit Log Section -->
-                    <h2 class="text-center mb-3">Fruit Log</h2>
-                    <!-- Fruit icons representing units (interactivity can be added with JavaScript) -->
-                    <!-- Log and display remaining units at the end of the day -->
+        <!-- Go Back to Homepage Button -->
+        <div class="row mt-5">
+            <div class="col-md-6 m-auto">
+                <button class="oval-button" onclick="goBack()">Go Back to Homepage</button>
+            </div>
+        </div>
 
-                    <!-- Back button -->
-                    <a href="/home" class="btn btn-secondary mt-3">Back to Home</a>
-                </div>
+        <!-- Mood Menu -->
+        <div class="row mt-5">
+            <div class="col-md-6 m-auto">
+                <label for="mood">Select your mood for the day:</label>
+                <select id="mood" name="mood">
+                    <option value="happy">Happy</option>
+                    <option value="neutral">Neutral</option>
+                    <option value="sad">Sad</option>
+                    <!-- Aggiungi altre opzioni per l'umore, se necessario -->
+                </select>
             </div>
         </div>
     </div>
-
+<script>function goBack() {
+    window.history.back();
+  }
+  
+  function saveNote() {
+    var newNoteContent = document.getElementById("textAreaExample1").value;
+  
+    var updatedNoteName = document.getElementById("noteNameInput").value;
+  
+    var currentDateAndTime = getCurrentDateAndTime();
+  
+    var savedNoteDiv = document.createElement("div");
+    savedNoteDiv.classList.add("savedNote");
+  
+    var noteInfoHeading = document.createElement("h4");
+    noteInfoHeading.textContent = `${updatedNoteName} - ${currentDateAndTime}`;
+  
+    noteInfoHeading.addEventListener("click", function() {
+      editSavedNoteContent(savedNoteDiv, noteInfoHeading, updatedNoteName, newNoteContent);
+    });
+  
+    savedNoteDiv.appendChild(noteInfoHeading);
+  
+    document.getElementById("savedNotesList").appendChild(savedNoteDiv);
+  
+    document.getElementById("textAreaExample1").value = "";
+    document.getElementById("noteNameInput").value = "New Note";
+  }
+  
+  function getCurrentDateAndTime() {
+    var now = new Date();
+  
+    var year = now.getFullYear();
+    var month = (now.getMonth() + 1).toString().padStart(2, '0');
+    var day = now.getDate().toString().padStart(2, '0');
+  
+    var hours = now.getHours().toString().padStart(2, '0');
+    var minutes = now.getMinutes().toString().padStart(2, '0');
+    var seconds = now.getSeconds().toString().padStart(2, '0');
+  
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+  }
+  
+  function editSavedNoteContent(noteDiv, headingElement, noteName, noteContent) {
+    var editableInput = document.createElement("input");
+    editableInput.classList.add("form-control", "editableInput");
+    editableInput.value = noteName.split(' - ')[0]; 
+  
+    noteDiv.replaceChild(editableInput, headingElement);
+  
+    document.getElementById("textAreaExample1").value = noteContent;
+  
+    editableInput.addEventListener("keyup", function(event) {
+      if (event.key === "Enter") {
+        saveEditedNoteContent(noteDiv, editableInput, noteContent);
+      }
+    });
+  }
+  
+  function saveEditedNoteContent(noteDiv, editableInput, originalNoteContent) {
+    var updatedNoteContent = document.getElementById("textAreaExample1").value;
+    var updatedNoteName = editableInput.value;
+    var currentDateAndTime = getCurrentDateAndTime();
+    editableInput.replaceWith(document.createTextNode(`${updatedNoteName} - ${currentDateAndTime}`));
+    var noteContentParagraph = document.createElement("p");
+    noteContentParagraph.textContent = updatedNoteContent;
+    var existingContent = noteDiv.querySelector("p");
+    noteDiv.replaceChild(noteContentParagraph, existingContent);
+  }
+  
+  </script>
     <!-- Add your scripts or other body elements here -->
+    <script src="journaling.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

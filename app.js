@@ -219,6 +219,7 @@ app.use('/userDetails', require('./routes/userDetails'));
 app.use('/exercise', require('./routes/exercise'));
 // Meditation router
 app.use('/meditation', require('./routes/meditation')); 
+
 // Daily Reflections router
 app.use('/dailyReflections', require('./routes/dailyReflections'));
 // Progress router
