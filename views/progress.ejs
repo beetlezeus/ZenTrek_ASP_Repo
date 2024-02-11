@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/styles/progress.css">
     <script src="/js/progress.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.js"></script>
 
 </head>
 <body>
@@ -51,14 +52,16 @@
                 </div>
             </div>
             
-            <div class="col-md-5 mb-3">
+            <div class="col-md-5 mb-3" style="max-height:fit-content">
                 <div class="h-100"> 
-                    <div class="top" style="height: 82%; background-color: blue;">
+                    <div class="top" style="height: 70%; min-height:3rem;" id="dayContainer">
                         <canvas id="dayCanvas"></canvas>
                     </div>
-                    <div class="top" style="height: 19%; background-color: red;"></div>
-
-
+                    <div class="bottom" style="height: 30%">
+                        <p style="text-align: center;">
+                            Current streak is <span id="currentStreak">0</span> day<span id="finalS">.</span>
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -68,10 +71,9 @@
                 <div class="p-3 fs-5 border bg-light h-100 d-flex align-items-center justify-content-center">Custom-set streak for each activity</div>
             </div>
     
-            <div class="col-md-7 mb-3">
-                <div class="p-3 fs-5 border bg-light h-100 d-flex align-items-center justify-content-center">
-                    <canvas id="myChart"></canvas>
-                    <script src="chart.js"></script> 
+            <div class="col-md-7 mb-3" style="padding: 0;">
+                <div class="p-3 fs-5 border h-100 d-flex align-items-center justify-content-center canvas-container">
+                    <canvas id="myChart" style="background-color:white;"></canvas>
                 </div>
             </div>
         </div>
@@ -83,7 +85,9 @@
     
             <div class="col-md-4 mb-3">
                 <div class="p-3 fs-5 border bg-light h-100 d-flex align-items-center justify-content-center" id="streak-badges-container">
-                    <!-- Streak badges will be placed here -->
+                    <canvas id="streak-badges">
+
+                    </canvas>
                 </div>
             </div>
         </div>

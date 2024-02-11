@@ -1,23 +1,40 @@
-// p5.js code
 function setup() {
-    let container = select('#canvas-container');
-    let canvas = createCanvas(container.width, container.height);
-    canvas.parent('canvas-container');
+    let containerDays = document.getElementById("dayContainer");
+
+    // Get the width and height of the container
+    var containerWidth = containerDays.offsetWidth;
+    var containerHeight = containerDays.offsetHeight;
+
+    // Create a canvas with the same size as the container
+    canvasDays = createCanvas(containerWidth, containerHeight); // Remove 'var' here
+
+    // Move the canvas inside the container
+    canvasDays.parent('dayContainer');
 }
 
 
-
-function windowResized() {
-    let container = select('#canvas-container');
-    resizeCanvas(container.width, container.height);
+function draw(){
+    dayBadges(canvasDays);
 }
+
+
+function setCanvasSize(width, height) {
+    // Set canvas size based on container size
+    resizeCanvas(width, height);
+}
+
+// Listen for window resize event
+window.addEventListener('resize', function() {
+    let containerDays = document.getElementById("dayContainer");
+    setCanvasSize(containerDays.offsetWidth, containerDays.offsetHeight);
+});
+
 
 // Chart.js code
 document.addEventListener('DOMContentLoaded', function () {
     const DATA_COUNT = 7;
 
     let ctx = document.getElementById("myChart").getContext('2d');
-
     let moodChart = new Chart(ctx, {
         type: 'line',
         data: {
@@ -86,6 +103,83 @@ function getGradient(ctx, chartArea) {
         gradient.addColorStop(0.5, 'yellow'); // Replace with actual color or use Utils.CHART_COLORS.yellow
         gradient.addColorStop(1, 'green'); // Replace with actual color or use Utils.CHART_COLORS.green
     }
-
     return gradient;
 }
+
+
+
+// Logic for drawing and creating the day streak badges 
+
+function dayBadges(canvas) {
+    let streakDays = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
+
+    // buffer is 1% of the canvas, on each side of the badge
+    let buffer = canvas.width * 0.1;
+
+    // badge slot is a square that will contain the badge
+    let badgeSlot = canvas.width / 7;
+
+    // badge area is the horizontal area the badge will occupy
+    let badgeArea = badgeSlot - 2 * buffer;
+
+    let badgeRadius = badgeArea / 2;
+
+    let yPos = canvas.height / 2;
+
+    // colors to use later when implementing streak logic
+    fill(0, 220, 70);
+    // fill(200, 19, 40);
+    // fill(180, 200, 190);
+    strokeWeight(1);
+    stroke(108, 70, 250);
+
+    for (let i = 0; i < streakDays.length; i++) {
+        push();
+        let xPos = buffer + (badgeSlot * i) + badgeRadius; // Calculate the x-position of the ellipse center
+        ellipse(xPos, yPos, badgeArea * 2);
+
+        textAlign(CENTER, CENTER); // Align text to the center of the ellipse
+        textSize(badgeSlot * 0.4); // Adjust text size
+
+        // Draw the streak day letter at the center of the ellipse
+        fill(255); // Set text color to white
+        text(streakDays[i], xPos, yPos);
+        pop();
+    }
+}
+
+
+
+
+
+// Code for updating the current streak value text underneath the day badges.
+let currentStreakValue = 2; // example value, replace it with the data from the database
+
+// DOMContentLoaded event listener to ensure the code runs after the DOM is fully loaded
+    document.addEventListener("DOMContentLoaded", function() {
+    // Get the span element by its id
+    let currentStreakSpan = document.getElementById("currentStreak");
+    let finish = document.getElementById("finalS");
+
+    let oneDay = false;
+    // value that will place the final 's' if the number of days if higher than one.
+    let final = 's.';
+
+    if(currentStreakValue == 1){
+        oneDay = true;
+        final = '.'
+
+    }
+    // Update the content of the span element with the current streak value
+    currentStreakSpan.textContent = currentStreakValue;
+    finish.textContent = final;
+
+});
+
+
+
+///
+
+
+
+
