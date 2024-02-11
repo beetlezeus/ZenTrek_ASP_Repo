@@ -48,65 +48,64 @@
 
 
 
- <!-- Section to display the currently selected reflection entry -->
-<div class="row mt-5">
-    <div class="col-md-8 m-auto">
-        <div class="card p-4" id="currentReflection">
-            <h2 class="text-center mb-4">Current Reflection</h2>
-            <div id="reflectionContent">
-                <% if (currentReflection) { %>
-                    <p><strong>Date:</strong> <%= currentReflection.date %></p>
-                    <p><strong>Journal Entry:</strong> <%= currentReflection.journalEntry %></p>
-                    <p><strong>Mood:</strong> <%= currentReflection.mood %></p>
-                <% } else { %>
-                    <p>No reflections yet.</p>
-                <% } %>
-            </div>
-            <div class="text-center mt-3">
-                <!-- Previous and Next Entry buttons -->
-                <form action="/dailyReflections/previousReflection/<%= currentReflection ? currentReflection._id : '' %>" method="get" class="d-inline">
-                    <button type="submit" class="btn btn-secondary mr-3">Previous Entry</button>
-                </form>
-                <form action="/dailyReflections/nextReflection/<%= currentReflection ? currentReflection._id : '' %>" method="get" class="d-inline">
-                    <button type="submit" class="btn btn-secondary">Next Entry</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Section to display all reflection entries -->
-<div class="row mt-5">
-    <div class="col-md-12">
-        <h2 class="text-center mb-4">All Reflections</h2>
-        <div class="row">
-            <% if (reflections.length > 0) { %>
-                <% reflections.forEach((reflection, index) => { %>
-                    <div class="col-md-4 mb-4" id="reflection<%= index %>">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Date: <%= reflection.date %></h5>
-                                <p class="card-text">Journal Entry: <%= reflection.journalEntry %></p>
-                                <p class="card-text">Mood: <%= reflection.mood %></p>
-                                <!-- Edit and Delete buttons -->
-                                <form action="/dailyReflections/editReflection/<%= reflection._id %>" method="get">
-                                    <button type="submit" class="btn btn-warning mr-2">Edit</button>
-                                </form>
-                                <form action="/dailyReflections/deleteReflection/<%= reflection._id %>" method="post">
-                                    <button type="submit" class="btn btn-danger">Delete</button>
-                                </form>
-                            </div>
-                        </div>
+        <!-- Section to display the currently selected reflection entry -->
+        <div class="row mt-5">
+            <div class="col-md-6 m-auto">
+                <div class="card card-body" id="currentReflection">
+                    <h2 class="text-center mb-3">Current Reflection</h2>
+                    <div id="reflectionContent">
+                        <% if (currentReflection) { %>
+                            <p>Date: <%= currentReflection.date %></p>
+                            <p>Journal Entry: <%= currentReflection.journalEntry %></p>
+                            <p>Mood: <%= currentReflection.mood %></p>
+                        <% } else { %>
+                            <p>No reflections yet.</p>
+                        <% } %>
                     </div>
-                <% }); %>
-            <% } else { %>
-                <div class="col-md-12">
-                    <p class="text-center">No reflections yet.</p>
+                    <div class="text-center mt-3">
+                        <!-- Previous Entry button -->
+                        <form action="/dailyReflections/previousReflection/<%= currentReflection ? currentReflection._id : '' %>" method="get">
+                            <button type="submit" class="btn btn-secondary mr-3">Previous Entry</button>
+                        </form>
+                        <!-- Next Entry button -->
+                        <form action="/dailyReflections/nextReflection/<%= currentReflection ? currentReflection._id : '' %>" method="get">
+                            <button type="submit" class="btn btn-secondary">Next Entry</button>
+                        </form>
+                    </div>
                 </div>
-            <% } %>
+            </div>
         </div>
-    </div>
-</div>
+
+        <!-- Section to display all reflection entries -->
+        <div class="row mt-5">
+            <div class="col-md-12">
+                <h2 class="text-center mb-3">All Reflections</h2>
+                <div class="row">
+                    <% if (reflections.length > 0) { %>
+                        <% reflections.forEach((reflection, index) => { %>
+                            <div class="col-md-4 mb-4" id="reflection<%= index %>">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Date: <%= reflection.date %></h5>
+                                        <p class="card-text">Journal Entry: <%= reflection.journalEntry %></p>
+                                        <p class="card-text">Mood: <%= reflection.mood %></p>
+                                        <!-- Edit and Delete buttons -->
+                                        <form action="/dailyReflections/editReflection/<%= reflection._id %>" method="get">
+                                            <button type="submit" class="btn btn-warning">Edit</button>
+                                        </form>
+                                        <form action="/dailyReflections/deleteReflection/<%= reflection._id %>" method="post">
+                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        <% }); %>
+                    <% } else { %>
+                        <p>No reflections yet.</p>
+                    <% } %>
+                </div>
+            </div>
+        </div>
 
     </div>
 </body>

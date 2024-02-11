@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diet Page</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        /* Container Styles */
+        .container {
+            width: 95%;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Header Styles */
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin: 10px 0;
+        }
+
+        .header p {
+            font-size: 16px;
+            margin: 0;
+        }
+
+        /* Button Styles */
+        .oval-button {
+            display: block;
+            margin: 0 auto 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .oval-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Content Styles */
+        .section {
+            margin-top: 20px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .widget {
+            width: 100%;
+            background-color: #f0f0f0;
+            text-align: center;
+            padding: 20px; /* Increased padding for a bigger widget */
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        canvas {
+            width: 120px; /* Increased size for a bigger widget */
+            height: 120px; /* Increased size for a bigger widget */
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 10px;
+        }
+
+        .food-intake,
+        .water-intake {
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        h3 {
+            font-size: 18px;
+            margin: 0;
+            margin-bottom: 5px;
+        }
+
+        .button {
+            width: 100px;
+            height: 30px;
+            background-color: #007bff;
+            border: none;
+            color: #fff;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+            border-radius: 5px;
+            margin-bottom: 5px;
+        }
+
+        .button.clicked {
+            background-color: #0056b3;
+        }
+
+        .emoji {
+            font-size: 20px;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+
+        /* Back Button Styles */
+        .back-button {
+            display: block;
+            width: fit-content; /* Adjusted width for better styling */
+            margin: 20px auto; /* Centered the button */
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none; /* Removed underlining */
+            border-radius: 20px;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .back-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Staying Nourished & Hydrated</h1>
+            <p>Let food be thy medicine and medicine be thy food. - Hippocrates</p>
+        </div>
+
+            <div class="section">
+                <div class="section-title">Food Intake</div>
+                <div class="widget" id="widget-container">
+                    <canvas class="canvasone" id="foodIntakeWidget" width="120" height="120"></canvas>
+                    <h3><span class="emoji">🍽️</span>Food Intake</h3>
+                    <div class="food-intake button-container">
+                        <button class="button meals" onclick="toggleButton(this, 'meals')">Meal 1</button>
+                        <button class="button meals" onclick="toggleButton(this, 'meals')">Meal 2</button>
+                        <button class="button meals" onclick="toggleButton(this, 'meals')">Meal 3</button>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="section">
+                <div class="section-title">Water Intake</div>
+                <div class="widget">
+                    <canvas class="canvas2" id="waterIntakeWidget" width="120" height="120"></canvas>
+                    <h3><span class="emoji">💧</span>Water Intake</h3>
+                    <div class="water-intake button-container">
+                        <button class="button water" onclick="toggleButton(this, 'water')">Cup 1</button>
+                        <button class="button water" onclick="toggleButton(this, 'water')">Cup 2</button>
+                        <button class="button water" onclick="toggleButton(this, 'water')">Cup 3</button>
+                        <button class="button water" onclick="toggleButton(this, 'water')">Cup 4</button>
+                        <button class="button water" onclick="toggleButton(this, 'water')">Cup 5</button>
+                        <button class="button water" onclick="toggleButton(this, 'water')">Cup 6</button>
+                    </div>
+                </div>
+            </div>
+       
+        
+        
+        <a href="/home" class="back-button">Back to Home</a>
+    </div>
+    
+	
+		
+	
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    
+        function toggleButton(button, type) {
+            button.classList.toggle('clicked');
+            updateWidgets();
+        }
+    
+        function drawSpeedometer(canvasId, currentValue, maxValue, label) {
+            const canvas = document.getElementById(canvasId);
+            const ctx = canvas.getContext('2d');
+    
+            const percentageFilled = (currentValue / maxValue) * 100;
+    
+            ctx.beginPath();
+            ctx.arc(60, 60, 50, Math.PI, 2 * Math.PI);
+            ctx.strokeStyle = '#ddd';
+            ctx.lineWidth = 15;
+            ctx.stroke();
+    
+            ctx.beginPath();
+            ctx.arc(60, 60, 50, Math.PI, Math.PI + (percentageFilled / 100) * Math.PI);
+            ctx.strokeStyle = '#3498db';
+            ctx.lineWidth = 15;
+            ctx.stroke();
+    
+            ctx.font = '14px Arial';
+            ctx.fillStyle = '#333';
+            ctx.textAlign = 'center';
+            ctx.fillText(label, 60, 60);
+        }
+    
+        function updateWidgets() {
+            const mealsCount = document.querySelectorAll('.button.meals.clicked').length;
+            const waterCount = document.querySelectorAll('.button.water.clicked').length;
+    
+            drawSpeedometer('foodIntakeWidget', mealsCount, 3, 'Food Intake');
+            drawSpeedometer('waterIntakeWidget', waterCount, 6, 'Water Intake');
+        }
+    
+        updateWidgets();
+    </script>
+    </body>
+    </html>
