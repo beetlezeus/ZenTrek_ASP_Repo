@@ -5,33 +5,91 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Progress</title>
     <!-- Add your stylesheets or other head elements here -->
+    <link rel="stylesheet" href="/styles/progress.css">
+    <script src="/js/progress.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+
 </head>
 <body>
-    <div class="container">
-        <h1 class="text-center">Progress Page</h1>
+    <!-- <div class="container"> -->
+        <!-- <h1 class="text-center">Progress Page</h1> -->
 
         <!-- Calendar with reported moods and activities -->
-        <div class="row mt-5">
+        <!-- <div class="row mt-5">
             <div class="col-md-6 m-auto">
                 <div class="card card-body">
-                    <h2 class="text-center mb-3">Monthly Calendar</h2>
+                    <h2 class="text-center mb-3">Monthly Calendar</h2> -->
                     <!-- Add a calendar representation with reported moods and activities here -->
-                </div>
+                <!-- </div>
             </div>
-        </div>
+        </div> -->
 
         <!-- Overall monthly data for each activity -->
-        <div class="row mt-5">
+        <!-- <div class="row mt-5">
             <div class="col-md-6 m-auto">
                 <div class="card card-body">
                     <h2 class="text-center mb-3">Overall Monthly Data</h2>
-                    <!-- Display overall monthly data for each activity here -->
+                     Display overall monthly data for each activity here -->
+                <!-- </div>
+            </div> -->
+        <!-- </div> --> 
+
+        <!-- Back button -->
+        <!-- <a href="/home" class="btn btn-secondary mt-3">Back to Home</a>
+    </div> -->
+
+   
+      
+
+    <div class="container mt-3">
+
+        <div class="row align-items-stretch"> 
+            
+            <div class="col-md-7 mb-3">
+                <div class="p-3 bg-light h-100 d-flex align-items-center justify-content-center">
+                    <h1>Welcome to your progress dashboard</h1>
+                </div>
+            </div>
+            
+            <div class="col-md-5 mb-3">
+                <div class="h-100"> 
+                    <div class="top" style="height: 82%; background-color: blue;">
+                        <canvas id="dayCanvas"></canvas>
+                    </div>
+                    <div class="top" style="height: 19%; background-color: red;"></div>
+
+
                 </div>
             </div>
         </div>
+        
+        <div class="row align-items-stretch second-row-custom-height"> 
+            <div class="col-md-5 mb-3">
+                <div class="p-3 fs-5 border bg-light h-100 d-flex align-items-center justify-content-center">Custom-set streak for each activity</div>
+            </div>
+    
+            <div class="col-md-7 mb-3">
+                <div class="p-3 fs-5 border bg-light h-100 d-flex align-items-center justify-content-center">
+                    <canvas id="myChart"></canvas>
+                    <script src="chart.js"></script> 
+                </div>
+            </div>
+        </div>
+    
+        <div class="row align-items-stretch third-row-custom-height justify-content-center"> 
+            <div class="col-md-8 mb-3">
+                <div class="p-3 fs-5 border bg-light h-100 d-flex align-items-center justify-content-center">Calendar</div>
+            </div>
+    
+            <div class="col-md-4 mb-3">
+                <div class="p-3 fs-5 border bg-light h-100 d-flex align-items-center justify-content-center" id="streak-badges-container">
+                    <!-- Streak badges will be placed here -->
+                </div>
+            </div>
+        </div>
+       
 
-        <!-- Back button -->
-        <a href="/home" class="btn btn-secondary mt-3">Back to Home</a>
+
     </div>
 
     <!-- Add your scripts or other body elements here -->
