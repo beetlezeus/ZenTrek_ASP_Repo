@@ -10,65 +10,103 @@
     <div class="container">
         <h1 class="text-center">Daily Reflections</h1>
 
-        <div class="row mt-5">
-            <div class="col-md-6 m-auto">
-                <div class="card card-body">
-                    <!-- Journaling Area -->
-                    <h2 class="text-center mb-3">Journaling Area</h2>
-                    <form action="/dailyReflections/submitReflections" method="post">
-                        <!-- Question for the day -->
-                        <p><strong>Question of the Day:</strong> <%= questionOfTheDay %></p>
-
-                        <!-- Answer area -->
-                        <label for="journalEntry">Reflect on your day:</label>
-                        <textarea id="journalEntry" name="journalEntry" rows="5"></textarea>
-
-                        <!-- Mood selection -->
-                        <label for="mood">Select your mood for the day:</label>
-                        <select id="mood" name="mood">
-                            <option value="happy">Happy</option>
-                            <option value="neutral">Neutral</option>
-                            <option value="sad">Sad</option>
-                            <!-- Add more mood options as needed -->
-                        </select>
-
-                        <!-- Previous and Next day navigation -->
-                        <a href="/dailyReflections/previousDay" class="btn btn-secondary mt-3">Previous Day</a>
-                        <a href="/dailyReflections/nextDay" class="btn btn-secondary mt-3">Next Day</a>
-
-                        <!-- Submit Button -->
-                        <button type="submit" class="btn btn-primary mt-3">Submit Reflections</button>
-                    </form>
+<!-- Journaling Area -->
+<div class="row mt-5">
+    <div class="col-md-8 m-auto">
+        <div class="card p-4">
+            <h2 class="text-center mb-4">Journaling Area</h2>
+            <form action="/dailyReflections/submitReflections" method="post">
+                <!-- Question for the day with emoji -->
+                <div class="form-group">
+                    <label for="questionOfTheDay"><strong>Question of the Day:</strong> 📅</label>
+                    <p class="mb-4"><%= questionOfTheDay %></p>
                 </div>
-            </div>
-        </div>
 
-        <!-- Food and Water Log Section -->
-        <div class="row mt-5">
-            <div class="col-md-6 m-auto">
-                <div class="card card-body">
-                    <!-- Water Log Section -->
-                    <h2 class="text-center mb-3">Water Log</h2>
-                    <!-- Water icons representing units (interactivity can be added with JavaScript) -->
-                    <!-- Log and display remaining units at the end of the day -->
-                    
-                    <!-- Food Log Section -->
-                    <h2 class="text-center mb-3">Food Log</h2>
-                    <!-- Food icons representing units (interactivity can be added with JavaScript) -->
-                    <!-- Log and display remaining units at the end of the day -->
-
-                    <!-- Fruit Log Section -->
-                    <h2 class="text-center mb-3">Fruit Log</h2>
-                    <!-- Fruit icons representing units (interactivity can be added with JavaScript) -->
-                    <!-- Log and display remaining units at the end of the day -->
-
-                    <!-- Back button -->
-                    <a href="/home" class="btn btn-secondary mt-3">Back to Home</a>
+                <!-- Answer area -->
+                <div class="form-group">
+                    <label for="journalEntry">Reflect on your day:</label>
+                    <textarea id="journalEntry" name="journalEntry" class="form-control" rows="5" required></textarea>
                 </div>
-            </div>
+
+                <!-- Mood selection -->
+                <div class="form-group">
+                    <label for="mood">Select your mood for the day:</label>
+                    <select id="mood" name="mood" class="form-control" required>
+                        <option value="happy">😊 Happy</option>
+                        <option value="neutral">😐 Neutral</option>
+                        <option value="sad">😢 Sad</option>
+                        <!-- Add more mood options as needed -->
+                    </select>
+                </div>
+
+                <!-- Submit Button with emoji -->
+                <button type="submit" class="btn btn-primary mt-4 btn-block">Submit Reflections 🚀</button>
+            </form>
         </div>
     </div>
+</div>
 
-    <!-- Add your scripts or other body elements here -->
+
+
+        <!-- Section to display the currently selected reflection entry -->
+        <div class="row mt-5">
+            <div class="col-md-6 m-auto">
+                <div class="card card-body" id="currentReflection">
+                    <h2 class="text-center mb-3">Current Reflection</h2>
+                    <div id="reflectionContent">
+                        <% if (currentReflection) { %>
+                            <p>Date: <%= currentReflection.date %></p>
+                            <p>Journal Entry: <%= currentReflection.journalEntry %></p>
+                            <p>Mood: <%= currentReflection.mood %></p>
+                        <% } else { %>
+                            <p>No reflections yet.</p>
+                        <% } %>
+                    </div>
+                    <div class="text-center mt-3">
+                        <!-- Previous Entry button -->
+                        <form action="/dailyReflections/previousReflection/<%= currentReflection ? currentReflection._id : '' %>" method="get">
+                            <button type="submit" class="btn btn-secondary mr-3">Previous Entry</button>
+                        </form>
+                        <!-- Next Entry button -->
+                        <form action="/dailyReflections/nextReflection/<%= currentReflection ? currentReflection._id : '' %>" method="get">
+                            <button type="submit" class="btn btn-secondary">Next Entry</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section to display all reflection entries -->
+        <div class="row mt-5">
+            <div class="col-md-12">
+                <h2 class="text-center mb-3">All Reflections</h2>
+                <div class="row">
+                    <% if (reflections.length > 0) { %>
+                        <% reflections.forEach((reflection, index) => { %>
+                            <div class="col-md-4 mb-4" id="reflection<%= index %>">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Date: <%= reflection.date %></h5>
+                                        <p class="card-text">Journal Entry: <%= reflection.journalEntry %></p>
+                                        <p class="card-text">Mood: <%= reflection.mood %></p>
+                                        <!-- Edit and Delete buttons -->
+                                        <form action="/dailyReflections/editReflection/<%= reflection._id %>" method="get">
+                                            <button type="submit" class="btn btn-warning">Edit</button>
+                                        </form>
+                                        <form action="/dailyReflections/deleteReflection/<%= reflection._id %>" method="post">
+                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        <% }); %>
+                    <% } else { %>
+                        <p>No reflections yet.</p>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+
+    </div>
 </body>
 </html>

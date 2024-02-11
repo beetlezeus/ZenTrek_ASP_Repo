@@ -1,0 +1,48 @@
+<!-- editReflection.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Reflection</title>
+    <!-- Add your stylesheets or other head elements here -->
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">Edit Reflection</h1>
+
+        <div class="row mt-5">
+            <div class="col-md-6 m-auto">
+                <div class="card card-body">
+                    <!-- Edit form -->
+                    <form action="/dailyReflections/editReflection/<%= reflection._id %>" method="post">
+                        <label for="journalEntry">Edit your reflection:</label>
+                        <textarea id="journalEntry" name="journalEntry" rows="5"><%= reflection.journalEntry %></textarea>
+
+                        <label for="mood">Select your mood for the day:</label>
+                        <select id="mood" name="mood">
+                            <option value="happy" <%= reflection.mood === 'happy' ? 'selected' : '' %>>Happy</option>
+                            <option value="neutral" <%= reflection.mood === 'neutral' ? 'selected' : '' %>>Neutral</option>
+                            <option value="sad" <%= reflection.mood === 'sad' ? 'selected' : '' %>>Sad</option>
+                            <!-- Add more mood options as needed -->
+                        </select>
+
+                        <!-- Submit Button -->
+                        <button type="submit" class="btn btn-primary mt-3">Save Changes</button>
+                    </form>
+
+                    <!-- Delete button -->
+                    <form action="/dailyReflections/deleteReflection/<%= reflection._id %>" method="post">
+                        <button type="submit" class="btn btn-danger mt-3">Delete Reflection</button>
+                    </form>
+
+                    <!-- Back button -->
+                    <a href="/home" class="btn btn-secondary mt-3">Back to Home</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add your scripts or other body elements here -->
+</body>
+</html>

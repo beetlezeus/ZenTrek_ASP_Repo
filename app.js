@@ -223,7 +223,8 @@ app.use('/meditation', require('./routes/meditation'));
 app.use('/dailyReflections', require('./routes/dailyReflections'));
 // Progress router
 app.use('/progress', require('./routes/progress'));  
-
+//nutrition router
+app.use('/nutrition', require('./routes/nutrition'));
 
 const PORT = process.env.PORT || 8000;
 
