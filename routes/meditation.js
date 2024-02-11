@@ -15,3 +15,5 @@ router.get('/', ensureAuthenticated, (req, res) => {
 
 // Export the router to use in your main app file
 module.exports = router;
+
+
