@@ -177,16 +177,142 @@
                     </div>
                 </div>
             </div>
-       
-        
-        
+
+            <div class="section">
+                <form action="/nutrition/saveWaterIntake" method="POST">  
+                    <fieldset>
+                        <legend><span>&#x1F4A6;</span> Water Intake:</legend>
+                        <div class="form-group">
+                            <label for="waterIntake">Number of Glasses:</label>
+                            <input type="number" id="waterIntake" name="waterIntake" min="0" step="1" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="waterNotes">Additional Notes:</label>
+                            <textarea id="waterNotes" name="waterNotes" rows="4" class="form-control"></textarea>
+                        </div>
+                    </fieldset>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+
+                  </form>
+            </div>
+
+            <div class="section">
+                <form action="/nutrition/saveNutrition" method="POST">  
+                    <fieldset>
+                      <legend><span>&#x1F4A6;</span> Water Intake:</legend>
+                      <div class="form-group">
+                        <label for="waterIntake">Number of Glasses:</label>
+                        <input type="number" id="waterIntake" name="waterIntake" min="0" step="1" class="form-control">
+                      </div>
+                      <div class="form-group">
+                        <label for="waterNotes">Additional Notes:</label>
+                        <textarea id="waterNotes" name="waterNotes" rows="4" class="form-control"></textarea>
+                      </div>
+                    </fieldset>
+                
+                    <fieldset>
+                      <legend><span>&#x1F374;</span> Food Intake:</legend>
+                      <div class="form-group">
+                        <label>Breakfast <span>&#x1F373;</span>:</label><br>
+                        <input type="checkbox" id="breakfastMeal" name="breakfastMeal">
+                        <label for="breakfastMeal">Meal</label>
+                        <input type="checkbox" id="breakfastSnack" name="breakfastSnack">
+                        <label for="breakfastSnack">Snack</label>
+                        <br>
+                        <label for="breakfastDescription">Description:</label><br>
+                        <textarea id="breakfastDescription" name="breakfastDescription" rows="4" class="form-control"></textarea>
+                      </div>
+                
+                      <div class="form-group">
+                        <label>Lunch <span>&#x1F958;</span>:</label><br>
+                        <input type="checkbox" id="lunchMeal" name="lunchMeal">
+                        <label for="lunchMeal">Meal</label>
+                        <input type="checkbox" id="lunchSnack" name="lunchSnack">
+                        <label for="lunchSnack">Snack</label>
+                        <br>
+                        <label for="lunchDescription">Description:</label><br>
+                        <textarea id="lunchDescription" name="lunchDescription" rows="4" class="form-control"></textarea>
+                      </div>
+                
+                      <div class="form-group">
+                        <label>Dinner <span>&#x1F35D;</span>:</label><br>
+                        <input type="checkbox" id="dinnerMeal" name="dinnerMeal">
+                        <label for="dinnerMeal">Meal</label>
+                        <input type="checkbox" id="dinnerSnack" name="dinnerSnack">
+                        <label for="dinnerSnack">Snack</label>
+                        <br>
+                        <label for="dinnerDescription">Description:</label><br>
+                        <textarea id="dinnerDescription" name="dinnerDescription" rows="4" class="form-control"></textarea>
+                      </div>
+                
+                      <div class="form-group">
+                        <label>Snacks <span>&#x1F96A;</span>:</label><br>
+                        <input type="checkbox" id="healthySnack" name="healthySnack">
+                        <label for="healthySnack">Healthy</label>
+                        <input type="checkbox" id="unhealthySnack" name="unhealthySnack">
+                        <label for="unhealthySnack">Unhealthy</label>
+                        <br>
+                        <label for="snacksDescription">Description:</label><br>
+                        <textarea id="snacksDescription" name="snacksDescription" rows="4" class="form-control"></textarea>
+                      </div>
+                    </fieldset>
+                
+                    <fieldset>
+                      <legend>Overall Feelings:</legend>
+                      <!-- Feelings checkboxes -->
+                      <div class="form-group">
+                        <div class="form-check">
+                          <input type="checkbox" id="energized" name="energized" class="form-check-input">
+                          <label for="energized" class="form-check-label">Energized <span>&#x26A1;</span></label>
+                        </div>
+                        <div class="form-check">
+                          <input type="checkbox" id="satisfied" name="satisfied" class="form-check-input">
+                          <label for="satisfied" class="form-check-label">Satisfied <span>&#x1F60B;</span></label>
+                        </div>
+                        <div class="form-check">
+                          <input type="checkbox" id="hungry" name="hungry" class="form-check-input">
+                          <label for="hungry" class="form-check-label">Hungry <span>&#x1F61B;</span></label>
+                        </div>
+                        <div class="form-check">
+                          <input type="checkbox" id="thirsty" name="thirsty" class="form-check-input">
+                          <label for="thirsty" class="form-check-label">Thirsty <span>&#x1F377;</span></label>
+                        </div>
+                        <div class="form-check">
+                          <input type="checkbox" id="otherFeelings" name="otherFeelings" class="form-check-input">
+                          <label for="otherFeelings" class="form-check-label">Other:</label>
+                        </div>
+                        <textarea id="otherFeelingsDescription" name="otherFeelingsDescription" rows="4" class="form-control"></textarea>
+                      </div>
+                    </fieldset>
+                
+                    <fieldset>
+                      <legend>Additional Notes:</legend>
+                      <div class="form-group">
+                        <textarea id="additionalNotes" name="additionalNotes" rows="4" class="form-control"></textarea>
+                      </div>
+                    </fieldset>
+                
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                  </form>
+
+<!-- nutritionData.ejs -->
+<div class="section">
+    <h1>Nutrition Data</h1>
+    <% if (nutritionData) { %>
+    <div>
+        <p>Water Intake: <%= nutritionData.waterIntake %> glasses</p>
+        <p>Additional Notes: <%= nutritionData.waterNotes %></p>
+        <!-- Add more fields to display other saved data -->
+    </div>
+    <% } else { %>
+    <p>No nutrition data found.</p>
+    <% } %>
+</div>
+
+            
         <a href="/home" class="back-button">Back to Home</a>
     </div>
     
-	
-		
-	
-
     <script>
         function goBack() {
             window.history.back();
@@ -227,8 +353,24 @@
     
             drawSpeedometer('foodIntakeWidget', mealsCount, 3, 'Food Intake');
             drawSpeedometer('waterIntakeWidget', waterCount, 6, 'Water Intake');
+
+            var totalGlasses = document.getElementById("waterGlasses").value;
+      var notes = document.getElementById("waterNotes").value;
+      
+      document.getElementById("totalGlasses").textContent = totalGlasses;
+      document.getElementById("widgetNotes").textContent = notes;
         }
-    
+        
+        function addIntake(event) {
+        event.preventDefault();
+        const meal = document.getElementById('meal').value;
+        const cup = document.getElementById('cup').value;
+        const mealButton = document.querySelector(`.button.meals:contains("${meal}")`);
+        const cupButton = document.querySelector(`.button.water:contains("${cup}")`);
+        toggleButton(mealButton, 'meals');
+        toggleButton(cupButton, 'water');
+    }
+
         updateWidgets();
     </script>
     </body>
