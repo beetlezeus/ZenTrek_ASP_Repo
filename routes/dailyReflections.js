@@ -1,9 +1,9 @@
-// module.exports = router;
 // Import necessary modules
 const express = require('express');
 const router = express.Router();
 const { ensureAuthenticated } = require('../config/auth');
 const Reflection = require('../models/DailyReflection'); // Import your Reflection model
+
 
 // Route to render the Daily Reflections page
 router.get('/', ensureAuthenticated, async (req, res) => {
