@@ -2,11 +2,12 @@ function setup() {
     let containerDays = document.getElementById("dayContainer");
 
     // Get the width and height of the container
-    var containerWidth = containerDays.offsetWidth;
-    var containerHeight = containerDays.offsetHeight;
+    let containerWidth = containerDays.offsetWidth;
+    let containerHeight = containerDays.offsetHeight;
 
     // Create a canvas with the same size as the container
     canvasDays = createCanvas(containerWidth, containerHeight); // Remove 'var' here
+    console.log(canvasDays.height);
 
     // Move the canvas inside the container
     canvasDays.parent('dayContainer');
@@ -153,7 +154,7 @@ function dayBadges(canvas) {
 
 
 // Code for updating the current streak value text underneath the day badges.
-let currentStreakValue = 2; // example value, replace it with the data from the database
+let currentStreakValue = 1; // example value, replace it with the data from the database
 
 // DOMContentLoaded event listener to ensure the code runs after the DOM is fully loaded
     document.addEventListener("DOMContentLoaded", function() {
@@ -168,7 +169,6 @@ let currentStreakValue = 2; // example value, replace it with the data from the 
     if(currentStreakValue == 1){
         oneDay = true;
         final = '.'
-
     }
     // Update the content of the span element with the current streak value
     currentStreakSpan.textContent = currentStreakValue;
