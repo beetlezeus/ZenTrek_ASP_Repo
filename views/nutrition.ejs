@@ -166,9 +166,9 @@
                 <div class="section-title">Water Intake</div>
                 <div class="widget">
                     <canvas class="canvas2" id="waterIntakeWidget" width="120" height="120"></canvas>
-                    <h3><span class="emoji">💧</span>Water Intake</h3>
+                    <h3><span class="emoji">💧</span>Water Intake</h3>  
                     <div class="water-intake button-container">
-                        <button class="button water" onclick="toggleButton(this, 'water')">Cup 1</button>
+                        <button class="button water" onclick="toggleButton(this, 'water')">Log Cup</button>
                         <button class="button water" onclick="toggleButton(this, 'water')">Cup 2</button>
                         <button class="button water" onclick="toggleButton(this, 'water')">Cup 3</button>
                         <button class="button water" onclick="toggleButton(this, 'water')">Cup 4</button>
@@ -197,7 +197,7 @@
             </div>
 
             <div class="section">
-                <form action="/nutrition/saveNutrition" method="POST">  
+                <!-- <form action="/nutrition/saveNutrition" method="POST">  
                     <fieldset>
                       <legend><span>&#x1F4A6;</span> Water Intake:</legend>
                       <div class="form-group">
@@ -258,9 +258,9 @@
                     </fieldset>
                 
                     <fieldset>
-                      <legend>Overall Feelings:</legend>
+                      <legend>Overall Feelings:</legend> -->
                       <!-- Feelings checkboxes -->
-                      <div class="form-group">
+                      <!-- <div class="form-group">
                         <div class="form-check">
                           <input type="checkbox" id="energized" name="energized" class="form-check-input">
                           <label for="energized" class="form-check-label">Energized <span>&#x26A1;</span></label>
@@ -293,15 +293,16 @@
                     </fieldset>
                 
                     <button type="submit" class="btn btn-primary">Submit</button>
-                  </form>
+                  </form> -->
 
 <!-- nutritionData.ejs -->
 <div class="section">
     <h1>Nutrition Data</h1>
-    <% if (nutritionData) { %>
+
+    <% if (currentData) { %>
     <div>
-        <p>Water Intake: <%= nutritionData.waterIntake %> glasses</p>
-        <p>Additional Notes: <%= nutritionData.waterNotes %></p>
+        <p>Water Intake: <%= currentData.waterIntake %></p>
+        <p>Additional Notes: <%= currentData.waterNotes %></p>
         <!-- Add more fields to display other saved data -->
     </div>
     <% } else { %>
@@ -346,7 +347,8 @@
             ctx.textAlign = 'center';
             ctx.fillText(label, 60, 60);
         }
-    
+    ////// mealsCount should be equal to the number of meals or water logged by the user (decouple from clicked buttons)
+    ///// everytime "Log Meal" button is pressed, the number of water / food intake is incremented in the datatable
         function updateWidgets() {
             const mealsCount = document.querySelectorAll('.button.meals.clicked').length;
             const waterCount = document.querySelectorAll('.button.water.clicked').length;
@@ -354,11 +356,11 @@
             drawSpeedometer('foodIntakeWidget', mealsCount, 3, 'Food Intake');
             drawSpeedometer('waterIntakeWidget', waterCount, 6, 'Water Intake');
 
-            var totalGlasses = document.getElementById("waterGlasses").value;
-      var notes = document.getElementById("waterNotes").value;
-      
-      document.getElementById("totalGlasses").textContent = totalGlasses;
-      document.getElementById("widgetNotes").textContent = notes;
+            // document.getElementById("waterIntake").textContent = document.querySelectorAll('.button.water.clicked').length;
+
+            // var totalGlasses = document.getElementById("waterIntake").value;
+            // var notes = document.getElementById("waterNotes").value;
+    
         }
         
         function addIntake(event) {
@@ -370,8 +372,8 @@
         toggleButton(mealButton, 'meals');
         toggleButton(cupButton, 'water');
     }
-
         updateWidgets();
+        //addIntake();
     </script>
     </body>
     </html>

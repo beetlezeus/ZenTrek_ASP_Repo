@@ -193,6 +193,11 @@
 const mongoose = require('mongoose');
 
 const nutritionSchema = new mongoose.Schema({
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User', // Reference to the User model
+        required: true,
+    },
     waterIntake: {
         type: Number,
         required: true,
@@ -200,6 +205,10 @@ const nutritionSchema = new mongoose.Schema({
     waterNotes: {
         type: String,
         trim: true,
+    },
+    date: {
+    type: Date,
+    default: Date.now
     }
 });
 

@@ -151,13 +151,13 @@ const Nutrition = require('../models/Nutrition'); // Import your Nutrition model
 const { ensureAuthenticated } = require('../config/auth');
 
 // Route to render the nutrition page
-router.get('/', ensureAuthenticated, (req, res) => {
+router.get('/', ensureAuthenticated, async (req, res) => {
     // You can customize the data sent to the template as needed
-    const nutritionData = {
-        // Add any necessary data for the nutrition page
-    };
+    const nutriData = await Nutrition.find({ user: req.user._id });
+    let latest = nutriData.length - 1;
+    const currentData = nutriData[latest];
 
-    res.render('nutrition', { nutritionData, layout: 'layoutLoggedIn' });
+    res.render('nutrition', { currentData, layout: 'layoutLoggedIn' });
 });
 
 // Route to handle water intake form submission
@@ -168,8 +168,10 @@ router.post('/saveWaterIntake', ensureAuthenticated, async (req, res) => {
 
         // Save the water intake data to the database
         const nutritionData = new Nutrition({
+            user: req.user._id,
             waterIntake,
-            waterNotes
+            waterNotes,
+            date: new Date()
         });
         await nutritionData.save();
 
