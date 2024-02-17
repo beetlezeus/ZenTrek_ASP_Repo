@@ -56,6 +56,17 @@
 const express = require('express');
 const router = express.Router();
 const { ensureAuthenticated } = require('../config/auth');
+const http = require('http');
+
+
+const options = {
+    hostname: 'api.api-ninjas.com',
+    path: '/v1/exercises?type=strength',
+    method: 'GET',
+    headers: {
+        'X-Api-Key': '3mutvzPWZvZ2vxqGE64jTNGUX0sg2hzz3SoOL6Yl'
+    }
+};
 
 // Exercise Page Route
 router.get('/', ensureAuthenticated, (req, res) => {
@@ -98,5 +109,28 @@ router.post('/logYoga', ensureAuthenticated, (req, res) => {
     res.redirect('/exercise');
 });
 
+const req = http.request(options, (res) => {
+    let data = '';
+
+    res.on('data', (chunk) => {
+        data += chunk;
+    });
+
+    res.on('end', () => {
+        console.log('Raw API Response:', data);
+        // Now you can inspect the raw response data before parsing it as JSON
+        try {
+            const jsonData = JSON.parse(data);
+            // Further processing with the parsed JSON data
+        } catch (error) {
+        }
+    });
+});
+
+req.on('error', (error) => {
+    console.error('Error in request:', error);
+});
+
+req.end();
 // Export the router to use in your main app file
 module.exports = router;
