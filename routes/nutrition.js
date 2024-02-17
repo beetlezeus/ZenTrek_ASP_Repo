@@ -161,26 +161,104 @@ router.get('/', ensureAuthenticated, async (req, res) => {
 });
 
 // Route to handle water intake form submission
-router.post('/saveWaterIntake', ensureAuthenticated, async (req, res) => {
+router.post('/saveNutrition', ensureAuthenticated, async (req, res) => {
     try {
         // Retrieve data from the form
-        const { waterIntake, waterNotes } = req.body;
+        let { waterIntake, waterNotes, breakfastMeal, breakfastSnack, breakfastDescription, lunchMeal, lunchSnack, lunchDescription, dinnerMeal, dinnerSnack, dinnerDescription, healthySnack, unhealthySnack, snacksDescription, energized, satisfied, hungry, thirsty, otherFeelings,otherFeelingsDescription, additionalNotes } = req.body;
+
+        if(req.body.breakfastMeal == "on"){
+            breakfastMeal = true;
+        }
+        else{
+            breakfastMeal = false;
+        }
+        if(req.body.breakfastSnack == "on"){
+            breakfastSnack = true;
+        }
+        else{
+            breakfastSnack = false;
+        }
+        if(req.body.lunchMeal == "on"){
+            lunchMeal = true;
+        }
+        else{
+            lunchMeal = false;
+        }
+        if(req.body.lunchSnack == "on"){
+            lunchSnack = true;
+        }
+        else{
+            lunchSnack = false;
+        }
+        if(req.body.dinnerMeal == "on"){
+            dinnerMeal = true;
+        }
+        else{
+            dinnerMeal = false;
+        }
+        if(req.body.dinnerSnack == "on"){
+            dinnerSnack = true;
+        }
+        else{
+            dinnerSnack = false;
+        }
+
+        if(req.body.healthySnack == "on"){
+            healthySnack = true;
+        }
+        else{
+            healthySnack = false;
+        }
+        if(req.body.unhealthySnack == "on"){
+            unhealthySnack = true;
+        }
+        else{
+            unhealthySnack = false;
+        }
+
 
         // Save the water intake data to the database
         const nutritionData = new Nutrition({
             user: req.user._id,
-            waterIntake,
-            waterNotes,
+            waterIntake: waterIntake,
+            waterNotes : waterNotes,
+            breakfast : {
+                meal: breakfastMeal,
+                snack: breakfastSnack,
+                description: breakfastDescription
+            },
+            lunch :{
+                meal: lunchMeal,
+                snack: lunchSnack,
+                description: lunchDescription
+            },
+            dinner :{
+                meal: dinnerMeal,
+                snack: dinnerSnack,
+                description: dinnerDescription
+            },
+            snacks: {
+                healthy: healthySnack,
+                unhealthy: unhealthySnack,
+                description: snacksDescription
+            } ,
+            // energized, 
+            // satisfied, 
+            // hungry, 
+            // thirsty, 
+            // otherFeelings,
+            // otherFeelingsDescription, 
+            //additionalNotes,
             date: new Date()
         });
         await nutritionData.save();
 
-        // Redirect to a success page or display a success message
+        // // Redirect to a success page or display a success message
         req.flash('success_msg','added data')
         res.redirect('/nutrition');
     } catch (error) {
         console.error(error);
-        res.send('Error saving water intake data');
+        res.send('Error saving nutrition data');
     }
 });
 

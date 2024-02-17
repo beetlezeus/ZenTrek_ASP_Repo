@@ -149,36 +149,36 @@
             <p>Let food be thy medicine and medicine be thy food. - Hippocrates</p>
         </div>
 
-            <div class="section">
+            <!-- <div class="section">
                 <div class="section-title">Food Intake</div>
                 <div class="widget" id="widget-container">
                     <canvas class="canvasone" id="foodIntakeWidget" width="120" height="120"></canvas>
                     <h3><span class="emoji">🍽️</span>Food Intake</h3>
                     <div class="food-intake button-container">
-                        <button class="button meals" onclick="toggleButton(this, 'meals')">Meal 1</button>
-                        <button class="button meals" onclick="toggleButton(this, 'meals')">Meal 2</button>
-                        <button class="button meals" onclick="toggleButton(this, 'meals')">Meal 3</button>
+                        <button class="button meals" onclick="toggleButton(this, 1)">Meal 1</button>
+                        <button class="button meals" onclick="toggleButton(this, 1)">Meal 2</button>
+                        <button class="button meals" onclick="toggleButton(this, 1)">Meal 3</button>
                     </div>
                 </div>
-            </div>
+            </div> -->
         
-            <div class="section">
+            <!-- <div class="section">
                 <div class="section-title">Water Intake</div>
                 <div class="widget">
                     <canvas class="canvas2" id="waterIntakeWidget" width="120" height="120"></canvas>
                     <h3><span class="emoji">💧</span>Water Intake</h3>  
                     <div class="water-intake button-container">
-                        <button class="button water" onclick="toggleButton(this, 'water')">Log Cup</button>
-                        <button class="button water" onclick="toggleButton(this, 'water')">Cup 2</button>
-                        <button class="button water" onclick="toggleButton(this, 'water')">Cup 3</button>
-                        <button class="button water" onclick="toggleButton(this, 'water')">Cup 4</button>
-                        <button class="button water" onclick="toggleButton(this, 'water')">Cup 5</button>
-                        <button class="button water" onclick="toggleButton(this, 'water')">Cup 6</button>
+                        <button class="button water" onclick="toggleButton(this, 'water')">Cup 1</button>
+                        <button class="button water" onclick="toggleButton(this, 1)">Cup 2</button>
+                        <button class="button water" onclick="toggleButton(this, 1)">Cup 3</button>
+                        <button class="button water" onclick="toggleButton(this,1)">Cup 4</button>
+                        <button class="button water" onclick="toggleButton(this,1)">Cup 5</button>
+                        <button class="button water" onclick="toggleButton(this,1)">Cup 6</button>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
-            <div class="section">
+            <!-- <div class="section">
                 <form action="/nutrition/saveWaterIntake" method="POST">  
                     <fieldset>
                         <legend><span>&#x1F4A6;</span> Water Intake:</legend>
@@ -194,10 +194,10 @@
                     <button type="submit" class="btn btn-primary">Submit</button>
 
                   </form>
-            </div>
+            </div> -->
 
             <div class="section">
-                <!-- <form action="/nutrition/saveNutrition" method="POST">  
+                <form action="/nutrition/saveNutrition" method="POST">  
                     <fieldset>
                       <legend><span>&#x1F4A6;</span> Water Intake:</legend>
                       <div class="form-group">
@@ -257,7 +257,7 @@
                       </div>
                     </fieldset>
                 
-                    <fieldset>
+                    <!-- <fieldset>
                       <legend>Overall Feelings:</legend> -->
                       <!-- Feelings checkboxes -->
                       <!-- <div class="form-group">
@@ -290,19 +290,32 @@
                       <div class="form-group">
                         <textarea id="additionalNotes" name="additionalNotes" rows="4" class="form-control"></textarea>
                       </div>
-                    </fieldset>
+                    </fieldset> -->
                 
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                  </form> -->
+                    <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Submit</button>
+                  </form>
 
 <!-- nutritionData.ejs -->
 <div class="section">
-    <h1>Nutrition Data</h1>
+    <h1>Most Recent Nutrition Data</h1>
 
     <% if (currentData) { %>
     <div>
+        <p>Latest Entry Date: <%= currentData.date %></p>
         <p>Water Intake: <%= currentData.waterIntake %></p>
-        <p>Additional Notes: <%= currentData.waterNotes %></p>
+        <p>Hydration Notes: <%= currentData.waterNotes %></p>
+        <p>Breakfast (Meal): <%= currentData.breakfast.meal %></p>
+        <p>Breakfast (Snack): <%= currentData.breakfast.snack %></p>
+        <p>Breakfast Notes: <%= currentData.breakfast.description %></p>
+        <p>Lunch (Meal): <%= currentData.lunch.meal %></p>
+        <p>Lunch (Snack): <%= currentData.lunch.snack %></p>
+        <p>Lunch Notes: <%= currentData.lunch.description %></p>
+        <p>Dinner (Meal): <%= currentData.dinner.meal %></p>
+        <p>Dinner (Snack): <%= currentData.dinner.snack %></p>
+        <p>Dinner Notes: <%= currentData.dinner.description %></p>
+        <p>Snacks (Healthy): <%= currentData.snacks.healthy %></p>
+        <p>Snacks (Unhealthy): <%= currentData.snacks.unhealthy %></p>
+        <p>Snacks Notes: <%= currentData.snacks.description %></p>
         <!-- Add more fields to display other saved data -->
     </div>
     <% } else { %>
@@ -315,65 +328,73 @@
     </div>
     
     <script>
-        function goBack() {
-            window.history.back();
-        }
+        // function goBack() {
+        //     window.history.back();
+        // }
     
-        function toggleButton(button, type) {
-            button.classList.toggle('clicked');
-            updateWidgets();
-        }
+        // function toggleButton(button, type) {
+        //     button.classList.toggle('clicked');
+        //     updateWidgets();
+        // }
     
-        function drawSpeedometer(canvasId, currentValue, maxValue, label) {
-            const canvas = document.getElementById(canvasId);
-            const ctx = canvas.getContext('2d');
+        // function drawSpeedometer(canvasId, currentValue, maxValue, label) {
+        //     const canvas = document.getElementById(canvasId);
+        //     const ctx = canvas.getContext('2d');
     
-            const percentageFilled = (currentValue / maxValue) * 100;
+        //     const percentageFilled = (currentValue / maxValue) * 100;
     
-            ctx.beginPath();
-            ctx.arc(60, 60, 50, Math.PI, 2 * Math.PI);
-            ctx.strokeStyle = '#ddd';
-            ctx.lineWidth = 15;
-            ctx.stroke();
+        //     ctx.beginPath();
+        //     ctx.arc(60, 60, 50, Math.PI, 2 * Math.PI);
+        //     ctx.strokeStyle = '#ddd';
+        //     ctx.lineWidth = 15;
+        //     ctx.stroke();
     
-            ctx.beginPath();
-            ctx.arc(60, 60, 50, Math.PI, Math.PI + (percentageFilled / 100) * Math.PI);
-            ctx.strokeStyle = '#3498db';
-            ctx.lineWidth = 15;
-            ctx.stroke();
+        //     ctx.beginPath();
+        //     ctx.arc(60, 60, 50, Math.PI, Math.PI + (percentageFilled / 100) * Math.PI);
+        //     ctx.strokeStyle = '#3498db';
+        //     ctx.lineWidth = 15;
+        //     ctx.stroke();
     
-            ctx.font = '14px Arial';
-            ctx.fillStyle = '#333';
-            ctx.textAlign = 'center';
-            ctx.fillText(label, 60, 60);
-        }
-    ////// mealsCount should be equal to the number of meals or water logged by the user (decouple from clicked buttons)
-    ///// everytime "Log Meal" button is pressed, the number of water / food intake is incremented in the datatable
-        function updateWidgets() {
-            const mealsCount = document.querySelectorAll('.button.meals.clicked').length;
-            const waterCount = document.querySelectorAll('.button.water.clicked').length;
+        //     ctx.font = '14px Arial';
+        //     ctx.fillStyle = '#333';
+        //     ctx.textAlign = 'center';
+        //     ctx.fillText(label, 60, 60);
+        // }
+
+        // function updateWidgets() {
+        //     const mealsCount = document.querySelectorAll('.button.meals.clicked').length;
+        //     const waterCount = document.querySelectorAll('.button.water.clicked').length;
     
-            drawSpeedometer('foodIntakeWidget', mealsCount, 3, 'Food Intake');
-            drawSpeedometer('waterIntakeWidget', waterCount, 6, 'Water Intake');
+        //     drawSpeedometer('foodIntakeWidget', mealsCount, 3, 'Food Intake');
+        //     drawSpeedometer('waterIntakeWidget', waterCount, 6, 'Water Intake');
 
             // document.getElementById("waterIntake").textContent = document.querySelectorAll('.button.water.clicked').length;
 
             // var totalGlasses = document.getElementById("waterIntake").value;
             // var notes = document.getElementById("waterNotes").value;
     
-        }
+       // }
+
+
         
-        function addIntake(event) {
-        event.preventDefault();
-        const meal = document.getElementById('meal').value;
-        const cup = document.getElementById('cup').value;
-        const mealButton = document.querySelector(`.button.meals:contains("${meal}")`);
-        const cupButton = document.querySelector(`.button.water:contains("${cup}")`);
-        toggleButton(mealButton, 'meals');
-        toggleButton(cupButton, 'water');
-    }
-        updateWidgets();
-        //addIntake();
-    </script>
+        //function addIntake() {
+            //event.preventDefault();
+            // const meal = document.getElementById('meal').value;
+            // const cup = document.getElementById('cup').value;
+            // const mealButton = document.querySelector(`.button.meals:contains("${meal}")`);
+            // const cupButton = document.querySelector(`.button.water:contains("${cup}")`);
+            // toggleButton(mealButton, 'meals');
+            // toggleButton(cupButton, 'water');
+
+    //         let btnClicked = document.querySelectorAll('button.water.clicked').length;
+            
+    //         let currWater = parseInt(btnClicked);
+            
+    //         document.getElementById("waterIntake").textContent = currWater;
+    // }
+    //     updateWidgets();
+    //     addIntake();
+        
+ </script>
     </body>
     </html>
