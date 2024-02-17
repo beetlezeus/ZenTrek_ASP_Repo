@@ -41,7 +41,7 @@ const userDetailsSchema = new mongoose.Schema({
         min: 0,
         max: 10,
     },
-    goals_next_30_days: {
+    goals_next_30_days: {  //what type of activity would you like to perform? enum "cardio, strength, yoga"
         type: String,
     },
 });
