@@ -164,7 +164,9 @@ router.get('/', ensureAuthenticated, async (req, res) => {
 router.post('/saveNutrition', ensureAuthenticated, async (req, res) => {
     try {
         // Retrieve data from the form
-        let { waterIntake, waterNotes, breakfastMeal, breakfastSnack, breakfastDescription, lunchMeal, lunchSnack, lunchDescription, dinnerMeal, dinnerSnack, dinnerDescription, healthySnack, unhealthySnack, snacksDescription, energized, satisfied, hungry, thirsty, otherFeelings,otherFeelingsDescription, additionalNotes } = req.body;
+        // let { waterIntake, waterNotes, breakfastMeal, breakfastSnack, breakfastDescription, lunchMeal, lunchSnack, lunchDescription, dinnerMeal, dinnerSnack, dinnerDescription, healthySnack, unhealthySnack, snacksDescription, energized, satisfied, hungry, thirsty, otherFeelings,otherFeelingsDescription, additionalNotes } = req.body;
+
+        let { waterIntake, waterNotes, breakfastMeal, breakfastSnack, breakfastDescription, lunchMeal, lunchSnack, lunchDescription, dinnerMeal, dinnerSnack, dinnerDescription, healthySnack, unhealthySnack, snacksDescription} = req.body;
 
         if(req.body.breakfastMeal == "on"){
             breakfastMeal = true;
