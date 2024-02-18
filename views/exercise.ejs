@@ -13,7 +13,6 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
 
-    <!-- Add your custom stylesheets or other head elements here -->
     <style>
         body {
             font-family: "Roboto", sans-serif;
@@ -45,40 +44,49 @@
             border: none;
             box-shadow: none;
             padding: 10px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+
         }
 
         .card-body {
             border-radius: 10px;
             padding: 20px;
             /* From https://css.glass */
-background: rgba(255, 255, 255, 0.33);
-/* From https://css.glass */
-background: rgba(255, 255, 255, 0.5);
-border-radius: 16px;
-box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-backdrop-filter: blur(13.7px);
--webkit-backdrop-filter: blur(13.7px);
-border: 1px solid rgba(255, 255, 255, 0.66);
-justify-content: center;
+            background: rgba(255, 255, 255, 0.33);
+            /* From https://css.glass */
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 16px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(13.7px);
+            -webkit-backdrop-filter: blur(13.7px);
+            border: 1px solid rgba(255, 255, 255, 0.66);
+            justify-content: center;
+
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
         }
         .card-body2{
             /* From https://css.glass */
-background: rgba(89, 159, 228, 0.5);
-border-radius: 16px;
-box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-backdrop-filter: blur(13.7px);
--webkit-backdrop-filter: blur(13.7px);
-border: 1px solid rgba(89, 159, 228, 0.66);
-border-radius: 10px;
+            background: rgba(89, 159, 228, 0.5);
+            border-radius: 16px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(13.7px);
+            -webkit-backdrop-filter: blur(13.7px);
+            border: 1px solid rgba(89, 159, 228, 0.66);
+            border-radius: 10px;
             padding: 20px;
         }
 
      
 
-        .btn-primary {
-            background-color: #007bff;
+        .btn  {
+            background-color: #180075;
             border: none;
             padding: 4px;
+            color: #f8f9fa;
         }
 
         .btn-primary:hover {
@@ -116,7 +124,7 @@ border-radius: 10px;
                         <div class="card-body">
                             <h5 class="card-title">Strength Training</h5>
                             <p class="card-text">Watch training videos to learn exercises with proper form.</p>
-                            <button class="btn btn-primary" onclick="showCategory('strength')">Select</button>
+                            <button class="btn btn-primary" onclick="showCategory('strength')">Show</button>
                         </div>
                     </div>
                 </div>
@@ -125,7 +133,7 @@ border-radius: 10px;
                         <div class="card-body">
                             <h5 class="card-title">Cardio</h5>
                             <p class="card-text">Follow a warm-up guide and choose from different running plans.</p>
-                            <button class="btn btn-primary" onclick="showCategory('cardio')">Select</button>
+                            <button class="btn" onclick="showCategory('cardio')">Show</button>
                         </div>
                     </div>
                 </div>
@@ -134,7 +142,7 @@ border-radius: 10px;
                         <div class="card-body">
                             <h5 class="card-title">Yoga</h5>
                             <p class="card-text">Follow yoga videos for a relaxing session.</p>
-                            <button class="btn btn-primary" onclick="showCategory('yoga')">Select</button>
+                            <button class="btn " onclick="showCategory('yoga')">Show</button>
                         </div>
                     </div>
                 </div>
@@ -157,7 +165,7 @@ border-radius: 10px;
                                 <input type="text" id="exerciseType" name="exerciseType" required>
                                 <label for="numOfReps">Number of Reps:</label>
                                 <input type="number" id="numOfReps" name="numOfReps" required>
-                                <button type="submit" class="btn btn-primary mt-2">Log Strength Training</button>
+                                <button type="submit" class="btn  mt-2">Log Strength Training</button>
                             </form>
                         </div>
                     </div>
@@ -193,7 +201,7 @@ border-radius: 10px;
                             <form action="/logCardio" method="post">
                                 <label for="runningStats">Running Stats:</label>
                                 <input type="text" id="runningStats" name="runningStats" required>
-                                <button type="submit" class="btn btn-primary mt-2">Log Cardio</button>
+                                <button type="submit" class="btn mt-2">Log Cardio</button>
                             </form>
                         </div>
                     </div>
@@ -230,7 +238,7 @@ border-radius: 10px;
                             <form action="/logYoga" method="post">
                                 <label for="timeSpent">Time Spent (minutes):</label>
                                 <input type="number" id="timeSpent" name="timeSpent" required>
-                                <button type="submit" class="btn btn-primary mt-2">Log Yoga</button>
+                                <button type="submit" class="btn  mt-2">Log Yoga</button>
                             </form>
                         </div>
                     </div>
@@ -257,7 +265,6 @@ border-radius: 10px;
         <a href="/home" class="btn btn-secondary mt-3">Back to Home</a>
     </div>
 
-    <!-- Add your scripts at the end of the body -->
   
 
 
@@ -273,13 +280,7 @@ border-radius: 10px;
     <script>
 
 
-   
-
-
-
-    // Function to go back to the category selection
- 
-
+  
     function showCategory(category) {
     // Hide all category contents
     var categories = document.querySelectorAll('.category-content');
