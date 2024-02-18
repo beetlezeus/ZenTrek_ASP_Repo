@@ -23,6 +23,7 @@
             display: flex;
             flex-direction: row;
         }
+        
 
         .right-part,
         .left-part {
@@ -47,22 +48,37 @@
         }
 
         .card-body {
-            background-color: rgba(255, 255, 255, 0.1);
             border-radius: 10px;
+            padding: 20px;
+            /* From https://css.glass */
+background: rgba(255, 255, 255, 0.33);
+/* From https://css.glass */
+background: rgba(255, 255, 255, 0.5);
+border-radius: 16px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(13.7px);
+-webkit-backdrop-filter: blur(13.7px);
+border: 1px solid rgba(255, 255, 255, 0.66);
+justify-content: center;
+        }
+        .card-body2{
+            /* From https://css.glass */
+background: rgba(89, 159, 228, 0.5);
+border-radius: 16px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(13.7px);
+-webkit-backdrop-filter: blur(13.7px);
+border: 1px solid rgba(89, 159, 228, 0.66);
+border-radius: 10px;
             padding: 20px;
         }
 
-        .card-title {
-            color: #fff;
-        }
-
-        .card-text {
-            color: rgba(255, 255, 255, 0.8);
-        }
+     
 
         .btn-primary {
             background-color: #007bff;
             border: none;
+            padding: 4px;
         }
 
         .btn-primary:hover {
@@ -77,13 +93,22 @@
         .btn-secondary:hover {
             background-color: #545b62;
         }
+        .log-section{
+            display: flex;
+            flex-direction: column;
+            padding-top: 30px;
+        }
+        .text{
+            align-self: center;
+        }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <h1 class="text-center">Exercise Page</h1>
-        <div class="bigcontent card3">
+        <div class="bigcontent card3 card-body">
+            <h1 class="text-center">Exercise Page</h1>
+
 
             <div class="row mt-5">
                 <div class="col-md-4">
@@ -124,8 +149,9 @@
                 </div>
                 <div class="log-part">
                     <div class="right-part">
+                        <h3>Strength Training Log</h3>
+
                         <div class="log-section">
-                            <h3>Strength Training Log</h3>
                             <form action="/logStrengthTraining" method="post">
                                 <label for="exerciseType">Exercise Type:</label>
                                 <input type="text" id="exerciseType" name="exerciseType" required>
@@ -136,7 +162,8 @@
                         </div>
                     </div>
                     <div class="left-part">
-                        <div class="card3">
+                        <h3>Activity</h3>
+                        <div class="card3 card-body2">
                             <div>
                                 <div id="strengthCategory">Strength</div>
                             </div>
@@ -151,7 +178,7 @@
                 </div>
             </div>
 
-            <div id="cardio-category" class="category-content" style="display: none;">
+            <div id="cardio-category" class="category-content card card-body" style="display: none;">
                 <div class="text-container">
                     <div class="text">
                         <h3>Cardio Resources</h3>
@@ -160,8 +187,9 @@
                 </div>
                 <div class="log-part">
                     <div class="right-part">
+                        <h3>Cardio Log</h3>
+
                         <div class="log-section">
-                            <h3>Cardio Log</h3>
                             <form action="/logCardio" method="post">
                                 <label for="runningStats">Running Stats:</label>
                                 <input type="text" id="runningStats" name="runningStats" required>
@@ -170,7 +198,9 @@
                         </div>
                     </div>
                     <div class="left-part">
-                        <div class="card3 card card-body">
+                        <h3>Activity</h3>
+
+                        <div class="card3 card-body2">
                             <div>
                                 <div id="cardioCategory">Cardio</div>
                             </div>
@@ -185,7 +215,7 @@
                 </div>
             </div>
 
-            <div id="yoga-category" class="category-content" style="display: none;">
+            <div id="yoga-category" class="category-content card card-body" style="display: none;">
                 <div class="text-container">
                     <div class="text">
                         <h3>Yoga Resources</h3>
@@ -194,8 +224,9 @@
                 </div>
                 <div class="log-part">
                     <div class="right-part">
+                        <h3>Yoga Log</h3>
+
                         <div class="log-section">
-                            <h3>Yoga Log</h3>
                             <form action="/logYoga" method="post">
                                 <label for="timeSpent">Time Spent (minutes):</label>
                                 <input type="number" id="timeSpent" name="timeSpent" required>
@@ -204,7 +235,9 @@
                         </div>
                     </div>
                     <div class="left-part">
-                        <div class="card3">
+                        <h3>Activity</h3>
+
+                        <div class="card3 card-body2">
                             <div>
                                 <div id="yogaCategory">Yoga</div>
                             </div>
@@ -214,6 +247,7 @@
                                 <div id="timer3" class="timer"></div>
                                 <button class="startbutton" id="startButton3" onclick="toggleExercise('timer3', 'startButton3')">Start Exercise</button>
                             </div>
+                        </div>
                         </div>
                     </div>
                 </div>
