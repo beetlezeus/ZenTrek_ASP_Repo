@@ -5,135 +5,285 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Exercise Page</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
         integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+Wy4L4J/P4pEYI9jJ4IuUJFwG6d5I9w1bC"
-        crossorigin="anonymous">
-    <!-- Add your custom stylesheets or other head elements here -->
+        crossorigin="anonymous"> -->
+        <!-- <link rel="stylesheet" href="https://css.glass/2/css.min.css"> -->
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+
     <style>
         body {
-            font-family: "Roboto", sans-serif;
+            /* font-family: "Roboto", sans-serif; */
             background-color: #f8f9fa;
+        }
+        .log-part {
+            display: flex;
+            flex-direction: row;
+        }
+        
+
+        .right-part,
+        .left-part {
+            flex: 1;
+            margin-top: 20px;
         }
 
         .container {
             margin-top: 50px;
         }
 
+        .category-content {
+            background-color: transparent;
+            margin-top: 30px;
+        }
+
         .card {
-            background-color: #ffffff;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: transparent;
+            border: none;
+            box-shadow: none;
+            padding: 10px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+
         }
 
-        .category-link {
-            color: #007bff;
-            cursor: pointer;
-            text-decoration: underline;
+        .card-body {
+            border-radius: 10px;
+            padding: 20px;
+            /* From https://css.glass */
+            background: rgba(255, 255, 255, 0.33);
+            /* From https://css.glass */
+            border-radius: 16px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(13.7px);
+            -webkit-backdrop-filter: blur(13.7px);
+            border: 1px solid rgba(255, 255, 255, 0.66);
+            justify-content: center;
+
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .card-body2{
+            /* From https://css.glass */
+            background: rgba(89, 159, 228, 0.5);
+           
+            border-radius: 10px;
+            padding: 20px;
+            background: rgba(214, 213, 248, 0.31);
+            border-radius: 16px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid rgba(214, 213, 248, 0.66);
         }
 
-        .log-section {
-            margin-top: 20px;
+        /* .btn  {
+            background-color: #180075;
+            border: none;
+            padding: 4px;
+            color: #f8f9fa;
         }
 
-        label {
-            font-weight: bold;
+        .btn-primary:hover {
+            background-color: #0056b3;
         }
 
-        form {
-            margin-top: 20px;
+        .btn-secondary {
+            background-color: #6c757d;
+            border: none;
         }
 
-        button {
-            cursor: pointer;
-        }
+        .btn-secondary:hover {
+            background-color: #545b62;
+        } */
 
-        .back-button {
-            margin-top: 20px;
+        .btn{
+            color: #f8f9fa;
         }
+        .btn:hover{
+            color:#f8f9fa
+        }
+        .log-section{
+            display: flex;
+            flex-direction: column;
+            padding-top: 30px;
+        }
+        .text{
+            align-self: center;
+        }
+        #yogaCategory{
+            overflow: scroll;
+        }
+        ::-webkit-scrollbar {
+  width: 3px;
+  background-color: white; /* or add it to the track */
+}
+::-webkit-scrollbar-thumb {
+  background: #0056b3;
+}
+
     </style>
 </head>
 
 <body>
     <div class="container">
-        <h1 class="text-center">Exercise Page</h1>
+        <div class="bigcontent card3 card-body">
+            <h1 class="text-center">Exercise Page</h1>
 
-        <div class="row mt-5">
-            <div class="col-md-6 m-auto">
-                <div class="card card-body">
-                    <!-- Exercise content -->
-                    <h2 class="text-center mb-3">Choose Your Activity</h2>
 
-                    <div class="category-links">
-                        <p><span class="category-link" onclick="showCategory('strength')">Strength Training</span></p>
-                        <p><span class="category-link" onclick="showCategory('cardio')">Cardio</span></p>
-                        <p><span class="category-link" onclick="showCategory('yoga')">Yoga</span></p>
+            <div class="row mt-5">
+                <div class="col-md-4">
+                    <div class="card glass">
+                        <div class="card-body">
+                            <h5 class="card-title">Strength Training</h5>
+                            <p class="card-text">Watch training videos to learn exercises with proper form.</p>
+                            <button class="btn" onclick="showCategory('strength')">Show</button>
+                        </div>
                     </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card glass">
+                        <div class="card-body">
+                            <h5 class="card-title">Cardio</h5>
+                            <p class="card-text">Follow a warm-up guide and choose from different running plans.</p>
+                            <button class="btn" onclick="showCategory('cardio')">Show</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card glass">
+                        <div class="card-body">
+                            <h5 class="card-title">Yoga</h5>
+                            <p class="card-text">Follow yoga videos for a relaxing session.</p>
+                            <button class="btn" onclick="showCategory('yoga')">Show</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-                    <!-- Strength Training Category -->
-                    <div id="strength-category" class="category-content" style="display: none;">
+            <div id="strength-category" class="category-content card card-body" style="display: none;">
+                <div class="text-container">
+                    <div class="text">
                         <h3>Strength Training Resources</h3>
                         <p>Watch training videos to learn exercises with proper form.</p>
-                        <!-- Add more strength training resources -->
+                    </div>
+                </div>
+                <div class="log-part">
+                    <div class="right-part">
+                        <h3>Strength Training Log</h3>
 
-                        <!-- Strength Training Log -->
                         <div class="log-section">
-                            <h3>Strength Training Log</h3>
-                            <!-- Strength Training Log Form -->
                             <form action="/logStrengthTraining" method="post">
                                 <label for="exerciseType">Exercise Type:</label>
                                 <input type="text" id="exerciseType" name="exerciseType" required>
-
                                 <label for="numOfReps">Number of Reps:</label>
-                                <input type="number" id="numOfReps" name="numOfReps" required>
-
-                                <button type="submit" class="btn btn-primary mt-2">Log Strength Training</button>
+                                <input type="number" id="numOfReps" name="numOfReps" min="0" required>
+                                <button type="submit" class="btn  mt-2">Log Strength Training</button>
                             </form>
                         </div>
                     </div>
+                    <div class="left-part">
+                        <h3>Activity</h3>
+                        <div class="card3 card-body2">
+                            <div>
+                                <div id="strengthCategory">Strength</div>
+                            </div>
+                            <div class="flex-container">
+                                <div class="image">
+                                </div>
+                                <div id="timer1" class="timer"></div>
+                                <button class="startbutton" id="startButton1" onclick="toggleExercise('timer1', 'startButton1')">Start Exercise</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-                    <!-- Cardio Category -->
-                    <div id="cardio-category" class="category-content" style="display: none;">
+            <div id="cardio-category" class="category-content card card-body" style="display: none;">
+                <div class="text-container">
+                    <div class="text">
                         <h3>Cardio Resources</h3>
                         <p>Follow a warm-up guide and choose from different running plans.</p>
-                        <!-- Add more cardio resources -->
+                    </div>
+                </div>
+                <div class="log-part">
+                    <div class="right-part">
+                        <h3>Cardio Log</h3>
 
-                        <!-- Cardio Log -->
                         <div class="log-section">
-                            <h3>Cardio Log</h3>
-                            <!-- Cardio Log Form -->
                             <form action="/logCardio" method="post">
                                 <label for="runningStats">Running Stats:</label>
                                 <input type="text" id="runningStats" name="runningStats" required>
-
                                 <button type="submit" class="btn btn-primary mt-2">Log Cardio</button>
                             </form>
                         </div>
                     </div>
+                    <div class="left-part">
+                        <h3>Activity</h3>
 
-                    <!-- Yoga Category -->
-                    <div id="yoga-category" class="category-content" style="display: none;">
+                        <div class="card3 card-body2">
+                            <div>
+                                <div id="cardioCategory">Cardio</div>
+                            </div>
+                            <div class="flex-container">
+                                <div class="image">
+                                </div>
+                                <div id="timer2" class="timer"></div>
+                                <button class="startbutton" id="startButton2" onclick="toggleExercise('timer2', 'startButton2')">Start Exercise</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="yoga-category" class="category-content card card-body" style="display: none;">
+                <div class="text-container">
+                    <div class="text">
                         <h3>Yoga Resources</h3>
                         <p>Follow yoga videos for a relaxing session.</p>
-                        <!-- Add more yoga resources -->
+                    </div>
+                </div>
+                <div class="log-part">
+                    <div class="right-part">
+                        <h3>Yoga Log</h3>
 
-                        <!-- Yoga Log -->
                         <div class="log-section">
-                            <h3>Yoga Log</h3>
-                            <!-- Yoga Log Form -->
                             <form action="/logYoga" method="post">
                                 <label for="timeSpent">Time Spent (minutes):</label>
                                 <input type="number" id="timeSpent" name="timeSpent" required>
-
-                                <button type="submit" class="btn btn-primary mt-2">Log Yoga</button>
+                                <button type="submit" class="btn  mt-2">Log Yoga</button>
                             </form>
                         </div>
                     </div>
+                    <div class="left-part">
+                        <h3>Activity</h3>
 
-                    <!-- Back button -->
-                    <a href="/home" class="btn btn-secondary mt-3 back-button">Back to Home</a>
+                        <div class="card3 card-body2">
+                            <div>
+                                <div id="yogaCategory">Yoga</div>
+                            </div>
+                            <div class="flex-container">
+                                <div class="image">
+                                </div>
+                                <div id="timer3" class="timer"></div>
+                                <button class="startbutton" id="startButton3" onclick="toggleExercise('timer3', 'startButton3')">Start Exercise</button>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+
         </div>
+        <a href="/home" class="btn btn-secondary mt-3">Back to Home</a>
     </div>
+
+  
+
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
@@ -145,15 +295,119 @@
         integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+Wy4L4J/P4pEYI9jJ4IuUJFwG6d5I9w1bC"
         crossorigin="anonymous"></script>
     <script>
-        function showCategory(category) {
-            // Hide all categories
-            document.getElementById('strength-category').style.display = 'none';
-            document.getElementById('cardio-category').style.display = 'none';
-            document.getElementById('yoga-category').style.display = 'none';
 
-            // Show selected category
-            document.getElementById(`${category}-category`).style.display = 'block';
+
+  
+    function showCategory(category) {
+    // Hide all category contents
+    var categories = document.querySelectorAll('.category-content');
+    categories.forEach(function(cat) {
+        cat.style.display = 'none';
+    });
+
+    // Show the selected category content
+    document.getElementById(category + '-category').style.display = 'block';
+}
+
+
+
+function toggleExercise(timerId, startButtonId) {
+        var timer = document.getElementById(timerId);
+        var startButton = document.getElementById(startButtonId);
+
+        // Check if the timer element and start button exist
+        if (timer && startButton) {
+            // Start the timer
+            var startTime = Date.now(); // Get the current timestamp
+            var interval = setInterval(function() {
+                var elapsedTime = Date.now() - startTime; // Calculate elapsed time in milliseconds
+                var hours = Math.floor(elapsedTime / (1000 * 60 * 60)); // Calculate hours
+                var minutes = Math.floor((elapsedTime % (1000 * 60 * 60)) / (1000 * 60)); // Calculate minutes
+                var seconds = Math.floor((elapsedTime % (1000 * 60)) / 1000); // Calculate seconds
+                var milliseconds = Math.floor((elapsedTime % 1000) / 10); // Calculate milliseconds
+
+                // Format the time components to have leading zeros if necessary
+                var formattedTime = ('0' + hours).slice(-2) + ':' +
+                                    ('0' + minutes).slice(-2) + ':' +
+                                    ('0' + seconds).slice(-2) + '.' +
+                                    ('0' + milliseconds).slice(-2);
+
+                // Update the timer display
+                timer.textContent = formattedTime;
+            }, 10); // Update every 10 milliseconds
+
+            // Change the button text to "Stop Exercise"
+            startButton.textContent = "Stop Exercise";
+
+            // Change the button's onclick function to stop the timer
+            startButton.onclick = function() {
+                clearInterval(interval); // Stop the interval
+                startButton.textContent = "Start Exercise"; // Change back the button text
+                startButton.onclick = function() {
+                    toggleExercise(timerId, startButtonId); // Revert the onclick function to start the timer again
+                };
+            };
         }
+    }
+
+      
+        function fetchData(apiEndpoint, targetId, params = {}) {
+        const http = new XMLHttpRequest();
+        const url = buildApiUrl(apiEndpoint, params);
+        http.open("GET", url);
+        http.setRequestHeader("X-Api-Key", "3mutvzPWZvZ2vxqGE64jTNGUX0sg2hzz3SoOL6Yl");
+        http.onreadystatechange = function () {
+            if (http.readyState == 4 && http.status == 200) {
+                const result = JSON.parse(http.responseText);
+                console.log('API Response:', result);  // Log della risposta API
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    targetElement.innerHTML = '';
+                }
+                if (result && Array.isArray(result)) {
+                    const firstExercise = result[0];
+                    if (firstExercise) {
+                        const exerciseElement = document.getElementById(targetId);
+                        if (exerciseElement) {
+                            exerciseElement.innerHTML = `
+                                <div>Name: ${firstExercise.name || 'N/A'}</div>
+                                
+                                <div>Type: ${firstExercise.type || 'N/A'}</div>
+                                <div>Muscle: ${firstExercise.muscle || 'N/A'}</div>
+                                <div>Equipment: ${firstExercise.equipment || 'N/A'}</div>
+                                <div>Difficulty: ${firstExercise.difficulty || 'N/A'}</div>
+                                <div>Instructions: ${firstExercise.instructions || 'N/A'}</div>
+                            `;
+							 exerciseElement.style.overflow = 'auto';
+                            exerciseElement.style.maxHeight = '150px'; 
+                        }
+                    }
+                } else {
+                    if (targetElement) {
+                        targetElement.innerHTML = 'No data available';
+                    }
+                }
+                
+            }
+        };
+        http.send();
+    }
+    function buildApiUrl(apiEndpoint, params) {
+        const url = new URL(apiEndpoint);
+        for (const [key, value] of Object.entries(params)) {
+            if (value !== undefined && value !== null) {
+                url.searchParams.append(key, value);
+            }
+        }
+        return url.toString();
+    }
+console.log(buildApiUrl('https://api.api-ninjas.com/v1/exercises', { type: 'strength' }));
+fetchData('https://api.api-ninjas.com/v1/exercises', 'strengthCategory', { type: 'strength' });
+fetchData('https://api.api-ninjas.com/v1/exercises', 'exercise1', { type: 'strength' });
+fetchData('https://api.api-ninjas.com/v1/exercises', 'cardioCategory', { type: 'cardio' });
+fetchData('https://api.api-ninjas.com/v1/exercises', 'exercise2', { type: 'cardio' });
+fetchData('https://api.api-ninjas.com/v1/exercises', 'yogaCategory', { type: 'stretching', category: 'stretching' });
+fetchData('https://api.api-ninjas.com/v1/exercises', 'exercise3', { type: 'stretching', category: 'stretching' });
     </script>
 </body>
 
