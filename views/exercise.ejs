@@ -8,9 +8,9 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
         integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+Wy4L4J/P4pEYI9jJ4IuUJFwG6d5I9w1bC"
         crossorigin="anonymous">
-        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
-        
+
     <!-- Add your custom stylesheets or other head elements here -->
     <style>
         body {
@@ -25,6 +25,7 @@
         .card {
             background-color: #ffffff;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
         }
 
         .category-link {
@@ -52,73 +53,113 @@
         .back-button {
             margin-top: 20px;
         }
-        .card{
+
+        .card {
             width: 200px;
             height: 200px;
         }
-        .category-content{
+
+        .category-content {
             background-color: #f8f9fa;
-            display: flex;
-            flex-direction: row;
- 
-            
-        }
-        #strength-category{
             display: flex ;
-            flex-direction: row;
+            flex-direction: column;
+            margin-top: 30px;
+            /* Add margin at the top of category content */
         }
+
+        #strength-category,
+        #cardio-category,
+        #yoga-category {
+            display: flex;
+            flex-direction: column;
+        }
+
         .rectangle-container {
-            text-align: center; 
-            margin-top: 50px; 
+            text-align: center;
+            margin-top: 50px;
         }
+
         .flex-container {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
         }
+
         .rectangle {
-            width: 300px; 
-            height: 200px; 
-            background-color: #3498db; 
-            margin: 10px; 
+            width: 300px;
+            height: 200px;
+            background-color: #3498db;
+            margin: 10px;
             position: relative;
         }
+
         .short-rectangle {
-            height: 100px; 
+            height: 100px;
         }
+
         .white-rectangle {
             position: absolute;
-            top: 10px; 
-            left: 10px; 
-            width: 280px; 
-            height: 180px; 
+            top: 10px;
+            left: 10px;
+            width: 280px;
+            height: 180px;
             background-color: #fff;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: #333; 
-            font-size: 16px; 
+            color: #333;
+            font-size: 16px;
         }
-	
-.centered-content {
-    text-align: center;
-    margin-top: 50px; 
-}
-.Dietcontainer{
-	 display: flex;
-    flex-direction: row;
-}
-		.container{
-			display: flex;
-			flex-direction: column;
-		}
-		.timer {
-    text-align: center;
-    margin-top: 10px;
-    font-size: 12px;
-    color: black;
-}
-       
+
+        .centered-content {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .Dietcontainer {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .timer {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 12px;
+            color: black;
+        }
+
+        .text-container {
+            width: 100%;
+        }
+
+        .text {
+            padding: 20px;
+            background-color: #f8f9fa;
+            /* Background color for text section */
+        }
+
+        .log-part {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .right-part,
+        .left-part {
+            flex: 1;
+            margin-top: 20px;
+        }
+        .card3{
+            
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        
     </style>
 </head>
 
@@ -164,171 +205,151 @@
                             </div>
                         </div>
                     </div>
-                    <div class="biggcontainer" >
 
-                    <!-- Strength Training Category -->
-                    <div id="strength-category" class="category-content"  style="display: none;" >
-                       <div class="right-part">
-                        <h3>Strength Training Resources</h3>
-                        <p>Watch training videos to learn exercises with proper form.</p>
-                        <!-- Add more strength training resources -->
-
-                        <!-- Strength Training Log -->
-                        <div class="log-section">
-                            <h3>Strength Training Log</h3>
-                            <!-- Strength Training Log Form -->
-                            <form action="/logStrengthTraining" method="post">
-                                <label for="exerciseType">Exercise Type:</label>
-                                <input type="text" id="exerciseType" name="exerciseType" required>
-
-                                <label for="numOfReps">Number of Reps:</label>
-                                <input type="number" id="numOfReps" name="numOfReps" required>
-
-                                <button type="submit" class="btn btn-primary mt-2">Log Strength Training</button>
-                            </form>
-                        </div>
-                      </div>
-                      <div class="left-part">
-                        <div class="rectangle-container">
-                            <div class="flex-container">
-                                <div class="rectangle short-rectangle" id="strengthCategory">Strength</div>
-
-                            </div>
-
-                            <div class="flex-container">
-                                <div class="rectangle" id="video1">
-                                    <div class="white-rectangle">    <div id="timer" class="timer"></div>
-                              </div>
-                                </div>
-
-                            </div>
-
-                            <div class="flex-container">
-                                <div class="container">
-                                <div class="rectangle short-rectangle" id="exercise1">
-                                    <div>Time</div>
-                                    <div>Reps</div>
-                                    <div>Sets</div>
-                                </div>
-                                    <div id="timer1" class="timer"></div>
-                                    <button class="startbutton" id="startButton1" onclick="toggleExercise('timer1', 'startButton1')">Start Exercise</button>
-
-                               </div>
-
-
-                            </div>
-                      </div>
-                    </div>
-                    </div>
-
-                    <!-- Cardio Category -->
-                    <div id="cardio-category" class="category-content" style="display: none;">
-                        <h3>Cardio Resources</h3>
-                        <p>Follow a warm-up guide and choose from different running plans.</p>
-                        <!-- Add more cardio resources -->
-
-                        <!-- Cardio Log -->
-                      <div class="right-part">
-                        <div class="log-section">
-                            <h3>Cardio Log</h3>
-                            <!-- Cardio Log Form -->
-                            <form action="/logCardio" method="post">
-                                <label for="runningStats">Running Stats:</label>
-                                <input type="text" id="runningStats" name="runningStats" required>
-
-                                <button type="submit" class="btn btn-primary mt-2">Log Cardio</button>
-                            </form>
-                        </div>
-                       </div>
-                       <div class="left-part"><div class="rectangle-container">
-                        <div class="flex-container">
-                            <div class="rectangle short-rectangle" id="cardioCategory">Cardio</div>
-
-                        </div>
-
-                        <div class="flex-container">
-                            <div class="rectangle" id="video1">
-                                <div class="white-rectangle">    <div id="timer2" class="timer"></div>
-                </div>
-                            </div>
-
-                        </div>
-
-                        <div class="flex-container">
-                            <div class="container">
-                            <div class="rectangle short-rectangle" id="exercise2">
-                                <div>Time</div>
-                                <div>Reps</div>
-                                <div>Sets</div>
-                            </div>
-                                <div id="timer2" class="timer"></div>
-                                <button class="startbutton" id="startButton2" onclick="toggleExercise('timer2', 'startButton2')">Start Exercise</button>
-
-                           </div>
-
-
-                        </div>
-                    </div></div>
-                    </div>
-
-                    <!-- Yoga Category -->
-                    <div id="yoga-category" class="category-content" style="display: none;">
-                        <h3>Yoga Resources</h3>
-                        <p>Follow yoga videos for a relaxing session.</p>
-                        <!-- Add more yoga resources -->
-
-                        <!-- Yoga Log -->
-                        <div class="right-part">
-                        <div class="log-section">
-                            <h3>Yoga Log</h3>
-                            <!-- Yoga Log Form -->
-                            <form action="/logYoga" method="post">
-                                <label for="timeSpent">Time Spent (minutes):</label>
-                                <input type="number" id="timeSpent" name="timeSpent" required>
-
-                                <button type="submit" class="btn btn-primary mt-2">Log Yoga</button>
-                            </form>
-                        </div>
-                    </div>
-                        <div class="left-part">
-                            <div class="rectangle-container">
-                                <div class="flex-container">
-                                    <div class="rectangle short-rectangle" id="yogaCategory">Yoga</div>
-
-                                </div>
-
-                                <div class="flex-container">
-                                    <div class="rectangle" id="video1">
-                                        <div class="white-rectangle">    <div id="timer3" class="timer"></div>
-                        </div>
-                                    </div>
-
-                                </div>
-
-                                <div class="flex-container">
-                                    <div class="container">
-                                    <div class="rectangle short-rectangle" id="exercise3">
-                                        <div>Time</div>
-                                        <div>Reps</div>
-                                        <div>Sets</div>
-                                    </div>
-                                        <div id="timer1" class="timer"></div>
-                                        <button class="startbutton" id="startButton3" onclick="toggleExercise('timer3', 'startButton3')">Start Exercise</button>
-
-                                   </div>
-
-
-                                </div>
-                            </div></div>
-                    </div>
-                </div>
-
-                    <!-- Back button -->
-                    <a href="/home" class="btn btn-secondary mt-3 back-button">Back to Home</a>
+                 
                 </div>
             </div>
         </div>
+
+        <!-- Strength Training Category Content -->
+        <div id="strength-category" class="category-content" style="display: none;">
+            <div class="text-container">
+                <!-- Strength Training Resources -->
+                <div class="text">
+                    <h3>Strength Training Resources</h3>
+                    <p>Watch training videos to learn exercises with proper form.</p>
+                </div>
+            </div>
+            <div class="log-part">
+                <!-- Strength Training Log -->
+                <div class="right-part">
+                    <div class="log-section">
+                        <h3>Strength Training Log</h3>
+                        <form action="/logStrengthTraining" method="post">
+                            <label for="exerciseType">Exercise Type:</label>
+                            <input type="text" id="exerciseType" name="exerciseType" required>
+                            <label for="numOfReps">Number of Reps:</label>
+                            <input type="number" id="numOfReps" name="numOfReps" required>
+                            <button type="submit" class="btn btn-primary mt-2">Log Strength Training</button>
+                        </form>
+                    </div>
+                </div>
+                <!-- Left Part -->
+                <div class="left-part">
+                    <div class="card3">
+                    <div >
+                        <div>
+                            <div  id="strengthCategory">Strength</div>
+                        </div>
+                      
+                        <div class="flex-container">
+                            <div class="image"> 
+                            </div>
+                                <div id="timer1" class="timer"></div>
+
+                                <button class="startbutton" id="startButton1" onclick="toggleExercise('timer1', 'startButton1')">Start Exercise</button>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cardio Category Content -->
+        <div id="cardio-category" class="category-content" style="display: none;">
+            <div class="text-container">
+                <!-- Cardio Resources -->
+                <div class="text">
+                    <h3>Cardio Resources</h3>
+                    <p>Follow a warm-up guide and choose from different running plans.</p>
+                </div>
+            </div>
+            <div class="log-part">
+                <!-- Cardio Log -->
+                <div class="right-part">
+                    <div class="log-section">
+                        <h3>Cardio Log</h3>
+                        <form action="/logCardio" method="post">
+                            <label for="runningStats">Running Stats:</label>
+                            <input type="text" id="runningStats" name="runningStats" required>
+                            <button type="submit" class="btn btn-primary mt-2">Log Cardio</button>
+                        </form>
+                    </div>
+                </div>
+                <!-- Left Part -->
+                   <!-- Left Part -->
+                   <div class="left-part">
+                    <div class="card3">
+                    <div >
+                        <div>
+                            <div  id="cardioCategory">Cardio</div>
+                        </div>
+                      
+                        <div class="flex-container">
+                            <div class="image"> 
+                            </div>
+                                <div id="timer2" class="timer"></div>
+
+                                <button class="startbutton" id="startButton2" onclick="toggleExercise('timer2', 'startButton2')">Start Exercise</button>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+              
+            </div>
+        </div>
+
+        <!-- Yoga Category Content -->
+        <div id="yoga-category" class="category-content" style="display: none;">
+            <div class="text-container">
+                <!-- Yoga Resources -->
+                <div class="text">
+                    <h3>Yoga Resources</h3>
+                    <p>Follow yoga videos for a relaxing session.</p>
+                </div>
+            </div>
+            <div class="log-part">
+                <!-- Yoga Log -->
+                <div class="right-part">
+                    <div class="log-section">
+                        <h3>Yoga Log</h3>
+                        <form action="/logYoga" method="post">
+                            <label for="timeSpent">Time Spent (minutes):</label>
+                            <input type="number" id="timeSpent" name="timeSpent" required>
+                            <button type="submit" class="btn btn-primary mt-2">Log Yoga</button>
+                        </form>
+                    </div>
+                </div>
+                <!-- Left Part -->
+                <div class="left-part">
+                    <div class="card3">
+                    <div >
+                        <div>
+                            <div  id="yogaCategory">Yoga</div>
+                        </div>
+                      
+                        <div class="flex-container">
+                            <div class="image"> 
+                            </div>
+                                <div id="timer3" class="timer"></div>
+
+                                <button class="startbutton" id="startButton3" onclick="toggleExercise('timer3', 'startButton3')">Start Exercise</button>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+          
+            </div>
+        </div>
+
     </div>
+    <a href="/home" class="btn btn-secondary mt-3">Back to Home</a>
+
+
+    <!-- Add your scripts at the end of the body -->
+  
+
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
@@ -340,6 +361,27 @@
         integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+Wy4L4J/P4pEYI9jJ4IuUJFwG6d5I9w1bC"
         crossorigin="anonymous"></script>
     <script>
+
+
+   
+
+
+
+    // Function to go back to the category selection
+ 
+
+    function showCategory(category) {
+    // Hide all category contents
+    var categories = document.querySelectorAll('.category-content');
+    categories.forEach(function(cat) {
+        cat.style.display = 'none';
+    });
+
+    // Show the selected category content
+    document.getElementById(category + '-category').style.display = 'block';
+}
+
+
 
 function toggleExercise(timerId, startButtonId) {
         var timer = document.getElementById(timerId);
@@ -380,16 +422,7 @@ function toggleExercise(timerId, startButtonId) {
         }
     }
 
-        function showCategory(category) {
-            // Hide all categories
-            document.getElementById('strength-category').style.display = 'none';
-            document.getElementById('cardio-category').style.display = 'none';
-            document.getElementById('yoga-category').style.display = 'none';
-
-            // Show selected category
-            document.getElementById(`${category}-category`).style.display = 'block';
-        }
-
+      
         function fetchData(apiEndpoint, targetId, params = {}) {
         const http = new XMLHttpRequest();
         const url = buildApiUrl(apiEndpoint, params);
