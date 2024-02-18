@@ -56,7 +56,6 @@
             /* From https://css.glass */
             background: rgba(255, 255, 255, 0.33);
             /* From https://css.glass */
-            background: rgba(255, 255, 255, 0.5);
             border-radius: 16px;
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
             backdrop-filter: blur(13.7px);
@@ -71,13 +70,15 @@
         .card-body2{
             /* From https://css.glass */
             background: rgba(89, 159, 228, 0.5);
-            border-radius: 16px;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(13.7px);
-            -webkit-backdrop-filter: blur(13.7px);
-            border: 1px solid rgba(89, 159, 228, 0.66);
+           
             border-radius: 10px;
             padding: 20px;
+            background: rgba(214, 213, 248, 0.31);
+            border-radius: 16px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid rgba(214, 213, 248, 0.66);
         }
 
      
@@ -109,6 +110,17 @@
         .text{
             align-self: center;
         }
+        #yogaCategory{
+            overflow: scroll;
+        }
+        ::-webkit-scrollbar {
+  width: 3px;
+  background-color: white; /* or add it to the track */
+}
+::-webkit-scrollbar-thumb {
+  background: #0056b3;
+}
+
     </style>
 </head>
 
@@ -124,7 +136,7 @@
                         <div class="card-body">
                             <h5 class="card-title">Strength Training</h5>
                             <p class="card-text">Watch training videos to learn exercises with proper form.</p>
-                            <button class="btn btn-primary" onclick="showCategory('strength')">Show</button>
+                            <button class="btn " onclick="showCategory('strength')">Show</button>
                         </div>
                     </div>
                 </div>
@@ -201,7 +213,7 @@
                             <form action="/logCardio" method="post">
                                 <label for="runningStats">Running Stats:</label>
                                 <input type="text" id="runningStats" name="runningStats" required>
-                                <button type="submit" class="btn mt-2">Log Cardio</button>
+                                <button type="submit" class="btn btn-primary mt-2">Log Cardio</button>
                             </form>
                         </div>
                     </div>
