@@ -5,147 +5,43 @@
     <title>Diet Page</title>
     <style>
         /* General Styles */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f8f9fa;
-            color: #333;
-        }
-
         /* Container Styles */
         .container {
             width: 95%;
             max-width: 800px;
-            margin: 0 auto;
+            margin: 20 auto 20 auto;
+            margin-top: 30px;
+            margin-bottom: 20px;
             padding: 20px;
             background-color: #fff;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-
         /* Header Styles */
-        .header {
+         .header {
             text-align: center;
-            margin-bottom: 20px;
         }
-
-        .header h1 {
-            font-size: 28px;
-            margin: 10px 0;
-        }
-
         .header p {
-            font-size: 16px;
+            font-size: 1.2rem;
             margin: 0;
-        }
-
-        /* Button Styles */
-        .oval-button {
-            display: block;
-            margin: 0 auto 20px;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 20px;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .oval-button:hover {
-            background-color: #0056b3;
         }
 
         /* Content Styles */
         .section {
-            margin-top: 20px;
+            margin-bottom: 20px;
         }
 
         .section-title {
-            font-size: 24px;
-            margin-bottom: 10px;
+            font-size: 1.4rem;
+            margin-top: 20px;
         }
 
-        .widget {
-            width: 100%;
-            background-color: #f0f0f0;
-            text-align: center;
-            padding: 20px; /* Increased padding for a bigger widget */
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        canvas {
-            width: 120px; /* Increased size for a bigger widget */
-            height: 120px; /* Increased size for a bigger widget */
-        }
-
-        .button-container {
-            display: flex;
-            justify-content: space-around;
-            margin-top: 10px;
-        }
-
-        .food-intake,
-        .water-intake {
-            margin-bottom: 10px;
-            text-align: center;
-        }
-
-        h3 {
-            font-size: 18px;
-            margin: 0;
-            margin-bottom: 5px;
-        }
-
-        .button {
-            width: 100px;
-            height: 30px;
-            background-color: #007bff;
-            border: none;
-            color: #fff;
-            font-size: 14px;
-            cursor: pointer;
-            transition: background-color 0.3s, color 0.3s;
-            border-radius: 5px;
-            margin-bottom: 5px;
-        }
-
-        .button.clicked {
-            background-color: #0056b3;
-        }
-
-        .emoji {
-            font-size: 20px;
-            margin-right: 5px;
-            margin-bottom: 5px;
-        }
-
-        /* Back Button Styles */
-        .back-button {
-            display: block;
-            width: fit-content; /* Adjusted width for better styling */
-            margin: 20px auto; /* Centered the button */
-            padding: 10px 20px;
-            background-color: #007bff;
-            color: #fff;
-            text-decoration: none; /* Removed underlining */
-            border-radius: 20px;
-            font-size: 16px;
-            transition: background-color 0.3s;
-        }
-
-        .back-button:hover {
-            background-color: #0056b3;
-        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Staying Nourished & Hydrated</h1>
+            <h1 class="display">Staying Nourished & Hydrated</h1>
             <p>Let food be thy medicine and medicine be thy food. - Hippocrates</p>
         </div>
 
@@ -199,7 +95,7 @@
             <div class="section">
                 <form action="/nutrition/saveNutrition" method="POST">  
                     <fieldset>
-                      <legend><span>&#x1F4A6;</span> Water Intake:</legend>
+                      <legend class="section-title"><span>&#x1F4A6;</span> Water Intake:</legend>
                       <div class="form-group">
                         <label for="waterIntake">Number of Glasses:</label>
                         <input type="number" id="waterIntake" name="waterIntake" min="0" step="1" class="form-control">
@@ -211,7 +107,7 @@
                     </fieldset>
                 
                     <fieldset>
-                      <legend><span>&#x1F374;</span> Food Intake:</legend>
+                      <legend class="section-title"><span>&#x1F374;</span> Food Intake:</legend>
                       <div class="form-group">
                         <label>Breakfast <span>&#x1F373;</span>:</label><br>
                         <input type="checkbox" id="breakfastMeal" name="breakfastMeal">
@@ -297,34 +193,48 @@
 
 <!-- nutritionData.ejs -->
 <div class="section">
-    <h1>Most Recent Nutrition Data</h1>
+    <h1 style="margin-top: 20px;">Most Recent Nutrition Data</h1>
 
     <% if (currentData) { %>
     <div>
-        <p>Latest Entry Date: <%= currentData.date %></p>
-        <p>Water Intake: <%= currentData.waterIntake %></p>
-        <p>Hydration Notes: <%= currentData.waterNotes %></p>
-        <p>Breakfast (Meal): <%= currentData.breakfast.meal %></p>
-        <p>Breakfast (Snack): <%= currentData.breakfast.snack %></p>
-        <p>Breakfast Notes: <%= currentData.breakfast.description %></p>
-        <p>Lunch (Meal): <%= currentData.lunch.meal %></p>
-        <p>Lunch (Snack): <%= currentData.lunch.snack %></p>
-        <p>Lunch Notes: <%= currentData.lunch.description %></p>
-        <p>Dinner (Meal): <%= currentData.dinner.meal %></p>
-        <p>Dinner (Snack): <%= currentData.dinner.snack %></p>
-        <p>Dinner Notes: <%= currentData.dinner.description %></p>
-        <p>Snacks (Healthy): <%= currentData.snacks.healthy %></p>
-        <p>Snacks (Unhealthy): <%= currentData.snacks.unhealthy %></p>
-        <p>Snacks Notes: <%= currentData.snacks.description %></p>
+        <p><b>Latest Entry Date:</b> <%= currentData.date %></p>
+        <p><b>Water Intake:</b> <%= currentData.waterIntake %> glasses</p>
+        <p><b>Water Notes:</b> <%= currentData.waterNotes %></p>
+        <p><b>Breakfast:</b>
+        <ul>
+            <li>Meal: <%= currentData.breakfast.meal %></li>
+            <li>Snack: <%= currentData.breakfast.snack %></li>
+            <li>Notes: <%= currentData.breakfast.description %></li>
+        </ul>
+        </p>
+        <p><b>Lunch:</b>
+            <ul>
+            <li>Meal: <%= currentData.lunch.meal %></li>
+            <li>Snack: <%= currentData.lunch.snack %></li>
+            <li>Notes: <%= currentData.lunch.description %></li>
+            </ul> 
+        </p>
+        <p><b>Dinner: </b> 
+            <ul>
+            <li>Meal: <%= currentData.dinner.meal %></li>
+            <li>Snack: <%= currentData.dinner.snack %></li>
+            <li>Notes: <%= currentData.dinner.description %></li>
+            </ul>
+        </p>
+        <p><b>Snacks: </b> 
+            <ul>
+            <li>Healthy: <%= currentData.snacks.healthy %></li>
+            <li>Unhealthy: <%= currentData.snacks.unhealthy %></li>
+            <li>Notes: <%= currentData.snacks.description %></li>
+            </ul>
+        </p>
         <!-- Add more fields to display other saved data -->
     </div>
     <% } else { %>
     <p>No nutrition data found.</p>
     <% } %>
-</div>
-
-            
-        <a href="/home" class="back-button">Back to Home</a>
+</div>   
+        <!-- <a href="/home" class="back-button">Back to Home</a> -->
     </div>
     
     <script>
