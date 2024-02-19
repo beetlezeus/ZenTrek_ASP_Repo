@@ -1,4 +1,6 @@
-<div class="row mt-5">
+
+
+<div class="row mt-5" style="margin-bottom: 20px;">
     <div class="col-md-6 m-auto">
         <div class="card card-body">
             <h1 class="text-center mb-3">
@@ -76,50 +78,98 @@
                         <option value="prefer not to say" <%= gender === 'prefer not to say' ? 'selected' : '' %>>Prefer Not to Say</option>
                     </select>
                 </div>
-                <div class="form-group">
-                    <label for="fitness_level">Fitness Level</label>
+                <div class="form-group" style="margin-top: 10px;">
+                    <label for="fitness_level">Fitness Level: </label>
+                    <span style="position:absolute; margin-left:10px; min-width: 20px;" id="fitnessValue">
+                        </span>
                     <input
                         type="range"
                         id="fitness_level"
                         name="fitness_level"
                         class="form-range"
-                        min="0"
+                        min="1"
                         max="10"
                         step="0.5"
+                        list="fit_values"
                         value="<%= fitness_level %>"
                     />
+                    <datalist id="fit_values" 
+                    style="display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    writing-mode: vertical-lr; width: 100%; font-size: 0.8rem;">
+                        <option value="1" label="Beginner"></option>
+                        <option value="5" label="Intermediate"></option>
+                        <option value="10" label="Fit"></option>
+                      </datalist>
                 </div>
-                <div class="form-group">
-                    <label for="general_health">General Health</label>
+                <div class="form-group" style="margin-top: 10px;">
+                    <label for="general_health">General Health: </label>
+                    <span style="position:absolute; margin-left:10px; min-width: 20px;" id="healthValue">
+                    </span>
                     <input
                         type="range"
                         id="general_health"
                         name="general_health"
                         class="form-range"
-                        min="0"
+                        min="1"
                         max="10"
-                        step="0.5"
+                        step="1"
+                        list="health_values"
                         value="<%= general_health %>"
                     />
+                    <datalist id="health_values" 
+                    style="display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    writing-mode: vertical-lr; width: 100%; font-size: 0.8rem;">
+                        <option value="1" label="Poor"></option>
+                        <option value="5" label="Average"></option>
+                        <option value="10" label="Excellent"></option>
+                      </datalist>
                 </div>
-                <div class="form-group">
-                    <label for="goals_next_30_days">Goals for the Next 30 Days</label>
-                    <textarea
-                        id="goals_next_30_days"
-                        name="goals_next_30_days"
+                <div class="form-group" style="margin-top: 10px;">
+                    <label for="activity_preference">Activity Preferences:</label>
+                    <input type="checkbox" id="strength" name="strength">
+                        <label for="strength">Strength Training</label>
+                        <input type="checkbox" id="cardio" name="cardio">
+                        <label for="cardio">Cardio</label>
+                        <input type="checkbox" id="yoga" name="yoga">
+                        <label for="yoga">Yoga</label>
+                        <input type="checkbox" id="meditation" name="meditation">
+                        <label for="meditation">Meditation</label>
+                </div>
+                <div class="form-group" style="margin-bottom: 20px;">
+                    <label for="activity_frequency">Exercise Goal:</label>
+                    <input
+                        type="number"
+                        id="activity_frequency"
+                        name="activity_frequency"
                         class="form-control"
-                        style="margin-bottom: 20px;"
-                        placeholder="Enter your goals"
-                    ><%= goals_next_30_days %></textarea>
+                        placeholder="Enter Target Per Week"
+                        min="1"
+                        max="30"
+                        value="<%= activity_frequency %>"
+                    />
                 </div>
-                <button type="submit" class="btn btn-primary saveDet">
+                <button type="submit" class="btn btn-primary proceed">
                     Save Changes
                 </button>
                 <!-- Home Button -->
-                <a href="/home" class="btn btn-secondary btn-block mr-2">
+                <a href="/userDetails/" class="btn btn-secondary btn-block mr-2">
                     Cancel
                 </a>
             </form>
         </div>
     </div>
 </div>
+
+<script type="text/javascript" charset="utf-8">
+    var fitRange = document.getElementById("fitness_level").value;
+    var fitValue = document.getElementById("fitnessValue");
+      fitValue.innerHTML = fitRange;
+
+    var healthRange = document.getElementById("general_health").value;
+    var healthValue = document.getElementById("healthValue");
+      healthValue.innerHTML = healthRange;
+      </script>
