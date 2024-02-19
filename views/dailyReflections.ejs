@@ -176,22 +176,25 @@
                         Journal Entry: <%= reflection.journalEntry %>
                       </p>
                       <p class="card-text">Mood: <%= reflection.mood %></p>
-                      <!-- Edit and Delete buttons -->
-                      <form
+                      <!-- Edit and Delete button -->
+                      <!-- Edit button is left out for now, will evaluate the need via user surveys to see if we should implement-->
+                      <!-- <form
                         action="/dailyReflections/editReflection/<%= reflection._id %>"
                         method="get"
                       >
-                        <button type="submit" class="btn btn-warning">
+                        <button
+                          type="submit"
+                          class="btn"
+                          style="margin-bottom: 5px"
+                        >
                           Edit
                         </button>
-                      </form>
+                      </form> -->
                       <form
                         action="/dailyReflections/deleteReflection/<%= reflection._id %>"
                         method="post"
                       >
-                        <button type="submit" class="btn btn-danger">
-                          Delete
-                        </button>
+                        <button type="submit" class="btn wrng">Delete</button>
                       </form>
                     </div>
                   </div>
