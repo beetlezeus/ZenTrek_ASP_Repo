@@ -41,9 +41,28 @@ const userDetailsSchema = new mongoose.Schema({
         min: 0,
         max: 10,
     },
-    goals_next_30_days: {  //what type of activity would you like to perform? enum "cardio, strength, yoga"
-        type: String,
+    strength: {
+        type: Boolean,
+        default: false,
     },
+    cardio: {
+        type: Boolean,
+        default: false,
+    },
+    yoga: {
+        type: Boolean,
+        default: false,
+    },
+    meditation: {
+        type: Boolean,
+        default: false,
+    },
+    activity_frequency: {
+        type: Number,
+        default: 4,
+        min: 1,
+        max: 30,
+    }
 });
 
 // Add a static method for updating user details

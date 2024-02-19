@@ -1,306 +1,308 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Meditation Page</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <style>
-        .header-container {
-            background-color: #3498db;
-            color: #ffffff;
-            padding: 10px;
-            text-align: left;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+      .header-container {
+        background-color: #3498db;
+        color: #ffffff;
+        padding: 10px;
+        text-align: left;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
 
-        .header-container h1 {
-            margin: 0;
-        }
+      .header-container h1 {
+        margin: 0;
+      }
 
-        .menu-placeholder {
-            width: 100%;
-            height: 50px;
-            background-color: transparent;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 10px;
-        }
+      .menu-placeholder {
+        width: 100%;
+        height: 50px;
+        background-color: transparent;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+      }
 
-        .inner-rectangle {
-            margin: auto;
-            height: 350px;
-            background-color: none;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            margin-top: 20px;
-        }
+      .inner-rectangle {
+        margin: auto;
+        height: 350px;
+        background-color: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        margin-top: 20px;
+      }
 
-        #breathing-container {
-            background-color: transparent;
-        }
+      #breathing-container {
+        background-color: transparent;
+      }
 
-        #button-container {
-            text-align: center;
-            margin-top: 20px;
-        }
+      #button-container {
+        text-align: center;
+        margin-top: 20px;
+      }
 
-        #button-container button {
-            width: 120px;
-            height: 40px;
-            margin: 0 10px;
-        }
+      #button-container button {
+        width: 120px;
+        height: 40px;
+        margin: 0 10px;
+      }
 
-        .oval-button {
-            width: 150px;
-            height: 60px;
-            border-radius: 30px;
-            margin-left: auto;
-            margin-top: 20px;
-            cursor: pointer;
-        }
+      .oval-button {
+        width: 150px;
+        height: 60px;
+        border-radius: 30px;
+        margin-left: auto;
+        margin-top: 20px;
+        cursor: pointer;
+      }
 
-        .centered-content {
-            text-align: center;
-            margin-top: 50px;
-        }
+      .centered-content {
+        text-align: center;
+        margin-top: 50px;
+      }
 
-        .Dietcontainer {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .back-button {
-            display: block;
-            text-align: center;
-            margin-top: 20px;
-            text-decoration: none;
-            color: #ffffff;
-            background-color: #180075;
-            padding: 10px 20px;
-            border-radius: 5px;
-            width: 200px;
-        }
-        .card {
-            background-color: transparent;
-            border: none;
-            box-shadow: none;
-            padding: 30px;
-            height: 100%;
+      .Dietcontainer {
         display: flex;
         flex-direction: column;
+      }
 
-        }
+      .back-button {
+        display: block;
+        text-align: center;
+        margin-top: 20px;
+        text-decoration: none;
+        color: #ffffff;
+        background-color: #180075;
+        padding: 10px 20px;
+        border-radius: 5px;
+        width: 200px;
+      }
+      .card {
+        background-color: transparent;
+        border: none;
+        box-shadow: none;
+        padding: 30px;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+      }
 
-        .card-body {
-            border-radius: 10px;
-            padding: 20px;
-            /* From https://css.glass */
-            background: rgba(255, 255, 255, 0.33);
-            /* From https://css.glass */
-            background: rgba(255, 255, 255, 0.5);
-            border-radius: 16px;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(13.7px);
-            -webkit-backdrop-filter: blur(13.7px);
-            border: 1px solid rgba(255, 255, 255, 0.66);
-            justify-content: center;
+      .card-body {
+        border-radius: 10px;
+        padding: 20px;
+        /* From https://css.glass */
+        background: rgba(255, 255, 255, 0.33);
+        /* From https://css.glass */
+        background: rgba(255, 255, 255, 0.5);
+        border-radius: 16px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(13.7px);
+        -webkit-backdrop-filter: blur(13.7px);
+        border: 1px solid rgba(255, 255, 255, 0.66);
+        justify-content: center;
 
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-        }
-        .card-body2{
-            /* From https://css.glass */
-            background: rgba(89, 159, 228, 0.5);
-            border-radius: 16px;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(13.7px);
-            -webkit-backdrop-filter: blur(13.7px);
-            border: 1px solid rgba(89, 159, 228, 0.66);
-            border-radius: 10px;
-            padding: 20px;
-        }
-        .bigcotnainer{
-          margin: 30px;
-        }
-        .button{
-            background-color: #180075;
-            color: #ffffff;
-            text-align: center;
-            margin-top: 20px;
-            text-decoration: none;
-            color: #ffffff;
-            background-color: #180075;
-            border-radius: 5px;
-            justify-content: center;
-
-        }
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+      }
+      .card-body2 {
+        /* From https://css.glass */
+        background: rgba(89, 159, 228, 0.5);
+        border-radius: 16px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(13.7px);
+        -webkit-backdrop-filter: blur(13.7px);
+        border: 1px solid rgba(89, 159, 228, 0.66);
+        border-radius: 10px;
+        padding: 20px;
+      }
+      .bigcontainer {
+        margin: 30px;
+      }
     </style>
-</head>
-<body>
-    <div class="bigcotnainer card card-body">
-        <div class="centered-content">
-            <h1>Let's Calm the Body & Mind</h1>
-            <p>"Clouds come and go like clouds in a windy sky. Conscious breathing is my anchor."-thich nhat hanh</p>
-        </div>
-    
+  </head>
+  <body>
+    <div class="bigcontainer card card-body">
+      <div class="centered-content">
+        <h1>Let's Calm the Body & Mind</h1>
+        <p>
+          "Clouds come and go like clouds in a windy sky. Conscious breathing is
+          my anchor."-thich nhat hanh
+        </p>
+      </div>
 
-    <div class="menu-placeholder">
+      <div class="menu-placeholder">
         <select id="breathing-selector" onchange="changeBreathingAnimation()">
-            <option value="meditation1">Meditation- Calm</option>
-            <option value="meditation2">Meditation- anxiety attack</option>
-            <option value="meditation3">Meditation Technique 3</option>
-            <option value="meditation4">Meditation Technique 4</option>
+          <option value="meditation1">Meditation- Calm</option>
+          <option value="meditation2">Meditation- anxiety attack</option>
+          <option value="meditation3">Meditation Technique 3</option>
+          <option value="meditation4">Meditation Technique 4</option>
         </select>
-    </div>
-    
-    <div class="inner-rectangle" id="breathing-container"></div>
+      </div>
 
-    <div id="button-container">
-        <button class="button" id="start-button">Start</button>
-        <button class="button" id="stop-button">Stop</button>
+      <div class="inner-rectangle" id="breathing-container"></div>
+
+      <div id="button-container">
+        <button class="btn" id="start-button">Start</button>
+        <button class="btn" id="stop-button">Stop</button>
+      </div>
     </div>
-    
-    <a href="/home" class="back-button">Back to Home</a>
-</div>
 
     <script>
-        let scene, camera, renderer, sphere, animationId;
-        let radius = 50;
-        let inhaleTime = 2000;
-        let exhaleTime = 2000;
-        let pauseTime = 1000;
+      let scene, camera, renderer, sphere, animationId;
+      let radius = 50;
+      let inhaleTime = 2000;
+      let exhaleTime = 2000;
+      let pauseTime = 1000;
 
-        function goBack() {
-            window.history.back();
+      function goBack() {
+        window.history.back();
+      }
+
+      function init() {
+        scene = new THREE.Scene();
+        camera = new THREE.PerspectiveCamera(
+          75,
+          window.innerWidth / window.innerHeight,
+          0.1,
+          1000
+        );
+        camera.position.z = 200;
+        renderer = new THREE.WebGLRenderer({ alpha: true });
+        renderer.setSize(window.innerWidth * 0.6, window.innerHeight * 0.6);
+        document
+          .getElementById("breathing-container")
+          .appendChild(renderer.domElement);
+        let geometry = new THREE.SphereGeometry(radius, 32, 32);
+        let material = new THREE.MeshBasicMaterial({
+          color: 0x3498db,
+          wireframe: true,
+        });
+        sphere = new THREE.Mesh(geometry, material);
+        scene.add(sphere);
+        startBreathingAnimation1();
+        document
+          .getElementById("start-button")
+          .addEventListener("click", startBreathing);
+        document
+          .getElementById("stop-button")
+          .addEventListener("click", stopBreathing);
+      }
+
+      function animate() {
+        animationId = requestAnimationFrame(animate);
+        sphere.scale.set(
+          map(Math.sin(Date.now() / inhaleTime), -1, 1, 1, 1.5),
+          map(Math.sin(Date.now() / inhaleTime), -1, 1, 1, 1.5),
+          map(Math.sin(Date.now() / inhaleTime), -1, 1, 1, 1.5)
+        );
+        setTimeout(() => {
+          sphere.scale.set(
+            map(Math.sin(Date.now() / exhaleTime), -1, 1, 1.5, 1),
+            map(Math.sin(Date.now() / exhaleTime), -1, 1, 1.5, 1),
+            map(Math.sin(Date.now() / exhaleTime), -1, 1, 1.5, 1)
+          );
+        }, pauseTime);
+        renderer.render(scene, camera);
+      }
+
+      function startBreathing() {
+        if (!animationId) {
+          animate();
         }
+      }
 
-        function init() {
-            scene = new THREE.Scene();
-            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-            camera.position.z = 200;
-            renderer = new THREE.WebGLRenderer({ alpha: true }); 
-            renderer.setSize(window.innerWidth * 0.6, window.innerHeight * 0.6);
-            document.getElementById('breathing-container').appendChild(renderer.domElement);
-            let geometry = new THREE.SphereGeometry(radius, 32, 32);
-            let material = new THREE.MeshBasicMaterial({ color: 0x3498db, wireframe: true });
-            sphere = new THREE.Mesh(geometry, material);
-            scene.add(sphere);
+      function stopBreathing() {
+        if (animationId) {
+          cancelAnimationFrame(animationId);
+          animationId = null;
+        }
+      }
+
+      function map(value, start1, stop1, start2, stop2) {
+        return (
+          ((value - start1) / (stop1 - start1)) * (stop2 - start2) + start2
+        );
+      }
+
+      function changeBreathingAnimation() {
+        var selector = document.getElementById("breathing-selector");
+        var selectedValue = selector.options[selector.selectedIndex].value;
+
+        stopBreathing();
+
+        switch (selectedValue) {
+          case "meditation1":
             startBreathingAnimation1();
-            document.getElementById('start-button').addEventListener('click', startBreathing);
-            document.getElementById('stop-button').addEventListener('click', stopBreathing);
+            break;
+          case "meditation2":
+            startBreathingAnimation2();
+            break;
+          case "meditation3":
+            startBreathingAnimation3();
+            break;
+          case "meditation4":
+            startBreathingAnimation4();
+            break;
+          default:
+            break;
         }
+      }
 
-        function animate() {
-            animationId = requestAnimationFrame(animate);
-            sphere.scale.set(
-                map(Math.sin(Date.now() / inhaleTime), -1, 1, 1, 1.5),
-                map(Math.sin(Date.now() / inhaleTime), -1, 1, 1, 1.5),
-                map(Math.sin(Date.now() / inhaleTime), -1, 1, 1, 1.5)
-            );
-            setTimeout(() => {
-                sphere.scale.set(
-                    map(Math.sin(Date.now() / exhaleTime), -1, 1, 1.5, 1),
-                    map(Math.sin(Date.now() / exhaleTime), -1, 1, 1.5, 1),
-                    map(Math.sin(Date.now() / exhaleTime), -1, 1, 1.5, 1)
-                );
-            }, pauseTime);
-            renderer.render(scene, camera);
-        }
+      function startBreathingAnimation1() {
+        inhaleTime = 2000;
+        exhaleTime = 2000;
+        pauseTime = 1000;
+        sphere.material.color.set(0x3498db);
+        startBreathing();
+      }
 
-        function startBreathing() {
-            if (!animationId) {
-                animate();
-            }
-        }
+      function startBreathingAnimation2() {
+        inhaleTime = 10000;
+        holdTime = 5000;
+        exhaleTime = 10000;
+        pauseTime = 800;
+        sphere.material.color.set(0xff5733);
+        startBreathingWithHold();
+      }
 
-        function stopBreathing() {
-            if (animationId) {
-                cancelAnimationFrame(animationId);
-                animationId = null;
-            }
-        }
+      function startBreathingAnimation3() {
+        inhaleTime = 10000;
+        holdTime = 5000;
+        exhaleTime = 2000;
+        pauseTime = 1200;
+        sphere.material.color.set(0x2ecc71);
+        startBreathingWithHold();
+      }
 
-        function map(value, start1, stop1, start2, stop2) {
-            return (value - start1) / (stop1 - start1) * (stop2 - start2) + start2;
-        }
-
-        function changeBreathingAnimation() {
-            var selector = document.getElementById('breathing-selector');
-            var selectedValue = selector.options[selector.selectedIndex].value;
-
-            stopBreathing(); 
-
-            switch (selectedValue) {
-                case 'meditation1':
-                    startBreathingAnimation1();
-                    break;
-                case 'meditation2':
-                    startBreathingAnimation2();
-                    break;
-                case 'meditation3':
-                    startBreathingAnimation3();
-                    break;
-                case 'meditation4':
-                    startBreathingAnimation4();
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        function startBreathingAnimation1() {
-            inhaleTime = 2000;
-            exhaleTime = 2000;
-            pauseTime = 1000;
-            sphere.material.color.set(0x3498db);
+      function startBreathingWithHold() {
+        animate();
+        setTimeout(() => {
+          setTimeout(() => {
+            exhaleTime -= holdTime;
             startBreathing();
-        }
+          }, holdTime);
+        }, inhaleTime);
+      }
 
-        function startBreathingAnimation2() {
-            inhaleTime = 10000; 
-            holdTime = 5000;    
-            exhaleTime = 10000; 
-            pauseTime = 800;
-            sphere.material.color.set(0xff5733);
-            startBreathingWithHold();
-        }
+      function startBreathingAnimation4() {
+        inhaleTime = 2500;
+        exhaleTime = 1500;
+        pauseTime = 2000;
+        sphere.material.color.set(0xff00ff);
+        startBreathing();
+      }
 
-        function startBreathingAnimation3() {
-            inhaleTime = 10000; 
-            holdTime = 5000;  
-            exhaleTime = 2000;  
-            pauseTime = 1200;
-            sphere.material.color.set(0x2ecc71);
-            startBreathingWithHold();
-        }
-
-        function startBreathingWithHold() {
-            animate();
-            setTimeout(() => {
-                setTimeout(() => {
-                    exhaleTime -= holdTime; 
-                    startBreathing();
-                }, holdTime);
-            }, inhaleTime);
-        }
-
-        function startBreathingAnimation4() {
-            inhaleTime = 2500;
-            exhaleTime = 1500;
-            pauseTime = 2000;
-            sphere.material.color.set(0xff00ff);
-            startBreathing();
-        }
-
-        init();
+      init();
     </script>
-</body>
+  </body>
 </html>
-

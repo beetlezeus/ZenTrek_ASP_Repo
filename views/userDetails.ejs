@@ -50,20 +50,79 @@
 
       <!-- Display Fitness Level -->
       <div class="form-group">
-        <label for="fitness_level">Fitness Level:</label>
-        <span><%= fitness_level %></span>
+        <label for="fitness_level">Fitness Level: </label>
+        <% if(fitness_level <= 3){ %>
+        <span> Beginner</span>
+        <% } %> <% if(fitness_level >3 && fitness_level <=6){ %>
+        <span> Intermediate</span>
+        <% } %> <% if(fitness_level > 6){ %>
+        <span> Fit</span>
+        <% } %>
       </div>
 
       <!-- Display General Health -->
       <div class="form-group">
         <label for="general_health">General Health:</label>
-        <span><%= general_health %></span>
+        <% if(general_health <= 3){ %>
+        <span> Poor</span>
+        <% } %> <% if(general_health > 3 && general_health <=7){ %>
+        <span> Average </span>
+        <% } %> <% if(general_health > 7){ %>
+        <span> Excellent</span>
+        <% } %>
       </div>
 
       <!-- Display Goals for the Next 30 Days -->
+
       <div class="form-group">
-        <label for="goals_next_30_days">Goals for the Next 30 Days:</label>
-        <span><%= goals_next_30_days %></span>
+        <label for="activity_preference"> Preferred Activities:</label>
+        <% if(strength) { %>
+        <span
+          style="
+            padding: 5px;
+            border-radius: 5px;
+            background-color: #bad3fe;
+            margin: 5px;
+          "
+          >Strength-Training</span
+        >
+        <% } %> <% if(cardio) { %>
+        <span
+          style="
+            padding: 5px;
+            border-radius: 5px;
+            background-color: #bad3fe;
+            margin: 5px;
+          "
+          >Cardio</span
+        >
+        <% } %> <% if(yoga) { %>
+        <span
+          style="
+            padding: 5px;
+            border-radius: 5px;
+            background-color: #bad3fe;
+            margin: 5px;
+          "
+          >Yoga</span
+        >
+        <% } %> <% if(meditation) { %>
+        <span
+          style="
+            padding: 5px;
+            border-radius: 5px;
+            background-color: #bad3fe;
+            margin: 5px;
+          "
+          >Meditation</span
+        >
+        <% } %>
+      </div>
+
+      <!-- Display Gender -->
+      <div class="form-group">
+        <label for="activity_frequency">Weekly Activity Goal: </label>
+        <span><%= activity_frequency %> sessions </span>
       </div>
 
       <!-- Edit Details Button -->

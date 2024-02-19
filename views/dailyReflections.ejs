@@ -4,207 +4,209 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Daily Reflections</title>
-<style>
-     .card {
-            background-color: transparent;
-            border: none;
-            box-shadow: none;
-            padding: 10px;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
+    <style>
+      .card {
+        background-color: transparent;
+        border: none;
+        box-shadow: none;
+        padding: 10px;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+      }
 
-        }
+      .card-body {
+        border-radius: 10px;
+        padding: 20px;
+        /* From https://css.glass */
+        background: rgba(255, 255, 255, 0.33);
+        /* From https://css.glass */
+        background: rgba(255, 255, 255, 0.5);
+        border-radius: 16px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(13.7px);
+        -webkit-backdrop-filter: blur(13.7px);
+        border: 1px solid rgba(255, 255, 255, 0.66);
+        justify-content: center;
 
-        .card-body {
-            border-radius: 10px;
-            padding: 20px;
-            /* From https://css.glass */
-            background: rgba(255, 255, 255, 0.33);
-            /* From https://css.glass */
-            background: rgba(255, 255, 255, 0.5);
-            border-radius: 16px;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(13.7px);
-            -webkit-backdrop-filter: blur(13.7px);
-            border: 1px solid rgba(255, 255, 255, 0.66);
-            justify-content: center;
-
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-        }
-        .card-body2{
-            /* From https://css.glass */
-            background: rgba(89, 159, 228, 0.5);
-            border-radius: 16px;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(13.7px);
-            -webkit-backdrop-filter: blur(13.7px);
-            border: 1px solid rgba(89, 159, 228, 0.66);
-            border-radius: 10px;
-            padding: 20px;
-        }
-        .big-content{
-          margin: 30px;
-
-        }
-        .card2{
-          /* From https://css.glass */
-background: rgba(214, 213, 248, 0.31);
-border-radius: 16px;
-box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-backdrop-filter: blur(18px);
--webkit-backdrop-filter: blur(18px);
-border: 1px solid rgba(214, 213, 248, 0.66);
-
-        }
-        .text-center{
-          display: flex;
-          gap: 20px;
-          justify-content: center;
-        }
-
-     
-
-</style>  </head>
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+      }
+      .card-body2 {
+        /* From https://css.glass */
+        background: rgba(89, 159, 228, 0.5);
+        border-radius: 16px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(13.7px);
+        -webkit-backdrop-filter: blur(13.7px);
+        border: 1px solid rgba(89, 159, 228, 0.66);
+        border-radius: 10px;
+        padding: 20px;
+      }
+      .big-content {
+        margin: 30px;
+      }
+      .card2 {
+        /* From https://css.glass */
+        background: rgba(214, 213, 248, 0.31);
+        border-radius: 16px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+        border: 1px solid rgba(214, 213, 248, 0.66);
+      }
+      .text-center {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+      }
+    </style>
+  </head>
   <body>
     <div class="container">
       <div class="big-conten card card-body">
-      <h1 class="text-center">Daily Reflections</h1>
+        <h1 class="text-center">Daily Reflections</h1>
 
-      <!-- Journaling Area -->
-      <div class="row mt-5">
-        <div class="col-md-8 m-auto">
-          <div class="card2 p-4">
-            <h2 class="text-center mb-4">Journaling Area</h2>
-            <form action="/dailyReflections/submitReflections" method="post">
-              <!-- Question for the day with emoji -->
-              <div class="form-group">
-                <label for="questionOfTheDay"
-                  ><strong>Question of the Day:</strong> 📅</label
-                >
-                <p class="mb-4"><%= questionOfTheDay %></p>
-              </div>
-
-              <!-- Answer area -->
-              <div class="form-group">
-                <label for="journalEntry">Reflect on your day:</label>
-                <textarea
-                  id="journalEntry"
-                  name="journalEntry"
-                  class="form-control"
-                  rows="5"
-                  required
-                ></textarea>
-              </div>
-
-              <!-- Mood selection -->
-              <div class="form-group">
-                <label for="mood">Select your mood for the day:</label>
-                <select id="mood" name="mood" class="form-control" required>
-                  <option value="happy">😊 Happy</option>
-                  <option value="neutral">😐 Neutral</option>
-                  <option value="sad">😢 Sad</option>
-                  <!-- Add more mood options as needed -->
-                </select>
-              </div>
-
-              <!-- Submit Button with emoji -->
-              <button type="submit" class="btn btn-primary mt-4 btn-block">
-                Submit Reflections 🚀
-              </button>
-            </form>
-          </div>
-        </div>
-      </div>
-
-      <!-- Section to display the currently selected reflection entry -->
-      <div class="row mt-5">
-        <div class="col-md-8 m-auto" >
-          <div class="card2 p-4" id="currentReflection">
-            <h2 class="text-center mb-3">Current Reflection</h2>
-            <div id="reflectionContent">
-              <% if (currentReflection) { %>
-              <p>Date: <%= currentReflection.date %></p>
-              <p>Journal Entry: <%= currentReflection.journalEntry %></p>
-              <p>Mood: <%= currentReflection.mood %></p>
-              <% } else { %>
-              <p>No reflections yet.</p>
-              <% } %>
-            </div>
-            <div class="text-center mt-3">
-              <!-- Previous Entry button -->
-              <form
-                action="/dailyReflections/previousReflection/<%= currentReflection ? currentReflection._id : '' %>"
-                method="get"
-              >
-                <button
-                  type="submit"
-                  class="btn btn-secondary mr-3"
-                  style="margin-top: 5px"
-                >
-                  Previous Entry
-                </button>
-              </form>
-              <!-- Next Entry button -->
-              <form
-                action="/dailyReflections/nextReflection/<%= currentReflection ? currentReflection._id : '' %>"
-                method="get"
-              >
-                <button
-                  type="submit"
-                  class="btn btn-secondary"
-                  style="margin-top: 5px"
-                >
-                  Next Entry
-                </button>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Section to display all reflection entries -->
-      <div class="row mt-5">
-        <div class="col-md-8 m-auto">
-        <div class="card2 p-4">
-          <h2 class="text-center mb-3">All Reflections</h2>
-          <div class="row">
-            <% if (reflections.length > 0) { %> <%
-            reflections.forEach((reflection, index) => { %>
-            <div class="col-md-4 mb-4" id="reflection<%= index %>">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">Date: <%= reflection.date %></h5>
-                  <p class="card-text">
-                    Journal Entry: <%= reflection.journalEntry %>
-                  </p>
-                  <p class="card-text">Mood: <%= reflection.mood %></p>
-                  <!-- Edit and Delete buttons -->
-                  <form
-                    action="/dailyReflections/editReflection/<%= reflection._id %>"
-                    method="get"
+        <!-- Journaling Area -->
+        <div class="row mt-5">
+          <div class="col-md-8 m-auto">
+            <div class="card2 p-4">
+              <h2 class="text-center mb-4">Journaling Area</h2>
+              <form action="/dailyReflections/submitReflections" method="post">
+                <!-- Question for the day with emoji -->
+                <div class="form-group">
+                  <label for="questionOfTheDay"
+                    ><strong>Question of the Day:</strong> 📅</label
                   >
-                    <button type="submit" class="btn btn-warning">Edit</button>
-                  </form>
-                  <form
-                    action="/dailyReflections/deleteReflection/<%= reflection._id %>"
-                    method="post"
-                  >
-                    <button type="submit" class="btn btn-danger">Delete</button>
-                  </form>
+                  <p class="mb-4"><%= questionOfTheDay %></p>
                 </div>
-              </div>
+
+                <!-- Answer area -->
+                <div class="form-group">
+                  <label for="journalEntry">Reflect on your day:</label>
+                  <textarea
+                    id="journalEntry"
+                    name="journalEntry"
+                    class="form-control"
+                    rows="5"
+                    required
+                  ></textarea>
+                </div>
+
+                <!-- Mood selection -->
+                <div class="form-group">
+                  <label for="mood">Select your mood for the day:</label>
+                  <select id="mood" name="mood" class="form-control" required>
+                    <option value="happy">😊 Happy</option>
+                    <option value="neutral">😐 Neutral</option>
+                    <option value="sad">😢 Sad</option>
+                    <!-- Add more mood options as needed -->
+                  </select>
+                </div>
+
+                <!-- Submit Button with emoji -->
+                <button type="submit" class="btn btn-primary mt-4 btn-block">
+                  Submit Reflections 🚀
+                </button>
+              </form>
             </div>
-            <% }); %> <% } else { %>
-            <p>No reflections yet.</p>
-            <% } %>
           </div>
         </div>
-      </div>
+
+        <!-- Section to display the currently selected reflection entry -->
+        <div class="row mt-5">
+          <div class="col-md-8 m-auto">
+            <div class="card2 p-4" id="currentReflection">
+              <h2 class="text-center mb-3">Current Reflection</h2>
+              <div id="reflectionContent">
+                <% if (currentReflection) { %>
+                <p>Date: <%= currentReflection.date %></p>
+                <p>Journal Entry: <%= currentReflection.journalEntry %></p>
+                <p>Mood: <%= currentReflection.mood %></p>
+                <% } else { %>
+                <p>No reflections yet.</p>
+                <% } %>
+              </div>
+              <div class="text-center mt-3">
+                <!-- Previous Entry button -->
+                <form
+                  action="/dailyReflections/previousReflection/<%= currentReflection ? currentReflection._id : '' %>"
+                  method="get"
+                >
+                  <button
+                    type="submit"
+                    class="btn btn-secondary mr-3"
+                    style="margin-top: 5px"
+                  >
+                    Previous Entry
+                  </button>
+                </form>
+                <!-- Next Entry button -->
+                <form
+                  action="/dailyReflections/nextReflection/<%= currentReflection ? currentReflection._id : '' %>"
+                  method="get"
+                >
+                  <button
+                    type="submit"
+                    class="btn btn-secondary"
+                    style="margin-top: 5px"
+                  >
+                    Next Entry
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section to display all reflection entries -->
+        <div class="row mt-5">
+          <div class="col-md-8 m-auto">
+            <div class="card2 p-4">
+              <h2 class="text-center mb-3">All Reflections</h2>
+              <div class="row">
+                <% if (reflections.length > 0) { %> <%
+                reflections.forEach((reflection, index) => { %>
+                <div class="col-md-4 mb-4" id="reflection<%= index %>">
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title">Date: <%= reflection.date %></h5>
+                      <p class="card-text">
+                        Journal Entry: <%= reflection.journalEntry %>
+                      </p>
+                      <p class="card-text">Mood: <%= reflection.mood %></p>
+                      <!-- Edit and Delete button -->
+                      <!-- Edit button is left out for now, will evaluate the need via user surveys to see if we should implement-->
+                      <!-- <form
+                        action="/dailyReflections/editReflection/<%= reflection._id %>"
+                        method="get"
+                      >
+                        <button
+                          type="submit"
+                          class="btn"
+                          style="margin-bottom: 5px"
+                        >
+                          Edit
+                        </button>
+                      </form> -->
+                      <form
+                        action="/dailyReflections/deleteReflection/<%= reflection._id %>"
+                        method="post"
+                      >
+                        <button type="submit" class="btn wrng">Delete</button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+                <% }); %> <% } else { %>
+                <p>No reflections yet.</p>
+                <% } %>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
   </body>
 </html>
