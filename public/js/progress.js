@@ -69,6 +69,11 @@ let sketch1 = function(p5) {
             p5.text(streakDays[i], xPos, yPos);
             p5.pop();
         }
+
+
+        function streakLogic (timestamp){
+            
+        }
     }
 
 

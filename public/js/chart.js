@@ -1,6 +1,27 @@
+let moodData;
 
 // Chart.js code
 document.addEventListener('DOMContentLoaded', function () {
+
+
+    // Fetch mood data from server
+    fetch('dailyreflections/moodData')
+        .then(response => response.json())
+        .then(data => {
+            moodData = data.moodData;
+
+            // Update chart dataset with mood data
+    moodChart.data.datasets[0].data = moodData;
+
+
+    // Redraw the chart
+    console.log('Last 7 moods:', moodData);
+     })
+    .catch(error => {
+        console.error('Error fetching mood data:', error);
+    });
+
+
     const DATA_COUNT = 7;
 
     let ctx = document.getElementById("myChart").getContext('2d');
@@ -18,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function () {
             ],
             datasets: [{
                 label: 'Logged mood',
-                data: [3, 1, 5, 2, 3, 5, 4], // Replace this with actual data from the database
+                data: [], // Replace this with actual data from the database
                 lineTension: 0.3,
             }]
         },
@@ -32,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function () {
             scales: {
                 y: {
                     min: 1,   // Set the minimum value of the y-axis
-                    max: 5,   // Set the maximum value of the y-axis
+                    max: 3,   // Set the maximum value of the y-axis
                     ticks: {
                         stepSize: 1,
                         precision: 0,
@@ -57,6 +78,9 @@ document.addEventListener('DOMContentLoaded', function () {
         },
     });
 });
+
+
+
 
 let width, height, gradient;
 function getGradient(ctx, chartArea) {

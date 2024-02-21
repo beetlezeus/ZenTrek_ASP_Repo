@@ -161,5 +161,30 @@ router.get('/nextReflection/:id', ensureAuthenticated, async (req, res) => {
     }
 });
 
+// Route to fetch mood data
+/// Route to fetch mood data
+router.get('/moodData', ensureAuthenticated, async (req, res) => {
+  try {
+    // Fetch reflections for the current user
+    let reflections = await Reflection.find({ user: req.user._id });
+
+    // Extract mood emojis from reflections
+    let moods = reflections.map(reflection => reflection.mood.emoji);
+
+    // Log mood data to the console
+    console.log('Mood data:', moods);
+
+    // Send mood data as JSON response
+    res.json({ moods });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+
+
+
+
 // Export the router
 module.exports = router;
