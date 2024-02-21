@@ -1,27 +1,6 @@
 let moodData;
 
-// Chart.js code
 document.addEventListener('DOMContentLoaded', function () {
-
-
-    // Fetch mood data from server
-    fetch('dailyreflections/moodData')
-        .then(response => response.json())
-        .then(data => {
-            moodData = data.moodData;
-
-            // Update chart dataset with mood data
-    moodChart.data.datasets[0].data = moodData;
-
-
-    // Redraw the chart
-    console.log('Last 7 moods:', moodData);
-     })
-    .catch(error => {
-        console.error('Error fetching mood data:', error);
-    });
-
-
     const DATA_COUNT = 7;
 
     let ctx = document.getElementById("myChart").getContext('2d');
@@ -77,20 +56,51 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         },
     });
+
+    // Fetch mood data from server
+    fetch('dailyreflections/moodData')
+        .then(response => response.json())
+        .then(data => {
+            moodData = data.moodData;
+
+            // Get the last 7 mood values
+        const lastSevenMoods = moodData.slice(-7);
+
+        // Map mood data to numerical values
+        const mappedMoodData = mapMoodsToValues(lastSevenMoods);
+
+        // Update chart dataset with mapped mood data
+        moodChart.data.datasets[0].data = mappedMoodData;
+
+        // Redraw the chart
+        moodChart.update();
+            // Log mood data
+            console.log('Last 7 moods:', lastSevenMoods);
+        })
+        .catch(error => {
+            console.error('Error fetching mood data:', error);
+        });
 });
 
+function mapMoodsToValues(moodArray) {
+    const moodMap = {
+        'sad': 1,
+        'neutral': 2,
+        'happy': 3
+    };
 
+    return moodArray.map(mood => moodMap[mood] || 0); // Default to 0 if mood is not found in moodMap
+}
 
 
 let width, height, gradient;
+
 function getGradient(ctx, chartArea) {
-    const chartWidth = chartArea.right - chartArea.left;
-    const chartHeight = chartArea.bottom - chartArea.top;
-    if (!gradient || width !== chartWidth || height !== chartHeight) {
+    if (!gradient || width !== chartArea.right - chartArea.left || height !== chartArea.bottom - chartArea.top) {
         // Create the gradient because this is either the first render
         // or the size of the chart has changed
-        width = chartWidth;
-        height = chartHeight;
+        width = chartArea.right - chartArea.left;
+        height = chartArea.bottom - chartArea.top;
         gradient = ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
         gradient.addColorStop(0, 'red'); // Replace with actual color or use Utils.CHART_COLORS.red
         gradient.addColorStop(0.5, 'yellow'); // Replace with actual color or use Utils.CHART_COLORS.yellow
