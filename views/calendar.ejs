@@ -202,27 +202,20 @@
       document.getElementById('currentMonthYear').innerText = getMonthName(<%= monthlyData.month %>) + ' <%= monthlyData.year %>';
 
       function showDataInfo(day) {
-    var allDataInfo = document.querySelectorAll("[id^='dataInfo_']");
-    allDataInfo.forEach(function(dataInfo) {
-        if (dataInfo.id !== "dataInfo_" + day) {
-            dataInfo.style.display = "none";
-            // Remove full screen class when closing
-            dataInfo.parentElement.classList.remove("popup-screen");
-        }
-    });
-
     var dataInfo = document.getElementById("dataInfo_" + day);
     if (dataInfo.style.display === "none") {
         dataInfo.style.display = "block";
-        // Expand the cell to full screen
-        dataInfo.parentElement.classList.add("popup-screen");
+        // Check if parent element already has popup-screen class
+        if (!dataInfo.parentElement.classList.contains("popup-screen")) {
+            // Expand the cell to larger size
+            dataInfo.parentElement.classList.add("popup-screen");
+        }
     } else {
         dataInfo.style.display = "none";
-        // Remove full screen class when closing
+        // Remove popup-screen class when closing
         dataInfo.parentElement.classList.remove("popup-screen");
     }
 }
-
 
 
     </script>
