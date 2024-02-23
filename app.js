@@ -225,6 +225,8 @@ app.use('/dailyReflections', require('./routes/dailyReflections'));
 app.use('/progress', require('./routes/progress'));  
 //nutrition router
 app.use('/nutrition', require('./routes/nutrition'));
+//calendar router
+app.use('/calendar', require('./routes/calendar'));
 
 const PORT = process.env.PORT || 8000;
 

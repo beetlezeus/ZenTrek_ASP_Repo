@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendar</title>
+    <!-- Add the evo-calendar.css for styling -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/evo-calendar@1.1.2/evo-calendar/css/evo-calendar.min.css" />
+
+    <style>
+        /* Add custom CSS styles here */
+        form {
+    max-width: 300px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    display: inline-block;
+    vertical-align: top; /* Align forms vertically */
+}
+
+input[type="text"],
+textarea,
+input[type="color"],
+button {
+    width: calc(100% - 20px); /* Adjust width to account for padding */
+    padding: 10px;
+    margin: 5px 0;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+textarea {
+    height: 80px;
+}
+
+input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+button {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+/* Ensure forms are displayed side by side */
+#addEventForm {
+    float: left;
+    margin-right: 20px;
+}
+
+body {
+            padding-top: 50px; /* Ensure proper spacing from the top */
+        }
+        .container {
+            max-width: 800px; /* Adjusted max width */
+            margin: auto; /* Center the container */
+        }
+        .form-group {
+            margin-bottom: 15px; /* Increased spacing between form groups */
+        }
+        .form-check-label {
+            padding-left: 0; /* Adjusted padding for checkbox label */
+        }
+        .btn {
+            width: 100%; /* Make buttons full-width */
+        }
+
+    </style>
+</head>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendar</title>
+    <!-- Add Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Calendar</h1>
+        <!-- Your calendar content goes here -->
+        <div id="calendar"></div>
+
+        <!-- Add jQuery library (required) -->
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+
+        <!-- Add the evo-calendar.js for functionality -->
+        <script src="https://cdn.jsdelivr.net/npm/evo-calendar@1.1.2/evo-calendar/js/evo-calendar.min.js"></script>
+
+        <script>
+            $(document).ready(function () {
+                // Initialize Evo Calendar
+                $("#calendar").evoCalendar({
+                    calendarEvents: [], // Initialize with empty events
+                });
+
+                // Function to fetch and add daily reflection events to the calendar
+                function fetchAndAddReflectionEvents() {
+                    $.ajax({
+                        url: '/api/daily-reflections', // Endpoint to fetch daily reflection data
+                        method: 'GET',
+                        success: function (data) {
+                            // Format reflection data for display on the calendar
+                            const reflectionEvents = data.map(reflection => {
+                                return {
+                                    id: reflection._id,
+                                    name: reflection.questionOfTheDay,
+                                    date: new Date(reflection.date), // Convert date to JavaScript Date object
+                                    type: 'reflection', // You can define your own type for reflections
+                                    // You can add more properties like description, mood, etc. if needed
+                                };
+                            });
+
+                            // Add reflection events to the calendar
+                            $("#calendar").evoCalendar('addCalendarEvent', reflectionEvents);
+                        },
+                        error: function (error) {
+                            console.error('Error fetching daily reflections:', error);
+                        }
+                    });
+                }
+
+                // Fetch and add daily reflection events when the page loads
+                fetchAndAddReflectionEvents();
+            });
+        </script>
+
+        <!-- Add event form -->
+        <form id="addEventForm" class="mt-4 mb-6">
+            <div class="form-group">
+                <input type="text" id="eventId" class="form-control" placeholder="Event ID" required>
+            </div>
+            <div class="form-group">
+                <input type="text" id="eventName" class="form-control" placeholder="Event Name" required>
+            </div>
+            <div class="form-group">
+                <input type="text" id="eventDate" class="form-control" placeholder="Event Date" required>
+            </div>
+            <div class="form-group">
+                <input type="text" id="eventType" class="form-control" placeholder="Event Type" required>
+            </div>
+            <div class="form-group">
+                <input type="text" id="eventBadge" class="form-control" placeholder="Event Badge">
+            </div>
+            <div class="form-group">
+                <textarea id="eventDescription" class="form-control" placeholder="Event Description"></textarea>
+            </div>
+            <div class="form-group">
+                <input type="color" id="eventColor" class="form-control" placeholder="Event Color">
+            </div>
+            <div class="form-group form-check">
+                <input type="checkbox" id="eventEveryYear" class="form-check-input">
+                <label for="eventEveryYear" class="form-check-label">Event Every Year</label>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Event</button>
+        </form>
+
+        <!-- Remove event form -->
+        <form id="removeEventForm" class="mt-4">
+            <div class="form-group">
+                <input type="text" id="removeEventId" class="form-control" placeholder="Event ID to Remove" required>
+            </div>
+            <button type="submit" class="btn btn-danger">Remove Event</button>
+        </form>
+    </div>
+
+    <!-- Add Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
