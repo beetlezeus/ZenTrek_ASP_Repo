@@ -58,29 +58,30 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // Fetch mood data from server
-    fetch('dailyreflections/moodData')
+    fetch('dailyReflections/moodData')
         .then(response => response.json())
         .then(data => {
-            moodData = data.moodData;
+            moodData = data.moods;
 
             // Get the last 7 mood values
-        const lastSevenMoods = moodData.slice(-7);
+        // const lastSevenMoods = moodData.slice(-7);
 
         // Map mood data to numerical values
-        const mappedMoodData = mapMoodsToValues(lastSevenMoods);
+        const mappedMoodData = mapMoodsToValues(moodData);
 
         // Update chart dataset with mapped mood data
         moodChart.data.datasets[0].data = mappedMoodData;
-
+            console.log(moodData);
         // Redraw the chart
         moodChart.update();
             // Log mood data
-            console.log('Last 7 moods:', lastSevenMoods);
         })
         .catch(error => {
             console.error('Error fetching mood data:', error);
         });
 });
+
+
 
 function mapMoodsToValues(moodArray) {
     const moodMap = {

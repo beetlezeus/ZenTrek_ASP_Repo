@@ -18,6 +18,7 @@ router.get('/', ensureAuthenticated, async (req, res) => {
          const questionOfTheDay = "How did today go for you?";
 
         // Render the dailyReflections.ejs template and pass the necessary data
+
         res.render('dailyReflections', { 
             title: 'Daily Reflections', 
             layout: 'layoutLoggedIn', 
@@ -147,6 +148,9 @@ router.get('/nextReflection/:id', ensureAuthenticated, async (req, res) => {
         // Get the next reflection
         let nextReflection = reflections[nextIndex];
 
+
+    console.log('Mood data:', currentReflection);
+
         // Render the dailyReflections.ejs template and pass the necessary data
         res.render('dailyReflections', { 
             title: 'Daily Reflections', 
@@ -162,14 +166,13 @@ router.get('/nextReflection/:id', ensureAuthenticated, async (req, res) => {
 });
 
 // Route to fetch mood data
-/// Route to fetch mood data
 router.get('/moodData', ensureAuthenticated, async (req, res) => {
   try {
     // Fetch reflections for the current user
-    let reflections = await Reflection.find({ user: req.user._id });
+    const reflections = await Reflection.find({ user: req.user._id });
 
-    // Extract mood emojis from reflections
-    let moods = reflections.map(reflection => reflection.mood.emoji);
+    // Extract mood from reflections
+    let moods = reflections.map(reflection => reflection.mood);
 
     // Log mood data to the console
     console.log('Mood data:', moods);
