@@ -3,7 +3,7 @@ let dateData;
 
 document.addEventListener('DOMContentLoaded', function () {
     const DATA_COUNT = 7;
-
+    const skipped = (ctx, value) => ctx.p0.skip || ctx.p1.skip ? value : undefined;
     let ctx = document.getElementById("myChart").getContext('2d');
     let moodChart = new Chart(ctx, {
         type: 'line',
@@ -12,8 +12,22 @@ document.addEventListener('DOMContentLoaded', function () {
             datasets: [{
                 label: 'Logged mood',
                 data: [], // Will be replaced with fetched data
-                spanGaps: true,
                 lineTension: 0.3,
+                spanGaps: true,
+                segment: {
+                    borderDash: (ctx) => skipped(ctx, [5, 5]) || [],
+                },
+                pointStyle: 'circle', // Set the point style to circle
+                pointRadius: 6, 
+                pointBackgroundColor: function (context) {
+                    const chart = context.chart;
+                    const { ctx, chartArea } = chart;
+    
+                    if (!chartArea) {
+                        return;
+                    }
+                    return getGradient(ctx, chartArea);
+                },
             }]
         },
         options: {
@@ -21,6 +35,9 @@ document.addEventListener('DOMContentLoaded', function () {
             plugins: {
                 legend: {
                     position: 'top',
+                    labels: {
+                        usePointStyle: true, 
+                    }
                 },
             },
             scales: {
@@ -28,9 +45,21 @@ document.addEventListener('DOMContentLoaded', function () {
                     min: 1,   // Set the minimum value of the y-axis
                     max: 3,   // Set the maximum value of the y-axis
                     ticks: {
-                        stepSize: 0.05,
-                        precision: 2,
-                    }
+                        stepSize: 1,
+                        precision: 1,
+                        callback: function(value, index, values) {
+                            switch(value) {
+                                case 1:
+                                    return '😢'; 
+                                case 2:
+                                    return '😐'; 
+                                case 3:
+                                    return '😊'; 
+                                default:
+                                    return ''; 
+                            }
+                        },
+                    },
                 }
             },
             elements: {
@@ -45,48 +74,46 @@ document.addEventListener('DOMContentLoaded', function () {
                         }
                         return getGradient(ctx, chartArea);
                     },
-                    borderWidth: 2
+                    borderWidth: 3
                 }
             }
         },
     });
 
-    // Define mapMoodsToValues function
+// Define mapMoodsToValues function
 function mapMoodsToValues(moodArray) {
-    return moodArray.map(entry => entry.averageMood || 0);
-}
+    return moodArray.map(entry => entry.averageMood || null);
+};
 
-    // Fetch mood data from server
-    fetch('dailyReflections/moodData')
-    .then(response => response.json())
-    .then(data => {
-        moodData = data.moods;
-        dateData = data.dates;
+// Fetch mood data from server
+fetch('dailyReflections/moodData')
+.then(response => response.json())
+.then(data => {
+    moodData = data.moods;
+    dateData = data.dates;
 
-        // Calculate the average mood for each day over the last 7 days
-        const lastSevenDaysMoods = getLastSevenDaysMoods(moodData, dateData);
+    // Calculate the average mood for each day over the last 7 days
+    const lastSevenDaysMoods = getLastSevenDaysMoods(moodData, dateData);
 
-        // Map mood data to numerical values
-        const mappedMoodData = mapMoodsToValues(lastSevenDaysMoods);
+    // Map mood data to numerical values
+    const mappedMoodData = mapMoodsToValues(lastSevenDaysMoods);
 
-        // Update chart dataset with mapped mood data
-        moodChart.data.datasets[0].data = mappedMoodData;
-        console.log(mappedMoodData);
+    // Update chart dataset with mapped mood data
+    moodChart.data.datasets[0].data = mappedMoodData;
+    console.log(mappedMoodData);
 
-        // Redraw the chart
-        moodChart.update();
-    })
-    .catch(error => {
-        console.error('Error fetching mood data:', error);
-    });
+    moodChart.update();
+})
+.catch(error => {
+    console.error('Error fetching mood data:', error);
+});
 });
 
 // Function to calculate the average mood for each day over the last 7 days
 function getLastSevenDaysMoods(moodData, dateData) {
     const lastSevenDaysMoods = [];
     const currentDate = new Date();
-    currentDate.setHours(0, 0, 0, 0); // Reset hours to 0 for accurate comparison
-
+    currentDate.setHours(0, 0, 0, 0); 
 
     // Iterate through the last 7 days
     for (let i = 0; i < 7; i++) {
@@ -94,22 +121,21 @@ function getLastSevenDaysMoods(moodData, dateData) {
         targetDate.setDate(currentDate.getDate() - i); 
         const targetDateString = targetDate.toISOString().slice(0, 10);
 
-
          // Filter mood data for the current day
          const moodsForDay = [];
          for (let j = 0; j < dateData.length; j++) {
              let date = dateData[j].slice(0, 10);
              if (date === targetDateString) {
-                 moodsForDay.push(moodData[j]);
+                moodsForDay.push(moodData[j]);
              }
             }
 
-         console.log(targetDateString, moodsForDay);
+        console.log(targetDateString, moodsForDay);
 
         // Calculate the average mood for the day
-        let totalMoodValue = 0; // We'll sum up the mood values for all entries
+        let totalMoodValue = 0; 
         moodsForDay.forEach(moodEntry => {
-            totalMoodValue += mapMoodToValue(moodEntry); // Convert mood strings to numerical values and add them up
+            totalMoodValue += mapMoodToValue(moodEntry);
         });
 
         let averageMood;
@@ -117,7 +143,7 @@ function getLastSevenDaysMoods(moodData, dateData) {
             averageMood = totalMoodValue / moodsForDay.length;
         } else {
             averageMood = null;
-        }
+        };
 
         lastSevenDaysMoods.unshift({
             date: targetDateString,
@@ -136,22 +162,22 @@ function mapMoodToValue(mood) {
         'neutral': 2,
         'happy': 3
     };
-
     return moodMap[mood] || 0; // Default to 0 if mood is not found in moodMap
 }
+
 
 let width, height, gradient;
 
 function getGradient(ctx, chartArea) {
     if (!gradient || width !== chartArea.right - chartArea.left || height !== chartArea.bottom - chartArea.top) {
-        // Create the gradient because this is either the first render
-        // or the size of the chart has changed
+
+        
         width = chartArea.right - chartArea.left;
         height = chartArea.bottom - chartArea.top;
         gradient = ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
-        gradient.addColorStop(0, 'red'); // Replace with actual color or use Utils.CHART_COLORS.red
-        gradient.addColorStop(0.5, 'yellow'); // Replace with actual color or use Utils.CHART_COLORS.yellow
-        gradient.addColorStop(1, 'green'); // Replace with actual color or use Utils.CHART_COLORS.green
+        gradient.addColorStop(0, 'red'); 
+        gradient.addColorStop(0.5, 'yellow'); 
+        gradient.addColorStop(1, 'green'); 
     }
     return gradient;
 }
