@@ -108,6 +108,8 @@
 const express = require('express');
 const router = express.Router();
 const UserDetails = require('../models/UserDetails');
+const { ensureAuthenticated } = require('../config/auth');
+
 
 // User Details Page
 router.get('/', async (req, res) => {
@@ -329,6 +331,25 @@ router.post('/edit', async (req, res) => {
             req.flash('error_msg', 'Please Add or Edit User Details');
             res.redirect('/users/login');
         }
+    }
+});
+
+
+router.get('/activities', ensureAuthenticated, async (req, res) => {
+    try {
+        const userDetails = await UserDetails.findOne({ user: req.user._id });
+
+        const activityArray = [
+            { name: "Strength", value: userDetails.strength, days: userDetails.strength_frequency },
+            { name: "Cardio", value: userDetails.cardio, days: userDetails.cardio_frequency },
+            { name: "Yoga", value: userDetails.yoga, days: userDetails.yoga_frequency },
+            { name: "Meditation", value: userDetails.meditation, days: userDetails.meditation_frequency }
+        ];
+
+        res.json(activityArray);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
     }
 });
 

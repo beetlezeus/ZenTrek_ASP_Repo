@@ -100,7 +100,7 @@ fetch('dailyReflections/moodData')
 
     // Update chart dataset with mapped mood data
     moodChart.data.datasets[0].data = mappedMoodData;
-    console.log(mappedMoodData);
+    // console.log(mappedMoodData);
 
     moodChart.update();
 })
@@ -130,7 +130,7 @@ function getLastSevenDaysMoods(moodData, dateData) {
              }
             }
 
-        console.log(targetDateString, moodsForDay);
+        // console.log(targetDateString, moodsForDay);
 
         // Calculate the average mood for the day
         let totalMoodValue = 0; 
@@ -151,7 +151,7 @@ function getLastSevenDaysMoods(moodData, dateData) {
         });
     }
 
-    console.log(lastSevenDaysMoods);
+    // console.log(lastSevenDaysMoods);
     return lastSevenDaysMoods;
 }
 

@@ -105,12 +105,7 @@ let sketch1 = function(p5) {
 
 let sketch2 = function(p5) {
     let canvasStreaks;
-    let activityArray = [
-        { name: "Strength", value: true, days: 7},
-        { name: "Yoga", value: true, days: 2 },
-        { name: "Cardio", value: true, days: 6},
-        { name: "Meditation", value: true, days: 6}
-    ];
+    let activityArray = [];
 
     p5.setup = function() {
         let containerStreaks = document.getElementById("streakContainer");
@@ -127,6 +122,18 @@ let sketch2 = function(p5) {
 
         // Set the canvas height to match the container height
         p5.resizeCanvas(containerWidth, containerHeight);
+
+        fetch('userDetails/activities')
+            .then(response => response.json())
+            .then(data => {
+                // Update the activityArray with the fetched data
+
+                console.log(data);
+                activityArray = data;
+            })
+            .catch(error => console.error('Error fetching activity array:', error));
+
+        
     }
 
     p5.draw = function() {
