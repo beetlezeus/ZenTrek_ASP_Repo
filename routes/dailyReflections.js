@@ -185,6 +185,23 @@ router.get('/moodData', ensureAuthenticated, async (req, res) => {
   }
 });
 
+//Route to get total number of reflections
+router.get('/total', ensureAuthenticated, async (req, res) => {
+  try {
+    // Fetch reflections for the current user
+    const reflections = await Reflection.find({ user: req.user._id });
+
+    // Total number of reflections
+    const numberOfReflections = reflections.length;
+
+    // Send mood data as JSON response
+    res.json({ numberOfReflections });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
 
 
 

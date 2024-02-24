@@ -68,7 +68,10 @@
     width: 18%;
     height: auto; 
     object-fit: cover;
-    filter: brightness(3) hue-rotate(30deg);
     padding: 0;
     margin: 0;
+}
+
+.new-badge {
+     filter: brightness(80%) saturate(50%) invert(13%) sepia(72%) saturate(995%) hue-rotate(224deg) brightness(95%) contrast(200%);
 }
