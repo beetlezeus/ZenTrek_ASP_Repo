@@ -8,18 +8,11 @@ document.addEventListener('DOMContentLoaded', function () {
     let moodChart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: [
-                'Sunday',
-                'Monday',
-                'Tuesday',
-                'Wednesday',
-                'Thursday',
-                'Friday',
-                'Saturday',  
-            ],
+            labels: generateLastSevenDaysLabels(),
             datasets: [{
                 label: 'Logged mood',
-                data: [], // Replace this with actual data from the database
+                data: [], // Will be replaced with fetched data
+                spanGaps: true,
                 lineTension: 0.3,
             }]
         },
@@ -93,7 +86,6 @@ function getLastSevenDaysMoods(moodData, dateData) {
     const lastSevenDaysMoods = [];
     const currentDate = new Date();
     currentDate.setHours(0, 0, 0, 0); // Reset hours to 0 for accurate comparison
-    
 
 
     // Iterate through the last 7 days
@@ -124,7 +116,7 @@ function getLastSevenDaysMoods(moodData, dateData) {
         if (moodsForDay.length > 0) {
             averageMood = totalMoodValue / moodsForDay.length;
         } else {
-            averageMood = 0;
+            averageMood = null;
         }
 
         lastSevenDaysMoods.unshift({
@@ -133,7 +125,7 @@ function getLastSevenDaysMoods(moodData, dateData) {
         });
     }
 
-    // console.log(lastSevenDaysMoods);
+    console.log(lastSevenDaysMoods);
     return lastSevenDaysMoods;
 }
 
@@ -147,8 +139,6 @@ function mapMoodToValue(mood) {
 
     return moodMap[mood] || 0; // Default to 0 if mood is not found in moodMap
 }
-
-
 
 let width, height, gradient;
 
@@ -164,4 +154,17 @@ function getGradient(ctx, chartArea) {
         gradient.addColorStop(1, 'green'); // Replace with actual color or use Utils.CHART_COLORS.green
     }
     return gradient;
+}
+
+function generateLastSevenDaysLabels() {
+    const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const today = new Date().getDay(); // Get today's day index (0 for Sunday, 1 for Monday, ..., 6 for Saturday)
+    const labels = [];
+
+    for (let i = 0; i < 7; i++) {
+        const dayIndex = (today - i + 7) % 7; 
+        labels.unshift(daysOfWeek[dayIndex]); 
+    }
+
+    return labels;
 }
