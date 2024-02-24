@@ -132,30 +132,19 @@
                     <label for="activity_preference">Activity Preferences:</label>
                     <input type="checkbox" id="strength" name="strength">
                         <label for="strength">Strength Training</label>
-                        <input type="checkbox" id="cardio" name="cardio">
+                    <input type="checkbox" id="cardio" name="cardio">
                         <label for="cardio">Cardio</label>
-                        <input type="checkbox" id="yoga" name="yoga">
+                    <input type="checkbox" id="yoga" name="yoga">
                         <label for="yoga">Yoga</label>
-                        <input type="checkbox" id="meditation" name="meditation">
+                    <input type="checkbox" id="meditation" name="meditation">
                         <label for="meditation">Meditation</label>
                 </div>
-                <div class="form-group" style="margin-bottom: 20px;">
-                    <label for="activity_frequency" style="margin-top: 10px;">Exercise Goal (weekly):</label>
-                    <input
-                        type="number"
-                        id="activity_frequency"
-                        name="activity_frequency"
-                        class="form-control"
-                        placeholder="Enter Target Per Week"
-                        min="1"
-                        max="30"
-                        value="<%= activity_frequency %>"
-                    />
-                </div>
+                
+                <div id="exerciseGoalContainer" style="margin-bottom: 10px;"> </div>
                 <button type="submit" class="btn btn-primary proceed">
                     Save Changes
                 </button>
-                <!-- Home Button -->
+                
                 <a href="/userDetails/" class="btn btn-secondary btn-block mr-2">
                     Cancel
                 </a>
@@ -172,4 +161,43 @@
     var healthRange = document.getElementById("general_health").value;
     var healthValue = document.getElementById("healthValue");
       healthValue.innerHTML = healthRange;
+
+      function generateExerciseGoalInputs() {
+        var exerciseGoalContainer = document.getElementById("exerciseGoalContainer");
+        var activities = ["strength", "cardio", "yoga", "meditation"];
+
+        activities.forEach(function(activity) {
+            var checkbox = document.getElementById(activity);
+            var inputField = document.getElementById(activity + "_frequency");
+
+            if (checkbox.checked && !inputField) {
+                var newInputField = document.createElement("div");
+                newInputField.classList.add("form-group");
+                newInputField.innerHTML = `
+                    <label for="${activity}_frequency">${activity.charAt(0).toUpperCase() + activity.slice(1)} Goal (weekly):</label>
+                    <input
+                        type="number"
+                        id="${activity}_frequency"
+                        name="${activity}_frequency"
+                        class="form-control"
+                        placeholder="Enter Target Per Week"
+                        min="1"
+                        max="7"
+                    />
+                `;
+                exerciseGoalContainer.appendChild(newInputField);
+            } else if (!checkbox.checked && inputField) {
+                inputField.parentElement.remove();
+            }
+        });
+
+      }
+
+    document.getElementById("strength").addEventListener("change", generateExerciseGoalInputs);
+    document.getElementById("cardio").addEventListener("change", generateExerciseGoalInputs);
+    document.getElementById("yoga").addEventListener("change", generateExerciseGoalInputs);
+    document.getElementById("meditation").addEventListener("change", generateExerciseGoalInputs);
+
+    generateExerciseGoalInputs();
+
       </script>

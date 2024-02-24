@@ -128,7 +128,11 @@ router.get('/', async (req, res) => {
             cardio: userDetails ? userDetails.cardio :'',
             yoga: userDetails ? userDetails.yoga : '',
             meditation: userDetails ? userDetails.meditation : '', 
-            activity_frequency: userDetails ? userDetails.activity_frequency : ''
+            strength_frequency: userDetails ? userDetails.strength_frequency : '',
+            cardio_frequency: userDetails ? userDetails.cardio_frequency : '',
+            yoga_frequency: userDetails ? userDetails.yoga_frequency : '',
+            meditation_frequency: userDetails ? userDetails.meditation_frequency : '',
+
         });
     } catch (error) {
         console.error(error);
@@ -157,9 +161,11 @@ router.get('/edit', async (req, res) => {
             strength: userDetails ? userDetails.strength :'',
             cardio: userDetails ? userDetails.cardio :'',
             yoga: userDetails ? userDetails.yoga : '',
-            meditation: userDetails ? userDetails.meditation : ''
-            , 
-            activity_frequency: userDetails ? userDetails.activity_frequency : ''
+            meditation: userDetails ? userDetails.meditation : '',
+            strength_frequency: userDetails ? userDetails.strength_frequency : '',
+            cardio_frequency: userDetails ? userDetails.cardio_frequency : '',
+            yoga_frequency: userDetails ? userDetails.yoga_frequency : '',
+            meditation_frequency: userDetails ? userDetails.meditation_frequency : ''
         });
     } catch (error) {
         console.error(error);
@@ -172,7 +178,7 @@ router.get('/edit', async (req, res) => {
 // Edit User Details Form Handle
 router.post('/edit', async (req, res) => {
     const name = req.user ? req.user.name : '';
-    let { first_name, last_name, age, weight, height, gender, fitness_level, general_health, strength, cardio, yoga, meditation, activity_frequency } = req.body;
+    let { first_name, last_name, age, weight, height, gender, fitness_level, general_health, strength, cardio, yoga, meditation, strength_frequency, cardio_frequency, yoga_frequency, meditation_frequency} = req.body;
 
     if (!first_name || !last_name) {
         errors.push({ msg: 'Please fill in all fields' });
@@ -225,7 +231,10 @@ router.post('/edit', async (req, res) => {
             cardio,
             yoga,
             meditation, 
-            activity_frequency
+            strength_frequency,
+            cardio_frequency,
+            yoga_frequency,
+            meditation_frequency
         });
     } else {
         try {
@@ -241,8 +250,11 @@ router.post('/edit', async (req, res) => {
                         cardio,
                         yoga,
                         meditation, 
-                        activity_frequency } }
-                );
+                        strength_frequency,
+                        cardio_frequency,
+                        yoga_frequency,
+                        meditation_frequency} }
+                    );
 
                 // Fetch the updated user details after the update
                 const updatedUserDetails = await UserDetails.findOne({ user: req.user._id });
@@ -262,7 +274,10 @@ router.post('/edit', async (req, res) => {
                     cardio: updatedUserDetails.cardio,
                     yoga: updatedUserDetails.yoga,
                     meditation: updatedUserDetails.meditation,
-                    activity_frequency: updatedUserDetails.activity_frequency
+                    strength_frequency: updatedUserDetails.strength_frequency,
+                    cardio_frequency: updatedUserDetails.cardio_frequency,
+                    yoga_frequency: updatedUserDetails.yoga_frequency,
+                    meditation_frequency: updatedUserDetails.meditation_frequency
                 });
             } else {
                 // Create new user details
@@ -280,7 +295,10 @@ router.post('/edit', async (req, res) => {
                     cardio,
                     yoga,
                     meditation,
-                    activity_frequency
+                    strength_frequency,
+                    cardio_frequency,
+                    yoga_frequency,
+                    meditation_frequency
                 });
 
                 const savedDetails = await newUserDetails.save();
@@ -299,9 +317,11 @@ router.post('/edit', async (req, res) => {
                     strength: savedDetails.strength,
                     cardio: savedDetails.cardio,
                     yoga: savedDetails.yoga,
-                    meditation: savedDetails.meditation
-                    ,
-                    activity_frequency : savedDetails.activity_frequency
+                    meditation: savedDetails.meditation,
+                    strength_frequency : savedDetails.strength_frequency,
+                    cardio_frequency:  savedDetails.cardio_frequency, 
+                    yoga_frequency: savedDetails.yoga_frequency,
+                    meditation_frequency: savedDetails.meditation_frequency,
                 });
             }
         } catch (error) {
