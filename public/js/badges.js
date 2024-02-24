@@ -12,13 +12,11 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 
 
-        // Log or use the number of reflections as needed
+        // Log or use the number of reflections 
         console.log('Number of Reflections:', numberOfReflections);
 
-        // Log or use the number of nutri logs as needed
+        // Log or use the number of nutri logs 
         console.log('Number of nutri logs:', numberOfNutriLogs);
-
-
 
         let nutritionContainer = document.getElementById("nutritionContainer");
         let reflectionContainer = document.getElementById("reflectionsContainer");

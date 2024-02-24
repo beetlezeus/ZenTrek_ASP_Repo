@@ -1,4 +1,5 @@
 let moodData;
+let dateData;
 
 document.addEventListener('DOMContentLoaded', function () {
     const DATA_COUNT = 7;
@@ -8,13 +9,13 @@ document.addEventListener('DOMContentLoaded', function () {
         type: 'line',
         data: {
             labels: [
+                'Sunday',
                 'Monday',
                 'Tuesday',
                 'Wednesday',
                 'Thursday',
                 'Friday',
-                'Saturday',
-                'Sunday'
+                'Saturday',  
             ],
             datasets: [{
                 label: 'Logged mood',
@@ -34,8 +35,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     min: 1,   // Set the minimum value of the y-axis
                     max: 3,   // Set the maximum value of the y-axis
                     ticks: {
-                        stepSize: 1,
-                        precision: 0,
+                        stepSize: 0.05,
+                        precision: 2,
                     }
                 }
             },
@@ -57,41 +58,96 @@ document.addEventListener('DOMContentLoaded', function () {
         },
     });
 
+    // Define mapMoodsToValues function
+function mapMoodsToValues(moodArray) {
+    return moodArray.map(entry => entry.averageMood || 0);
+}
+
     // Fetch mood data from server
     fetch('dailyReflections/moodData')
-        .then(response => response.json())
-        .then(data => {
-            moodData = data.moods;
+    .then(response => response.json())
+    .then(data => {
+        moodData = data.moods;
+        dateData = data.dates;
 
-            // Get the last 7 mood values
-        // const lastSevenMoods = moodData.slice(-7);
+        // Calculate the average mood for each day over the last 7 days
+        const lastSevenDaysMoods = getLastSevenDaysMoods(moodData, dateData);
 
         // Map mood data to numerical values
-        const mappedMoodData = mapMoodsToValues(moodData);
+        const mappedMoodData = mapMoodsToValues(lastSevenDaysMoods);
 
         // Update chart dataset with mapped mood data
         moodChart.data.datasets[0].data = mappedMoodData;
-            console.log(moodData);
+        console.log(mappedMoodData);
+
         // Redraw the chart
         moodChart.update();
-            // Log mood data
-        })
-        .catch(error => {
-            console.error('Error fetching mood data:', error);
-        });
+    })
+    .catch(error => {
+        console.error('Error fetching mood data:', error);
+    });
 });
 
+// Function to calculate the average mood for each day over the last 7 days
+function getLastSevenDaysMoods(moodData, dateData) {
+    const lastSevenDaysMoods = [];
+    const currentDate = new Date();
+    currentDate.setHours(0, 0, 0, 0); // Reset hours to 0 for accurate comparison
+    
 
 
-function mapMoodsToValues(moodArray) {
+    // Iterate through the last 7 days
+    for (let i = 0; i < 7; i++) {
+        const targetDate = new Date(currentDate);
+        targetDate.setDate(currentDate.getDate() - i); 
+        const targetDateString = targetDate.toISOString().slice(0, 10);
+
+
+         // Filter mood data for the current day
+         const moodsForDay = [];
+         for (let j = 0; j < dateData.length; j++) {
+             let date = dateData[j].slice(0, 10);
+             if (date === targetDateString) {
+                 moodsForDay.push(moodData[j]);
+             }
+            }
+
+         console.log(targetDateString, moodsForDay);
+
+        // Calculate the average mood for the day
+        let totalMoodValue = 0; // We'll sum up the mood values for all entries
+        moodsForDay.forEach(moodEntry => {
+            totalMoodValue += mapMoodToValue(moodEntry); // Convert mood strings to numerical values and add them up
+        });
+
+        let averageMood;
+        if (moodsForDay.length > 0) {
+            averageMood = totalMoodValue / moodsForDay.length;
+        } else {
+            averageMood = 0;
+        }
+
+        lastSevenDaysMoods.unshift({
+            date: targetDateString,
+            averageMood: averageMood
+        });
+    }
+
+    // console.log(lastSevenDaysMoods);
+    return lastSevenDaysMoods;
+}
+
+// Function to map mood to numerical value
+function mapMoodToValue(mood) {
     const moodMap = {
         'sad': 1,
         'neutral': 2,
         'happy': 3
     };
 
-    return moodArray.map(mood => moodMap[mood] || 0); // Default to 0 if mood is not found in moodMap
+    return moodMap[mood] || 0; // Default to 0 if mood is not found in moodMap
 }
+
 
 
 let width, height, gradient;

@@ -174,11 +174,15 @@ router.get('/moodData', ensureAuthenticated, async (req, res) => {
     // Extract mood from reflections
     let moods = reflections.map(reflection => reflection.mood);
 
+    let dates = reflections.map(reflection => reflection.date);
+
+
+
     // Log mood data to the console
     console.log('Mood data:', moods);
 
     // Send mood data as JSON response
-    res.json({ moods });
+    res.json({ moods, dates });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });
@@ -201,6 +205,8 @@ router.get('/total', ensureAuthenticated, async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
+
 
 
 
