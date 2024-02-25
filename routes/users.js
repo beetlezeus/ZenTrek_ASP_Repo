@@ -181,7 +181,7 @@ router.get('/timestamps', async (req, res) => {
         console.log('All logins:', user.timestamps);
 
         // Send a success response with last login date
-        res.status(200).json({ lastLogin: user.timestamps });
+        res.status(200).json({ timestamps: user.timestamps });
     } catch (error) {
         // Handle errors
         console.error('Error fetching timestamps:', error);

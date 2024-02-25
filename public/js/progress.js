@@ -31,6 +31,72 @@ let sketch1 = function(p5) {
         p5.setCanvasSize(containerDays.offsetWidth, containerDays.offsetHeight);
     });
 
+    let missed = [200, 19, 40, 1.4];
+
+
+    // function that reformats ISO timestamp into an array that contains day of the week and date
+    function standardFormat(isoTimestamp) {
+        const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        const date = new Date(isoTimestamp);
+        const dayIndex = date.getDay();
+        const dayOfWeek = daysOfWeek[dayIndex];
+        const formattedDate = date.toISOString().split('T')[0];
+        return {
+            date: formattedDate,
+            day: dayOfWeek
+        };
+    }
+    
+    let today = new Date();
+    console.log(today);
+
+    standardFormat(today);
+
+
+    // Function that formats todays's date and day and returns an array 
+    function todayFunc(){
+        const today = new Date();
+        const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        const dayIndex = today.getDay();
+        const dayOfWeek = daysOfWeek[dayIndex];
+        const formattedDate = today.toISOString().split('T')[0];
+        
+        const result = {
+            date: formattedDate,
+            day: dayOfWeek
+        };
+
+        console.log(result); 
+    }
+    todayFunc();
+
+    // fetching the timestamps
+    let timestampData;
+    fetch('/users/timestamps')
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to fetch timestamps');
+        }
+        return response.json();
+    })
+    .then(data => {
+       timestampData = data.timestamps;
+       let standardTimestamps = timestampData.map(standardFormat);
+       console.log(standardTimestamps);
+    })
+    .catch(error => {
+        console.error('Fetch error:', error.message);
+    });
+
+    
+
+    
+    
+
+    function colorLogic(today, lastLogin){
+        console.log(today);
+    }
+
     // Logic for drawing and creating the day streak badges 
     function dayBadges(canvas) {
         let streakDays = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
@@ -49,9 +115,9 @@ let sketch1 = function(p5) {
         let yPos = canvas.height / 2;
 
         // colors to use later when implementing streak logic
-        p5.fill(0, 220, 70);
-        // fill(200, 19, 40);
-        // fill(180, 200, 190);
+        p5.fill(0, 220, 70, 0.8);
+        p5.fill(missed[0], missed[1], missed[2], missed[3]);
+        // p5.fill(160);
         p5.strokeWeight(1);
         p5.stroke(108, 70, 250);
 
@@ -163,9 +229,7 @@ let sketch2 = function(p5) {
         let chosenActivities = [];
         let daysArray = [];
         let activityText = [];
-        // let containerStreaks = document.getElementById("streakContainer");
-        // let containerHeight = containerStreaks.offsetHeight; // Get the container's height
-        // let containerWidth = containerStreaks.offsetWidth; // Get the container's width
+    
     
         activities.forEach(item => {
             if (item.value === true) {
@@ -223,6 +287,8 @@ let sketch2 = function(p5) {
     }
     
 };
+
+
 
 
 new p5(sketch1);
