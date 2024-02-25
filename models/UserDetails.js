@@ -57,11 +57,29 @@ const userDetailsSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
     },
-    activity_frequency: {
+    strength_frequency: {
         type: Number,
         default: 4,
-        min: 1,
-        max: 30,
+        min: 0,
+        max: 7,
+    },
+    cardio_frequency: {
+        type: Number,
+        default: 4,
+        min: 0,
+        max: 7,
+    },
+    yoga_frequency: {
+        type: Number,
+        default: 4,
+        min: 0,
+        max: 7,
+    },
+    meditation_frequency: {
+        type: Number,
+        default: 4,
+        min: 0,
+        max: 7,
     }
 });
 

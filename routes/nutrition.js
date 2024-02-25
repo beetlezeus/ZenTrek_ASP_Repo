@@ -277,4 +277,24 @@ router.get('/data', async (req, res) => {
 });
 
 
+// Route to get total number of nutrition logs
+router.get('/total', ensureAuthenticated, async (req, res) => {
+    try {
+      // Fetch nutrition logs for the current user
+      const nutritionLogs = await Nutrition.find({ user: req.user._id });
+  
+      // Total number of reflections
+      const numberOfNutriLogs = nutritionLogs.length;
+
+  
+      // Send mood data as JSON response
+      res.json({ numberOfNutriLogs });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  });
+
+
+
 module.exports = router;

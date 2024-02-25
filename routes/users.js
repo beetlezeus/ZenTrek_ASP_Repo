@@ -93,14 +93,27 @@ router.post('/register',(req,res)=>{
 })
 
 //Login Handle
-router.post('/login',(req, res, next)=>{
-    passport.authenticate('local',{
-        //redirect to dashboard if passport success
-        successRedirect: '/home',
-        failureRedirect: '/users/login',
-        failureFlash: true
+router.post('/login', (req, res, next) => {
+    passport.authenticate('local', (err, user, info) => {
+        if (err) { return next(err); }
+        if (!user) { 
+            req.flash('error_msg', 'Invalid email or password');
+            return res.redirect('/users/login'); 
+        }
+        req.logIn(user, async (err) => {
+            if (err) { return next(err); }
+            // Update the lastLogin field for the user
+            user.lastLogin = new Date();
+            // Push the new login timestamp into the timestamps array
+            user.timestamps.push(user.lastLogin);
+            // Save the updated user object
+            await user.save();
+            // Redirect to the home page upon successful login
+            return res.redirect('/home');
+        });
     })(req, res, next);
-})
+});
+
 
 //Logout Handle
 router.get('/logout', (req, res)=>{
@@ -110,7 +123,70 @@ router.get('/logout', (req, res)=>{
         res.redirect('/users/login');
         });
    
-    
 })
 
-module.exports =router;
+router.get('/lastLogin', async (req, res) => {
+    try {
+        // Ensure user is authenticated
+        if (!req.isAuthenticated()) {
+            console.log('Unauthorized');
+            return res.status(401).json({ error: 'Unauthorized' });
+        }
+
+        // Get the user ID
+        const userId = req.user._id;
+        console.log(userId);
+
+        // Find the user by ID
+        const user = await User.findById(userId);
+
+        // Check if user exists
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        // Print the lastLogin date to the console
+        console.log('Last login:', user.lastLogin);
+
+        // Send a success response with last login date
+        res.status(200).json({ lastLogin: user.lastLogin });
+    } catch (error) {
+        // Handle errors
+        console.error('Error fetching last login:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+router.get('/timestamps', async (req, res) => {
+    try {
+        // Ensure user is authenticated
+        if (!req.isAuthenticated()) {
+            console.log('Unauthorized');
+            return res.status(401).json({ error: 'Unauthorized' });
+        }
+
+        // Get the user ID
+        const userId = req.user._id;
+        console.log(userId);
+
+        // Find the user by ID
+        const user = await User.findById(userId);
+
+        // Check if user exists
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        // Print the lastLogin date to the console
+        console.log('All logins:', user.timestamps);
+
+        // Send a success response with last login date
+        res.status(200).json({ timestamps: user.timestamps });
+    } catch (error) {
+        // Handle errors
+        console.error('Error fetching timestamps:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+module.exports = router;
