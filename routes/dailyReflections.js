@@ -18,6 +18,7 @@ router.get('/', ensureAuthenticated, async (req, res) => {
          const questionOfTheDay = "How did today go for you?";
 
         // Render the dailyReflections.ejs template and pass the necessary data
+
         res.render('dailyReflections', { 
             title: 'Daily Reflections', 
             layout: 'layoutLoggedIn', 
@@ -147,6 +148,8 @@ router.get('/nextReflection/:id', ensureAuthenticated, async (req, res) => {
         // Get the next reflection
         let nextReflection = reflections[nextIndex];
 
+
+
         // Render the dailyReflections.ejs template and pass the necessary data
         res.render('dailyReflections', { 
             title: 'Daily Reflections', 
@@ -160,6 +163,46 @@ router.get('/nextReflection/:id', ensureAuthenticated, async (req, res) => {
         res.redirect('/home'); // Redirect to home or handle error appropriately
     }
 });
+
+// Route to fetch mood data
+router.get('/moodData', ensureAuthenticated, async (req, res) => {
+  try {
+    // Fetch reflections for the current user
+    const reflections = await Reflection.find({ user: req.user._id });
+
+    let moods = reflections.map(reflection => reflection.mood);
+
+    let dates = reflections.map(reflection => reflection.date);
+
+    res.json({ moods, dates });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+//Route to get total number of reflections
+router.get('/total', ensureAuthenticated, async (req, res) => {
+  try {
+    // Fetch reflections for the current user
+    const reflections = await Reflection.find({ user: req.user._id });
+
+    // Total number of reflections
+    const numberOfReflections = reflections.length;
+
+    // Send mood data as JSON response
+    res.json({ numberOfReflections });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+
+
+
+
+
 
 // Export the router
 module.exports = router;

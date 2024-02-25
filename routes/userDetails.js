@@ -108,9 +108,11 @@
 const express = require('express');
 const router = express.Router();
 const UserDetails = require('../models/UserDetails');
+const { ensureAuthenticated } = require('../config/auth');
+
 
 // User Details Page
-router.get('/', async (req, res) => {
+router.get('/', ensureAuthenticated, async (req, res) => {
     try {
         const userDetails = await UserDetails.findOne({ user: req.user._id });
         res.render('userDetails', {
@@ -124,7 +126,15 @@ router.get('/', async (req, res) => {
             gender: userDetails ? userDetails.gender : '',
             fitness_level: userDetails ? userDetails.fitness_level : '',
             general_health: userDetails ? userDetails.general_health : '',
-            goals_next_30_days: userDetails ? userDetails.goals_next_30_days : '',
+            strength: userDetails ? userDetails.strength :'',
+            cardio: userDetails ? userDetails.cardio :'',
+            yoga: userDetails ? userDetails.yoga : '',
+            meditation: userDetails ? userDetails.meditation : '', 
+            strength_frequency: userDetails ? userDetails.strength_frequency : '',
+            cardio_frequency: userDetails ? userDetails.cardio_frequency : '',
+            yoga_frequency: userDetails ? userDetails.yoga_frequency : '',
+            meditation_frequency: userDetails ? userDetails.meditation_frequency : '',
+
         });
     } catch (error) {
         console.error(error);
@@ -132,6 +142,7 @@ router.get('/', async (req, res) => {
         res.redirect('/users/login');
     }
 });
+
 
 // Edit User Details Page
 router.get('/edit', async (req, res) => {
@@ -149,7 +160,14 @@ router.get('/edit', async (req, res) => {
             gender: userDetails ? userDetails.gender : '',
             fitness_level: userDetails ? userDetails.fitness_level : '',
             general_health: userDetails ? userDetails.general_health : '',
-            goals_next_30_days: userDetails ? userDetails.goals_next_30_days : '',
+            strength: userDetails ? userDetails.strength :'',
+            cardio: userDetails ? userDetails.cardio :'',
+            yoga: userDetails ? userDetails.yoga : '',
+            meditation: userDetails ? userDetails.meditation : '',
+            strength_frequency: userDetails ? userDetails.strength_frequency : '',
+            cardio_frequency: userDetails ? userDetails.cardio_frequency : '',
+            yoga_frequency: userDetails ? userDetails.yoga_frequency : '',
+            meditation_frequency: userDetails ? userDetails.meditation_frequency : ''
         });
     } catch (error) {
         console.error(error);
@@ -158,17 +176,45 @@ router.get('/edit', async (req, res) => {
     }
 });
 
+
 // Edit User Details Form Handle
 router.post('/edit', async (req, res) => {
     const name = req.user ? req.user.name : '';
-    const { first_name, last_name, age, weight, height, gender, fitness_level, general_health, goals_next_30_days } = req.body;
-
-    // Validation
-    let errors = [];
+    let { first_name, last_name, age, weight, height, gender, fitness_level, general_health, strength, cardio, yoga, meditation, strength_frequency, cardio_frequency, yoga_frequency, meditation_frequency} = req.body;
 
     if (!first_name || !last_name) {
         errors.push({ msg: 'Please fill in all fields' });
     }
+
+    if(req.body.strength == "on"){
+        strength = true;
+    }
+    else{
+        strength = false;
+    }
+
+    if(req.body.cardio == "on"){
+        cardio = true;
+    }
+    else{
+        cardio = false;
+    }
+
+    if(req.body.yoga == "on"){
+        yoga = true;
+    }
+    else{
+        yoga = false;
+    }
+    if(req.body.meditation == "on"){
+        meditation = true;
+    }
+    else{
+        meditation = false;
+    }
+
+   // Validation
+   let errors = [];
 
     if (errors.length > 0) {
         res.render('editUserDetails', {
@@ -183,7 +229,14 @@ router.post('/edit', async (req, res) => {
             gender,
             fitness_level,
             general_health,
-            goals_next_30_days,
+            strength,
+            cardio,
+            yoga,
+            meditation, 
+            strength_frequency,
+            cardio_frequency,
+            yoga_frequency,
+            meditation_frequency
         });
     } else {
         try {
@@ -194,8 +247,16 @@ router.post('/edit', async (req, res) => {
                 // Update existing user details
                 await UserDetails.updateOne(
                     { user: req.user._id },
-                    { $set: { first_name, last_name, age, weight, height, gender, fitness_level, general_health, goals_next_30_days } }
-                );
+                    { $set: { first_name, last_name, age, weight, height, gender, fitness_level, general_health,
+                        strength,
+                        cardio,
+                        yoga,
+                        meditation, 
+                        strength_frequency,
+                        cardio_frequency,
+                        yoga_frequency,
+                        meditation_frequency} }
+                    );
 
                 // Fetch the updated user details after the update
                 const updatedUserDetails = await UserDetails.findOne({ user: req.user._id });
@@ -211,7 +272,14 @@ router.post('/edit', async (req, res) => {
                     gender: updatedUserDetails.gender,
                     fitness_level: updatedUserDetails.fitness_level,
                     general_health: updatedUserDetails.general_health,
-                    goals_next_30_days: updatedUserDetails.goals_next_30_days,
+                    strength: updatedUserDetails.strength,
+                    cardio: updatedUserDetails.cardio,
+                    yoga: updatedUserDetails.yoga,
+                    meditation: updatedUserDetails.meditation,
+                    strength_frequency: updatedUserDetails.strength_frequency,
+                    cardio_frequency: updatedUserDetails.cardio_frequency,
+                    yoga_frequency: updatedUserDetails.yoga_frequency,
+                    meditation_frequency: updatedUserDetails.meditation_frequency
                 });
             } else {
                 // Create new user details
@@ -225,7 +293,14 @@ router.post('/edit', async (req, res) => {
                     gender,
                     fitness_level,
                     general_health,
-                    goals_next_30_days,
+                    strength,
+                    cardio,
+                    yoga,
+                    meditation,
+                    strength_frequency,
+                    cardio_frequency,
+                    yoga_frequency,
+                    meditation_frequency
                 });
 
                 const savedDetails = await newUserDetails.save();
@@ -241,7 +316,14 @@ router.post('/edit', async (req, res) => {
                     gender: savedDetails.gender,
                     fitness_level: savedDetails.fitness_level,
                     general_health: savedDetails.general_health,
-                    goals_next_30_days: savedDetails.goals_next_30_days,
+                    strength: savedDetails.strength,
+                    cardio: savedDetails.cardio,
+                    yoga: savedDetails.yoga,
+                    meditation: savedDetails.meditation,
+                    strength_frequency : savedDetails.strength_frequency,
+                    cardio_frequency:  savedDetails.cardio_frequency, 
+                    yoga_frequency: savedDetails.yoga_frequency,
+                    meditation_frequency: savedDetails.meditation_frequency,
                 });
             }
         } catch (error) {
@@ -249,6 +331,25 @@ router.post('/edit', async (req, res) => {
             req.flash('error_msg', 'Please Add or Edit User Details');
             res.redirect('/users/login');
         }
+    }
+});
+
+
+router.get('/activities', ensureAuthenticated, async (req, res) => {
+    try {
+        const userDetails = await UserDetails.findOne({ user: req.user._id });
+
+        const activityArray = [
+            { name: "Strength", value: userDetails.strength, days: userDetails.strength_frequency },
+            { name: "Cardio", value: userDetails.cardio, days: userDetails.cardio_frequency },
+            { name: "Yoga", value: userDetails.yoga, days: userDetails.yoga_frequency },
+            { name: "Meditation", value: userDetails.meditation, days: userDetails.meditation_frequency }
+        ];
+
+        res.json(activityArray);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
     }
 });
 

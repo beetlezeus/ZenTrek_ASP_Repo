@@ -57,9 +57,67 @@
         <%= general_health %>
       </p>
       <p>
-        <strong>Goals for the Next 30 Days:</strong>
-        <%= goals_next_30_days %>
+        <strong>Activity Preferences: </strong>
+        <% if(strength) { %>
+        <span
+          style="
+            padding: 5px;
+            border-radius: 5px;
+            background-color: #bad3fe;
+            margin: 5px;
+          "
+          >Strength-Training</span
+        >
+        <% } %> <% if(cardio) { %>
+        <span
+          style="
+            padding: 5px;
+            border-radius: 5px;
+            background-color: #bad3fe;
+            margin: 5px;
+          "
+          >Cardio</span
+        >
+        <% } %> <% if(yoga) { %>
+        <span
+          style="
+            padding: 5px;
+            border-radius: 5px;
+            background-color: #bad3fe;
+            margin: 5px;
+          "
+          >Yoga</span
+        >
+        <% } %> <% if(meditation) { %>
+        <span
+          style="
+            padding: 5px;
+            border-radius: 5px;
+            background-color: #bad3fe;
+            margin: 5px;
+          "
+          >Meditation</span
+        >
+        <% } %>
       </p>
+
+      <p>
+        <strong>Strength Frequency:</strong>
+        <%= strength_frequency %>
+      </p>
+      <p>
+        <strong>Cardio Frequency:</strong>
+        <%= cardio_frequency %>
+      </p>
+      <p>
+        <strong>Yoga Frequency:</strong>
+        <%= yoga_frequency %>
+      </p>
+      <p>
+        <strong>Meditation Frequency:</strong>
+        <%= meditation_frequency %>
+      </p>
+      
       <!-- Home Button -->
       <a href="/home" class="btn btn-secondary btn-block"> Home </a>
     </div>

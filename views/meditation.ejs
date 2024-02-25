@@ -1,174 +1,161 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Meditation Page</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <style>
-        .header-container {
-            background-color: #3498db;
-            color: #ffffff;
-            padding: 10px;
-            text-align: left;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+      .header-container {
+        background-color: #3498db;
+        color: #ffffff;
+        padding: 10px;
+        text-align: left;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
 
-        .header-container h1 {
-            margin: 0;
-        }
+      .header-container h1 {
+        margin: 0;
+      }
 
-        .menu-placeholder {
-            width: 100%;
-            height: 50px;
-            background-color: transparent;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 10px;
-        }
+      .menu-placeholder {
+        width: 100%;
+        height: 50px;
+        background-color: transparent;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+      }
 
-        .inner-rectangle {
-            margin: auto;
-            height: 350px;
-            background-color: none;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            margin-top: 20px;
-        }
+      .inner-rectangle {
+        margin: auto;
+        height: 350px;
+        background-color: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        margin-top: 20px;
+      }
 
-        #breathing-container {
-            background-color: transparent;
-        }
+      #breathing-container {
+        background-color: transparent;
+      }
 
-        #button-container {
-            text-align: center;
-            margin-top: 20px;
-        }
+      #button-container {
+        text-align: center;
+        margin-top: 20px;
+      }
 
-        #button-container button {
-            width: 120px;
-            height: 40px;
-            margin: 0 10px;
-        }
+      #button-container button {
+        width: 120px;
+        height: 40px;
+        margin: 0 10px;
+      }
 
-        .oval-button {
-            width: 150px;
-            height: 60px;
-            border-radius: 30px;
-            margin-left: auto;
-            margin-top: 20px;
-            cursor: pointer;
-        }
+      .oval-button {
+        width: 150px;
+        height: 60px;
+        border-radius: 30px;
+        margin-left: auto;
+        margin-top: 20px;
+        cursor: pointer;
+      }
 
-        .centered-content {
-            text-align: center;
-            margin-top: 50px;
-        }
+      .centered-content {
+        text-align: center;
+        margin-top: 50px;
+      }
 
-        .Dietcontainer {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .back-button {
-            display: block;
-            text-align: center;
-            margin-top: 20px;
-            text-decoration: none;
-            color: #ffffff;
-            background-color: #180075;
-            padding: 10px 20px;
-            border-radius: 5px;
-            width: 200px;
-        }
-        .card {
-            background-color: transparent;
-            border: none;
-            box-shadow: none;
-            padding: 30px;
-            height: 100%;
+      .Dietcontainer {
         display: flex;
         flex-direction: column;
+      }
 
-        }
+      .back-button {
+        display: block;
+        text-align: center;
+        margin-top: 20px;
+        text-decoration: none;
+        color: #ffffff;
+        background-color: #180075;
+        padding: 10px 20px;
+        border-radius: 5px;
+        width: 200px;
+      }
+      .card {
+        background-color: transparent;
+        border: none;
+        box-shadow: none;
+        padding: 30px;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+      }
 
-        .card-body {
-            border-radius: 10px;
-            padding: 20px;
-            /* From https://css.glass */
-            background: rgba(255, 255, 255, 0.33);
-            /* From https://css.glass */
-            background: rgba(255, 255, 255, 0.5);
-            border-radius: 16px;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(13.7px);
-            -webkit-backdrop-filter: blur(13.7px);
-            border: 1px solid rgba(255, 255, 255, 0.66);
-            justify-content: center;
+      .card-body {
+        border-radius: 10px;
+        padding: 20px;
+        /* From https://css.glass */
+        background: rgba(255, 255, 255, 0.33);
+        /* From https://css.glass */
+        background: rgba(255, 255, 255, 0.5);
+        border-radius: 16px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(13.7px);
+        -webkit-backdrop-filter: blur(13.7px);
+        border: 1px solid rgba(255, 255, 255, 0.66);
+        justify-content: center;
 
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-        }
-        .card-body2{
-            /* From https://css.glass */
-            background: rgba(89, 159, 228, 0.5);
-            border-radius: 16px;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(13.7px);
-            -webkit-backdrop-filter: blur(13.7px);
-            border: 1px solid rgba(89, 159, 228, 0.66);
-            border-radius: 10px;
-            padding: 20px;
-        }
-        .bigcotnainer{
-          margin: 30px;
-        }
-        .button{
-            background-color: #180075;
-            color: #ffffff;
-            text-align: center;
-            margin-top: 20px;
-            text-decoration: none;
-            color: #ffffff;
-            background-color: #180075;
-            border-radius: 5px;
-            justify-content: center;
-
-        }
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+      }
+      .card-body2 {
+        /* From https://css.glass */
+        background: rgba(89, 159, 228, 0.5);
+        border-radius: 16px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(13.7px);
+        -webkit-backdrop-filter: blur(13.7px);
+        border: 1px solid rgba(89, 159, 228, 0.66);
+        border-radius: 10px;
+        padding: 20px;
+      }
+      .bigcontainer {
+        margin: 30px;
+      }
     </style>
-</head>
-<body>
-    <div class="bigcotnainer card card-body">
-        <div class="centered-content">
-            <h1>Let's Calm the Body & Mind</h1>
-            <p>"Clouds come and go like clouds in a windy sky. Conscious breathing is my anchor."-thich nhat hanh</p>
-        </div>
-    
+  </head>
+  <body>
+    <div class="bigcontainer card card-body">
+      <div class="centered-content">
+        <h1>Let's Calm the Body & Mind</h1>
+        <p>
+          "Clouds come and go like clouds in a windy sky. Conscious breathing is
+          my anchor."-thich nhat hanh
+        </p>
+      </div>
 
-    <div class="menu-placeholder">
+      <div class="menu-placeholder">
         <select id="breathing-selector" onchange="changeBreathingAnimation()">
             <option value="meditation1">Meditation- Calm</option>
             <option value="meditation2">Meditation- anxiety attack</option>
             <option value="meditation3">Meditation - Energizing Breath</option>
             <option value="meditation4">Meditation - Grounding Breath</option>
         </select>
-    </div>
-    
-    <div class="inner-rectangle" id="breathing-container"></div>
+      </div>
 
-    <div id="button-container">
-        <button class="button" id="start-button">Start</button>
-        <button class="button" id="stop-button">Stop</button>
+      <div class="inner-rectangle" id="breathing-container"></div>
+
+      <div id="button-container">
+        <button class="btn" id="start-button">Start</button>
+        <button class="btn" id="stop-button">Stop</button>
+      </div>
     </div>
-    
-    <a href="/home" class="back-button">Back to Home</a>
-</div>
 
 <script>
     let scene, camera, renderer, sphere, animationId;
@@ -302,4 +289,3 @@
 
 </body>
 </html>
-

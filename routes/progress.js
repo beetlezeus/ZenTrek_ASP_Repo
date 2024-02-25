@@ -14,5 +14,8 @@ router.get('/', ensureAuthenticated, (req, res) => {
     res.render('progress', {monthlyData , layout: 'layoutLoggedIn'});
 });
 
+
+// 
+
 // Export the router to use in your main app file
 module.exports = router;
