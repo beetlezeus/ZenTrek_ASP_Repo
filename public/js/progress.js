@@ -14,13 +14,10 @@ let sketch1 = function(p5) {
 
         // Move the canvas inside the container
         canvasDays.parent('dayContainer');
-
-
     }
 
     p5.draw = function() {
         dayBadges(canvasDays, timestampData);
-
     }
 
     p5.setCanvasSize = function(width, height) {
@@ -35,7 +32,6 @@ let sketch1 = function(p5) {
     });
 
 
-
     // function that reformats ISO timestamp into an array that contains day of the week and date
     function standardFormat(isoTimestamp) {
         const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -48,13 +44,6 @@ let sketch1 = function(p5) {
             day: dayOfWeek
         };
     }
-    
-    let today = new Date();
-    // console.log(today);
-
-    let formattedToday = standardFormat(today);
-    // console.log(formattedToday);
-
 
     // Function that formats todays's date and day and returns an array 
     function todayFunc(){
@@ -73,23 +62,6 @@ let sketch1 = function(p5) {
     }
     todayFunc();
 
-    // Function to get the last seven unique days from timestamps
-    function getUniqueSeven(timestamps) {
-    // Sort timestamps by date in descending order
-    timestamps.sort((a, b) => new Date(b.date) - new Date(a.date));
-    // Get unique dates
-    const uniqueDates = [];
-    timestamps.forEach(timestamp => {
-        const { day } = timestamp;
-        if (!uniqueDates.includes(day)) {
-            uniqueDates.push(day);
-        }
-    });
-
-    // Get the last seven unique dates
-    const uniqueSeven = uniqueDates.slice(0, 7);
-    return uniqueSeven;
-}
 
     // fetching the timestamps
     let timestampData;
@@ -102,71 +74,11 @@ let sketch1 = function(p5) {
     })
     .then(data => {
        timestampData = data.timestamps;
-
-       // filters all timestamps made in the last seven days
-       const lastSeven = filterLastSevenDays(timestampData);
-       console.log('Made in the alst seven days: ', lastSeven);
-
-       // standardizes timestamps
-       let standardTimestamps = lastSeven.map(standardFormat);
-       console.log('Standardized data :', standardTimestamps);
-     
-        //Get all unique days in the last seven days
-        const uniqueSeven = getUniqueSeven(standardTimestamps);
-        console.log('Unique days in the last seven days:', uniqueSeven);
     })
     .catch(error => {
         console.error('Fetch error:', error.message);
     });
 
-    // returns only the timestamps created in the last seven days
-    function filterLastSevenDays(timestamps) {
-        const today = new Date();
-        const lastSevenDays = [];
-        
-        // Iterate through each timestamp
-        timestamps.forEach(timestamp => {
-            // Convert the timestamp date string into a Date object
-            const timestampDate = new Date(timestamp);
-            
-            // Calculate the difference in milliseconds between today and the timestamp date
-            const differenceInTime = today.getTime() - timestampDate.getTime();
-            
-            // Calculate the difference in days
-            const differenceInDays = Math.floor(differenceInTime / (1000 * 3600 * 24));
-            
-            // If the difference is less than 7 days, add it to the lastSevenDays array
-            if (differenceInDays < 7) {
-                lastSevenDays.push(timestamp);
-            }
-        });
-        
-        return lastSevenDays;
-    }
-
-
-    function getLastSevenDays() {
-        const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-        const today = new Date();
-        const lastSevenDays = [];
-    
-        for (let i = 0; i < 7; i++) {
-            const date = new Date(today);
-            date.setDate(today.getDate() - i);
-    
-            const formattedDate = date.toISOString().split('T')[0];
-            const dayOfWeek = daysOfWeek[date.getDay()];
-    
-            lastSevenDays.push({ date: formattedDate, day: dayOfWeek });
-        }
-    
-        return lastSevenDays;
-    }
-    
-    // Example usage:
-    const lastSevenDaysList = getLastSevenDays();
-    console.log(lastSevenDaysList);
-    
     
     
     let missedDay = [200, 19, 40, 1.4];
@@ -211,9 +123,6 @@ let sketch1 = function(p5) {
             }
         }
     }
-
-
-
 
 
     // Logic for drawing and creating the day streak badges 
