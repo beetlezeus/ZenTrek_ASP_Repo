@@ -14,10 +14,13 @@ let sketch1 = function(p5) {
 
         // Move the canvas inside the container
         canvasDays.parent('dayContainer');
+
+
     }
 
     p5.draw = function() {
-        dayBadges(canvasDays);
+        dayBadges(canvasDays, timestampData);
+
     }
 
     p5.setCanvasSize = function(width, height) {
@@ -31,7 +34,6 @@ let sketch1 = function(p5) {
         p5.setCanvasSize(containerDays.offsetWidth, containerDays.offsetHeight);
     });
 
-    let missed = [200, 19, 40, 1.4];
 
 
     // function that reformats ISO timestamp into an array that contains day of the week and date
@@ -48,9 +50,10 @@ let sketch1 = function(p5) {
     }
     
     let today = new Date();
-    console.log(today);
+    // console.log(today);
 
-    standardFormat(today);
+    let formattedToday = standardFormat(today);
+    // console.log(formattedToday);
 
 
     // Function that formats todays's date and day and returns an array 
@@ -70,6 +73,24 @@ let sketch1 = function(p5) {
     }
     todayFunc();
 
+    // Function to get the last seven unique days from timestamps
+    function getUniqueSeven(timestamps) {
+    // Sort timestamps by date in descending order
+    timestamps.sort((a, b) => new Date(b.date) - new Date(a.date));
+    // Get unique dates
+    const uniqueDates = [];
+    timestamps.forEach(timestamp => {
+        const { day } = timestamp;
+        if (!uniqueDates.includes(day)) {
+            uniqueDates.push(day);
+        }
+    });
+
+    // Get the last seven unique dates
+    const uniqueSeven = uniqueDates.slice(0, 7);
+    return uniqueSeven;
+}
+
     // fetching the timestamps
     let timestampData;
     fetch('/users/timestamps')
@@ -81,63 +102,190 @@ let sketch1 = function(p5) {
     })
     .then(data => {
        timestampData = data.timestamps;
-       let standardTimestamps = timestampData.map(standardFormat);
-       console.log(standardTimestamps);
+
+       // filters all timestamps made in the last seven days
+       const lastSeven = filterLastSevenDays(timestampData);
+       console.log('Made in the alst seven days: ', lastSeven);
+
+       // standardizes timestamps
+       let standardTimestamps = lastSeven.map(standardFormat);
+       console.log('Standardized data :', standardTimestamps);
+     
+        //Get all unique days in the last seven days
+        const uniqueSeven = getUniqueSeven(standardTimestamps);
+        console.log('Unique days in the last seven days:', uniqueSeven);
     })
     .catch(error => {
         console.error('Fetch error:', error.message);
     });
 
-    
-
-    
-    
-
-    function colorLogic(today, lastLogin){
-        console.log(today);
+    // returns only the timestamps created in the last seven days
+    function filterLastSevenDays(timestamps) {
+        const today = new Date();
+        const lastSevenDays = [];
+        
+        // Iterate through each timestamp
+        timestamps.forEach(timestamp => {
+            // Convert the timestamp date string into a Date object
+            const timestampDate = new Date(timestamp);
+            
+            // Calculate the difference in milliseconds between today and the timestamp date
+            const differenceInTime = today.getTime() - timestampDate.getTime();
+            
+            // Calculate the difference in days
+            const differenceInDays = Math.floor(differenceInTime / (1000 * 3600 * 24));
+            
+            // If the difference is less than 7 days, add it to the lastSevenDays array
+            if (differenceInDays < 7) {
+                lastSevenDays.push(timestamp);
+            }
+        });
+        
+        return lastSevenDays;
     }
 
-    // Logic for drawing and creating the day streak badges 
-    function dayBadges(canvas) {
-        let streakDays = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
 
+    function getLastSevenDays() {
+        const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        const today = new Date();
+        const lastSevenDays = [];
+    
+        for (let i = 0; i < 7; i++) {
+            const date = new Date(today);
+            date.setDate(today.getDate() - i);
+    
+            const formattedDate = date.toISOString().split('T')[0];
+            const dayOfWeek = daysOfWeek[date.getDay()];
+    
+            lastSevenDays.push({ date: formattedDate, day: dayOfWeek });
+        }
+    
+        return lastSevenDays;
+    }
+    
+    // Example usage:
+    const lastSevenDaysList = getLastSevenDays();
+    console.log(lastSevenDaysList);
+    
+    
+    
+    let missedDay = [200, 19, 40, 1.4];
+    let loggedDay = [0, 220, 70, 0.8];
+    let futureDay = [160, 160, 160, 1];
+
+
+    function colorPick(timestamps) {
+        const today = new Date();
+        const todayIndex = today.getDay(); 
+    
+        for (let i = 0; i < 7; i++) {
+            if (i < todayIndex) {
+                // Check if the day has passed
+                const dayTimestamp = timestamps.find(timestamp => {
+                    const timestampDate = new Date(timestamp.date);
+                    return timestampDate.getDay() === i;
+                });
+    
+                if (dayTimestamp) {
+                    // Day logged in, paint badge green
+                    return loggedDay;
+                } else {
+                    // Day missed, paint badge red
+                    return missedDay;
+                }
+            } else if (i > todayIndex) {
+                // Future day, paint badge grey
+                return futureDay;
+            } else {
+                // Current day, paint badge green if logged, otherwise paint red
+                const todayTimestamp = timestamps.find(timestamp => {
+                    const timestampDate = new Date(timestamp.date);
+                    return timestampDate.getDay() === todayIndex;
+                });
+    
+                if (todayTimestamp) {
+                    return loggedDay;
+                } else {
+                    return missedDay;
+                }
+            }
+        }
+    }
+
+
+
+
+
+    // Logic for drawing and creating the day streak badges 
+    function dayBadges(canvas, timestamps) {
+        let streakDays = ['S','M', 'T', 'W', 'T', 'F', 'S'];
+    
         // buffer is 1% of the canvas, on each side of the badge
         let buffer = canvas.width * 0.1;
-
+    
         // badge slot is a square that will contain the badge
         let badgeSlot = canvas.width / 7;
-
+    
         // badge area is the horizontal area the badge will occupy
         let badgeArea = badgeSlot - 2 * buffer;
-
+    
         let badgeRadius = badgeArea / 2;
-
+    
         let yPos = canvas.height / 2;
-
-        // colors to use later when implementing streak logic
-        p5.fill(0, 220, 70, 0.8);
-        p5.fill(missed[0], missed[1], missed[2], missed[3]);
-        // p5.fill(160);
-        p5.strokeWeight(1);
-        p5.stroke(108, 70, 250);
-
+    
+        // Iterate through each day
         for (let i = 0; i < streakDays.length; i++) {
-            p5.push();
             let xPos = buffer + (badgeSlot * i) + badgeRadius; // Calculate the x-position of the ellipse center
+            
+            // Get color based on timestamp data
+            let badgeColor = colorPick(timestamps, i);
+    
+            p5.push();
+            p5.fill(badgeColor[0], badgeColor[1], badgeColor[2], badgeColor[3]);
+            p5.strokeWeight(1);
+            p5.stroke(108, 70, 250);
+    
+            // Draw the badge
             p5.ellipse(xPos, yPos, badgeArea * 2);
-
+    
+            // Draw the streak day letter at the center of the ellipse
             p5.textAlign(p5.CENTER, p5.CENTER); // Align text to the center of the ellipse
             p5.textSize(badgeSlot * 0.4); // Adjust text size
-
-            // Draw the streak day letter at the center of the ellipse
             p5.fill(255); // Set text color to white
             p5.text(streakDays[i], xPos, yPos);
             p5.pop();
         }
+    }
+    
+    // Function to determine badge color based on timestamp data and current day index
+    function colorPick(timestamps, dayIndex) {
+        const today = new Date();
+        const todayIndex = today.getDay(); // Get the index of today's day (0 for Sunday, 1 for Monday, ..., 6 for Saturday)
+        
+    
+        // Check if the day is in the past, future, or today
+        if (dayIndex < todayIndex) {
+            const dayTimestamp = timestamps.find(timestamp => {
+                const timestampDate = new Date(timestamp.date);
+                return timestampDate.getDay() === dayIndex;
+            });
+    
+            if (dayTimestamp) {
+                // Day logged in, paint badge green
+                return loggedDay;
+            } else {
+                // Day missed, paint badge red
+                return missedDay;
+            }
+        } else if (dayIndex > todayIndex) {
+          
+            return futureDay;
 
-
-        function streakLogic (timestamp){
-            
+        } else {
+            // Current day, paint badge green if logged, otherwise paint red
+           
+                return loggedDay;
+         
         }
     }
 
@@ -194,7 +342,7 @@ let sketch2 = function(p5) {
             .then(data => {
                 // Update the activityArray with the fetched data
 
-                console.log(data);
+                // console.log(data);
                 activityArray = data;
             })
             .catch(error => console.error('Error fetching activity array:', error));
