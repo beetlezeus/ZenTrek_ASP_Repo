@@ -149,7 +149,6 @@ router.get('/nextReflection/:id', ensureAuthenticated, async (req, res) => {
         let nextReflection = reflections[nextIndex];
 
 
-    console.log('Mood data:', currentReflection);
 
         // Render the dailyReflections.ejs template and pass the necessary data
         res.render('dailyReflections', { 
@@ -171,17 +170,10 @@ router.get('/moodData', ensureAuthenticated, async (req, res) => {
     // Fetch reflections for the current user
     const reflections = await Reflection.find({ user: req.user._id });
 
-    // Extract mood from reflections
     let moods = reflections.map(reflection => reflection.mood);
 
     let dates = reflections.map(reflection => reflection.date);
 
-
-
-    // Log mood data to the console
-    console.log('Mood data:', moods);
-
-    // Send mood data as JSON response
     res.json({ moods, dates });
   } catch (error) {
     console.error(error);

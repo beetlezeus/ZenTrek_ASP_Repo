@@ -112,7 +112,7 @@ const { ensureAuthenticated } = require('../config/auth');
 
 
 // User Details Page
-router.get('/', async (req, res) => {
+router.get('/', ensureAuthenticated, async (req, res) => {
     try {
         const userDetails = await UserDetails.findOne({ user: req.user._id });
         res.render('userDetails', {

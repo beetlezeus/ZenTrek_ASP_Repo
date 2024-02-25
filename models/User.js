@@ -16,7 +16,15 @@ const UserSchema = new mongoose.Schema({
     date:{
         type: Date,
         default: Date.now
+    },
+    lastLogin:{
+        type: Date,
+    },
+    timestamps: {
+        type: [Date],
+        default: [],
     }
+
 
 });
 

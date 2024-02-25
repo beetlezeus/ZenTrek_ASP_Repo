@@ -225,8 +225,6 @@ let sketch2 = function(p5) {
 };
 
 
-
-
 new p5(sketch1);
 new p5(sketch2);
 
