@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Reflections</title>
+    <style>
+        .card {
+            background-color: transparent;
+            border: none;
+            box-shadow: none;
+            padding: 10px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-body {
+            border-radius: 10px;
+            padding: 20px;
+            /* From https://css.glass */
+            background: rgba(255, 255, 255, 0.33);
+            /* From https://css.glass */
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 16px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(13.7px);
+            -webkit-backdrop-filter: blur(13.7px);
+            border: 1px solid rgba(255, 255, 255, 0.66);
+            justify-content: center;
+
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .card-body2 {
+            /* From https://css.glass */
+            background: rgba(89, 159, 228, 0.5);
+            border-radius: 16px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(13.7px);
+            -webkit-backdrop-filter: blur(13.7px);
+            border: 1px solid rgba(89, 159, 228, 0.66);
+            border-radius: 10px;
+            padding: 20px;
+        }
+        .big-content {
+            margin: 30px;
+        }
+        .card2 {
+            /* From https://css.glass */
+            background: rgba(214, 213, 248, 0.31);
+            border-radius: 16px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid rgba(214, 213, 248, 0.66);
+        }
+        .text-center {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+        
+        /* Additional styling for calendar */
+        .calendar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+        }
+        .calendar-cell {
+            border: 1px solid #ccc;
+            padding: 10px;
+            height: 100%;
+        }
+        .popup-screen {
+    position: fixed;
+    top: 20%; /* Adjust vertical position */
+    left: 20%; /* Adjust horizontal position */
+    width: 60%; /* Adjust width as needed */
+    height: 70%; /* Adjust height as needed */
+    z-index: 100; /* Adjust as needed */
+    background-color: white; /* Change to your desired background color */
+    overflow-y: auto; /* Allow scrolling if content exceeds screen height */
+}
+
+
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center"><span id="currentMonthYear"></span></h1> <!-- Display current month and year -->
+        <div class="text-center">
+            <button onclick="navigate('prev')" class="btn btn-primary mr-2">Previous Month</button>
+            <button onclick="navigate('next')" class="btn btn-primary mr-2">Next Month</button>
+        </div>
+        <div class="container">
+          <div class="calendar">
+            <% for (let i = 1; i <= monthlyData.daysInMonth; i++) { %>
+                <% const reflectionsForDay = monthlyData.reflections.filter(reflection => new Date(reflection.date).getDate() === i); %>
+                <% const nutritionsForDay = monthlyData.nutritions.filter(nutrition => new Date(nutrition.date).getDate() === i); %>
+                <div class="calendar-cell card card2" onclick="showDataInfo('<%= i %>')" style="<% if (reflectionsForDay.length > 0 || nutritionsForDay.length > 0) { %>background-color: lightgreen;<% } %>">
+                    <h3><%= i %></h3>
+                    <% if (reflectionsForDay.length === 0 && nutritionsForDay.length === 0) { %>
+                        <p class="big-content">No data available for this day &#128577;</p>
+                    <% } else { %>
+                        <p class="big-content">Data available, show more! &#128512;</p>
+                    <% } %>
+                    <div id="dataInfo_<%= i %>" style="display: none;">
+                        <% if (reflectionsForDay.length > 0) { %>
+                            <div class="card-body2">
+                                <h4>Daily Reflections:</h4>
+                                <% reflectionsForDay.forEach(reflection => { %>
+                                    <p>Question of the Day: <%= reflection.questionOfTheDay %></p>
+                                    <p>Journal Entry: <%= reflection.journalEntry %></p>
+                                    <p>Mood: <%= reflection.mood %></p>
+                                <% }); %>
+                            </div>
+                        <% } %>
+                        <% if (nutritionsForDay.length > 0) { %>
+                            <div class="card-body2">
+                                <h4>Nutrition:</h4>
+                                <% nutritionsForDay.forEach(nutrition => { %>
+                                    <h5>Date: <%= nutrition.date %></h5>
+                                    <% if (nutrition.waterIntake) { %>
+                                        <p>Water Intake: <%= nutrition.waterIntake %></p>
+                                    <% } %>
+                                    <% if (nutrition.waterNotes) { %>
+                                        <p>Water Notes: <%= nutrition.waterNotes %></p>
+                                    <% } %>
+                                    <% if (nutrition.breakfast) { %>
+                                        <p>Breakfast:</p>
+                                        <p>Meal: <%= nutrition.breakfast.meal ? 'Yes' : 'No' %></p>
+                                        <% if (nutrition.breakfast.snack) { %>
+                                            <p>Snack: Yes</p>
+                                            <p>Description: <%= nutrition.breakfast.description %></p>
+                                        <% } %>
+                                    <% } %>
+                                    <% if (nutrition.lunch) { %>
+                                        <p>Lunch:</p>
+                                        <p>Meal: <%= nutrition.lunch.meal ? 'Yes' : 'No' %></p>
+                                        <% if (nutrition.lunch.snack) { %>
+                                            <p>Snack: Yes</p>
+                                            <p>Description: <%= nutrition.lunch.description %></p>
+                                        <% } %>
+                                    <% } %>
+                                    <% if (nutrition.dinner) { %>
+                                        <p>Dinner:</p>
+                                        <p>Meal: <%= nutrition.dinner.meal ? 'Yes' : 'No' %></p>
+                                        <% if (nutrition.dinner.snack) { %>
+                                            <p>Snack: Yes</p>
+                                            <p>Description: <%= nutrition.dinner.description %></p>
+                                        <% } %>
+                                    <% } %>
+                                    <% if (nutrition.snacks) { %>
+                                        <p>Snacks:</p>
+                                        <p>Healthy: <%= nutrition.snacks.healthy ? 'Yes' : 'No' %></p>
+                                        <p>Unhealthy: <%= nutrition.snacks.unhealthy ? 'Yes' : 'No' %></p>
+                                        <% if (nutrition.snacks.description) { %>
+                                            <p>Description: <%= nutrition.snacks.description %></p>
+                                        <% } %>
+                                    <% } %>
+                                <% }); %>
+                            </div>
+                        <% } %>
+                    </div>
+                </div>
+            <% } %>
+        </div>
+          </div>
+    
+    <script>
+      function getMonthName(month) {
+        const monthNames = ["January", "February", "March", "April", "May", "June",
+          "July", "August", "September", "October", "November", "December"];
+        return monthNames[month - 1];
+      }
+
+      function navigate(direction) {
+        let year = parseInt('<%= monthlyData.year %>');
+        let month = parseInt('<%= monthlyData.month %>');
+        
+        if (direction === 'prev') {
+            month -= 1;
+            if (month === 0) {
+                month = 12;
+                year -= 1;
+            }
+        } else if (direction === 'next') {
+            month += 1;
+            if (month === 13) {
+                month = 1;
+                year += 1;
+            }
+        }
+        
+        window.location.href = `/calendar?year=${year}&month=${month}`;
+      }
+
+      // Update the current month and year display
+      document.getElementById('currentMonthYear').innerText = getMonthName(<%= monthlyData.month %>) + ' <%= monthlyData.year %>';
+
+      function showDataInfo(day) {
+    var dataInfo = document.getElementById("dataInfo_" + day);
+    if (dataInfo.style.display === "none") {
+        dataInfo.style.display = "block";
+        // Check if parent element already has popup-screen class
+        if (!dataInfo.parentElement.classList.contains("popup-screen")) {
+            // Expand the cell to larger size
+            dataInfo.parentElement.classList.add("popup-screen");
+        }
+    } else {
+        dataInfo.style.display = "none";
+        // Remove popup-screen class when closing
+        dataInfo.parentElement.classList.remove("popup-screen");
+    }
+}
+
+
+    </script>
+</body>
+</html>
