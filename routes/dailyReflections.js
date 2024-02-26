@@ -199,10 +199,5 @@ router.get('/total', ensureAuthenticated, async (req, res) => {
 });
 
 
-
-
-
-
-
 // Export the router
 module.exports = router;

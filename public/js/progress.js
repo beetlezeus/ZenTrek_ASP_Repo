@@ -234,7 +234,7 @@ let sketch1 = function(p5) {
                     break;
                 }
             }
-            
+
             if (isConsecutive) {
                 streak++;
             } else {
@@ -369,10 +369,12 @@ let sketch2 = function(p5) {
         for(let i=0; i<rows; i++){
             for (let j = 0; j < daysArray[i]; j++){
                 p5.push();
-                p5.fill(255);
-                p5.noStroke();
+                p5.fill(90, 47, 197, 0.8);
+                // p5.noStroke();
+                p5.strokeWeight(1);
+                p5.stroke(240);
 
-                p5.rect(bufferX + boxWidth*j, bufferY + rowHeight * i, boxWidth - bufferX/2, boxHeight - textHeight, 8);
+                p5.rect(bufferX + boxWidth*j, bufferY + rowHeight * i, boxWidth - bufferX/2, boxHeight - textHeight, 7);
 
                 p5.pop();
             }
@@ -385,9 +387,6 @@ let sketch2 = function(p5) {
     }
     
 };
-
-
-
 
 new p5(sketch1);
 new p5(sketch2);
