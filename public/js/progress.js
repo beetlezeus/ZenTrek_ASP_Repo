@@ -57,7 +57,7 @@ let sketch1 = function(p5) {
             date: formattedDate,
             day: dayOfWeek
         };
-        console.log(result); 
+        // console.log(result); 
     }
     todayFunc();
 
@@ -100,23 +100,23 @@ let sketch1 = function(p5) {
     })
     .then(data => {
        timestampData = data.timestamps;
-    //    console.log('this is original format: ',timestampData);
+    //    console.log('This is original format: ',timestampData);
 
        standardizedTimestamps = timestampData.map(standardFormat);
-    //    console.log('This is in a standardized format: ', standardizedTimestamps);
+    //    console.log('This is in standardized format: ', standardizedTimestamps);
 
        unique = uniqueDates(standardizedTimestamps);
-       console.log('This is last seven unique values: ', unique);
+    //    console.log('This is last seven unique values: ', unique);
 
        lastWeek = getLastNValues(unique, 7);
-       console.log('These are the last (up to) 7 timestamps: ', lastWeek);
+    //    console.log('These are the last (up to) 7 timestamps: ', lastWeek);
     })
     .catch(error => {
         console.error('Fetch error:', error.message);
     });
 
 
-    // Function that returns an array fo teh last seven days//
+    // Function that returns an array fo the last seven days//
     function getLastSevenDays() {
         const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
         const today = new Date();
@@ -124,175 +124,35 @@ let sketch1 = function(p5) {
         
         // Loop through the last seven days
         for (let i = 0; i < 7; i++) {
-            // Create a new date object for each day
             const date = new Date(today);
-            // Adjust the date by subtracting the index from the current day
             date.setDate(today.getDate() - i);
-            
-            // Get the formatted date string (YYYY-MM-DD)
             const formattedDate = date.toISOString().split('T')[0];
-            // Get the day of the week
             const dayOfWeek = daysOfWeek[date.getDay()];
             
-            // Push the formatted date and day of the week into the array
             lastSevenDays.push({ date: formattedDate, day: dayOfWeek });
         }
-        
         return lastSevenDays;
     }
-
-    console.log('Last seven days are: ', getLastSevenDays());
-
-
-// Function that returns the alst n days since sunday and until today
-// function getLastNDays(n) {
-//     const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-//     const today = new Date();
-//     const lastNDays = [];
-    
-//     // Get the index of today's day (0 for Sunday, 1 for Monday, ..., 6 for Saturday)
-//     let todayIndex = today.getDay();
-//     // Adjust todayIndex to start from Monday as 0
-//     todayIndex = todayIndex === 0 ? 6 : todayIndex - 1;
-    
-//     // Loop through the last n days
-//     for (let i = 0; i < n; i++) {
-//         // Calculate the index of the day to be included
-//         const dayIndex = todayIndex - i >= 0 ? todayIndex - i : 7 + (todayIndex - i);
-//         // Create a new date object for each day
-//         const date = new Date(today);
-//         // Adjust the date by subtracting the difference between today's index and the calculated day index
-//         date.setDate(today.getDate() - (todayIndex - dayIndex));
-        
-//         // Get the formatted date string (YYYY-MM-DD)
-//         const formattedDate = date.toISOString().split('T')[0];
-//         // Get the day of the week
-//         const dayOfWeek = daysOfWeek[dayIndex];
-        
-//         // Push the formatted date and day of the week into the array
-//         lastNDays.push({ date: formattedDate, day: dayOfWeek });
-//     }
-    
-//     // Sort the array based on the date values
-//     lastNDays.sort((a, b) => new Date(a.date) - new Date(b.date));
-    
-//     return lastNDays;
-// }
-
-// // Example usage:
-// const lastWeekList = getLastNDays(7); // Get the last week
-// console.log(lastWeekList);
-
-
-// function getLastNDaysSinceLastSunday(n) {
-//     const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-//     const today = new Date();
-//     const lastNDays = [];
-    
-//     // Get the index of today's day (0 for Sunday, 1 for Monday, ..., 6 for Saturday)
-//     const todayIndex = today.getDay();
-//     const daysSinceLastSunday = todayIndex === 0 ? 0 : todayIndex; // Number of days since last Sunday
-    
-//     // Loop through the last n days
-//     for (let i = 0; i < n; i++) {
-//         // Calculate the index of the day to be included
-//         const dayIndex = daysSinceLastSunday - i;
-//         // Create a new date object for each day
-//         const date = new Date(today);
-//         // Adjust the date by subtracting the difference between today's index and the calculated day index
-//         date.setDate(today.getDate() - (daysSinceLastSunday - dayIndex));
-        
-//         // Get the formatted date string (YYYY-MM-DD)
-//         const formattedDate = date.toISOString().split('T')[0];
-//         // Get the day of the week
-//         const dayOfWeek = daysOfWeek[dayIndex >= 0 ? dayIndex : 7 + dayIndex];
-        
-//         // Push the formatted date and day of the week into the array
-//         lastNDays.push({ date: formattedDate, day: dayOfWeek });
-//     }
-    
-//     return lastNDays;
-// }
-
-// // Example usage:
-// const lastNDaysList = getLastNDaysSinceLastSunday(7); // Get the last 7 days since the last Sunday
-// console.log(lastNDaysList);
-
-// console.log('Days since sunday: ', lastNDaysList);
-
-
-
-
-
-    // timestamps.forEach(timestamp => {
-    //     // Convert the timestamp date string into a Date object
-    //     const timestampDate = new Date(timestamp.date);
-        
-    //     // Check if the date of the current timestamp matches the desired date
-    //     if (timestampDate.toISOString() === desiredDate) {
-    //         // Store the matching timestamp
-    //         dayTimestamp = timestamp;
-    //     }
-    // })};
-    // console.log()
+    //  console.log('Last seven days are: ', getLastSevenDays());
 
     
-    
+    // Colors of the badges
     let missedDay = [200, 19, 40, 1.4];
     let loggedDay = [0, 220, 70, 0.8];
     let futureDay = [160, 160, 160, 1];
-
-
-    // function colorPick(timestamps) {
-    //     const today = new Date();
-    //     const todayIndex = today.getDay(); 
-    
-    //     for (let i = 0; i < 7; i++) {
-    //         if (i < todayIndex) {
-    //             // Check if the day has passed
-    //             const dayTimestamp = timestamps.find(timestamp => {
-    //                 const timestampDate = new Date(timestamp.date);
-    //                 return timestampDate.getDay() === i;
-    //             });
-    
-    //             if (dayTimestamp) {
-    //                 // Day logged in, paint badge green
-    //                 return loggedDay;
-    //             } else {
-    //                 // Day missed, paint badge red
-    //                 return missedDay;
-    //             }
-    //         } else if (i > todayIndex) {
-    //             // Future day, paint badge grey
-    //             return futureDay;
-    //         } else {
-    //             // Current day, paint badge green if logged, otherwise paint red
-    //             const todayTimestamp = timestamps.find(timestamp => {
-    //                 const timestampDate = new Date(timestamp.date);
-    //                 return timestampDate.getDay() === todayIndex;
-    //             });
-    
-    //             if (todayTimestamp) {
-    //                 return loggedDay;
-    //             } else {
-    //                 return missedDay;
-    //             }
-    //         }
-    //     }
-    // }
 
 
     // Logic for drawing and creating the day streak badges 
     function dayBadges(canvas, timestamps) {
         let streakDays = ['Monday', 'Tuesday', 'Wednesday', 'Tuesday', 'Friday', 'Saturday', 'Sunday'];
     
-        // buffer is 1% of the canvas, on each side of the badge
+        // Buffer is 1% of the canvas, on each side of the badge
         let buffer = canvas.width * 0.1;
     
-        // badge slot is a square that will contain the badge
+        // Badge slot is a square that will contain the badge
         let badgeSlot = canvas.width / 7;
     
-        // badge area is the horizontal area the badge will occupy
+        // Badge area is the horizontal area the badge will occupy
         let badgeArea = badgeSlot - 2 * buffer;
     
         let badgeRadius = badgeArea / 2;
@@ -301,8 +161,8 @@ let sketch1 = function(p5) {
     
         // Iterate through each day
         for (let i = 0; i < streakDays.length; i++) {
-            let xPos = buffer + (badgeSlot * i) + badgeRadius; // Calculate the x-position of the ellipse center
-            
+            let xPos = buffer + (badgeSlot * i) + badgeRadius;
+
             // Get color based on timestamp data
             let badgeColor = colorPick(timestamps, i);
     
@@ -315,13 +175,13 @@ let sketch1 = function(p5) {
             p5.ellipse(xPos, yPos, badgeArea * 2);
     
             // Draw the streak day letter at the center of the ellipse
-            p5.textAlign(p5.CENTER, p5.CENTER); // Align text to the center of the ellipse
-            p5.textSize(badgeSlot * 0.4); // Adjust text size
-            p5.fill(255); // Set text color to white
+            p5.textAlign(p5.CENTER, p5.CENTER); 
+            p5.textSize(badgeSlot * 0.4); 
+            p5.fill(255); 
             p5.text(streakDays[i][0], xPos, yPos);
             p5.pop();
-        }
-    }
+        };
+    };
 
     // Function that returns how many days since last Sunday
     function daysOfThisWeek(){
@@ -334,68 +194,77 @@ let sketch1 = function(p5) {
              return indexCounter;
         }
     }
-    let howmanydaysthisweek = daysOfThisWeek();
-    console.log('This many days since sunday: ', howmanydaysthisweek);
+    // let daysSinceSun = daysOfThisWeek();
+    // console.log('This many days since sunday: ', daysSinceSun);
 
 
+    // Function that returns only the last n values
+    function  getLastNValues(array, n) {
+        const startIndex = Math.max(0, array.length - n); 
+        return array.slice(startIndex); 
+    }
 
- // function that returns only the last 7 or less values
- function  getLastNValues(array, n) {
-    const startIndex = Math.max(0, array.length - n); 
-    return array.slice(startIndex); 
-}
+    // variable that stores the logged days (streak)
+    let streak = 1;
 
-function colorPick(unique, currentBadge) {
-    let daysSinceSunday = daysOfThisWeek();
-    let lastSeven = getLastSevenDays();
 
-    if (currentBadge <= daysSinceSunday - 1) {
-        let uniqueDates = unique.map(item => new Date(item.date)); // Convert unique dates to Date objects
-        let lastSevenDates = lastSeven.map(item => new Date(item.date)); // Convert last seven dates to Date objects
+    // Function that colors the badges
+    function colorPick(unique, currentBadge) {
+        let daysSinceSunday = daysOfThisWeek();
+        let lastSeven = getLastSevenDays();
+        let isConsecutive = true;
 
-        for (let i = 0; i < uniqueDates.length; i++) {
-            for (let j = 0; j < lastSevenDates.length; j++) {
-                if (uniqueDates[i].getTime() === lastSevenDates[j].getTime()) { // Compare dates
-                    return loggedDay;
+        // Only colors the days that have passed this week (since Sunday)
+        if (currentBadge <= daysSinceSunday - 1) {
+            // Converts the dates to Date object for comparison
+            let uniqueDates = unique.map(item => new Date(item.date)); 
+            let lastSevenDates = lastSeven.map(item => new Date(item.date)); 
+
+            // Compares dates
+            for (let i = 0; i < uniqueDates.length; i++) {
+                let found = false;
+                for (let j = 0; j < lastSevenDates.length; j++) {
+                    if (uniqueDates[i].getTime() === lastSevenDates[j].getTime()) { 
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found) {
+                    isConsecutive = false;
+                    break;
                 }
             }
+            
+            if (isConsecutive) {
+                streak++;
+            } else {
+                streak = 1;
+            }   
+            return isConsecutive ? loggedDay : missedDay;
+
+        } else {
+            return futureDay;
         }
-        return missedDay; // Return missedDay if the date is not found
-    } else {
-        return futureDay;
     }
-}
-
-  
-
-
-
 
 
     // Code for updating the current streak value text underneath the day badges.
-    let currentStreakValue = 1; // example value, replace it with the data from the database
-
-    // DOMContentLoaded event listener to ensure the code runs after the DOM is fully loaded
         document.addEventListener("DOMContentLoaded", function() {
-        // Get the span element by its id
+       
         let currentStreakSpan = document.getElementById("currentStreak");
         let finish = document.getElementById("finalS");
-
         let oneDay = false;
         // value that will place the final 's' if the number of days if higher than one.
         let final = 's.';
-
-        if(currentStreakValue === 1){
+        if(streak === 1){
             oneDay = true;
             final = '.'
         }
         
-        // Update the content of the span element with the current streak value
-        currentStreakSpan.textContent = currentStreakValue;
+        // Updates the content of the span element with the current streak value
+        currentStreakSpan.textContent = streak;
         finish.textContent = final;
-
     });
-
 };
 
 let sketch2 = function(p5) {
