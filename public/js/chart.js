@@ -17,12 +17,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 segment: {
                     borderDash: (ctx) => skipped(ctx, [5, 5]) || [],
                 },
-                pointStyle: 'circle', // Set the point style to circle
+                pointStyle: 'circle', 
                 pointRadius: 6, 
                 pointBackgroundColor: function (context) {
                     const chart = context.chart;
                     const { ctx, chartArea } = chart;
-    
                     if (!chartArea) {
                         return;
                     }
@@ -42,8 +41,8 @@ document.addEventListener('DOMContentLoaded', function () {
             },
             scales: {
                 y: {
-                    min: 1,   // Set the minimum value of the y-axis
-                    max: 3,   // Set the maximum value of the y-axis
+                    min: 1,  
+                    max: 3,
                     ticks: {
                         stepSize: 1,
                         precision: 1,
@@ -100,7 +99,6 @@ fetch('dailyReflections/moodData')
 
     // Update chart dataset with mapped mood data
     moodChart.data.datasets[0].data = mappedMoodData;
-    // console.log(mappedMoodData);
 
     moodChart.update();
 })
@@ -130,8 +128,6 @@ function getLastSevenDaysMoods(moodData, dateData) {
              }
             }
 
-        // console.log(targetDateString, moodsForDay);
-
         // Calculate the average mood for the day
         let totalMoodValue = 0; 
         moodsForDay.forEach(moodEntry => {
@@ -150,8 +146,6 @@ function getLastSevenDaysMoods(moodData, dateData) {
             averageMood: averageMood
         });
     }
-
-    // console.log(lastSevenDaysMoods);
     return lastSevenDaysMoods;
 }
 
@@ -167,11 +161,9 @@ function mapMoodToValue(mood) {
 
 
 let width, height, gradient;
-
+// Chart.js function for calculation gradient color based on data points
 function getGradient(ctx, chartArea) {
     if (!gradient || width !== chartArea.right - chartArea.left || height !== chartArea.bottom - chartArea.top) {
-
-        
         width = chartArea.right - chartArea.left;
         height = chartArea.bottom - chartArea.top;
         gradient = ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
@@ -182,15 +174,15 @@ function getGradient(ctx, chartArea) {
     return gradient;
 }
 
+// function that generates the last seven days for X-axis labels
 function generateLastSevenDaysLabels() {
     const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-    const today = new Date().getDay(); // Get today's day index (0 for Sunday, 1 for Monday, ..., 6 for Saturday)
+    const today = new Date().getDay(); 
     const labels = [];
 
     for (let i = 0; i < 7; i++) {
         const dayIndex = (today - i + 7) % 7; 
         labels.unshift(daysOfWeek[dayIndex]); 
     }
-
     return labels;
 }

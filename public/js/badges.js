@@ -45,8 +45,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 });
 
+// Add CSS class for obtained badge
 async function numberToBadge(number, numbers, img) {
     if (number >= numbers) {
-        img.classList.add("new-badge"); // Add CSS class for obtained badge
+        img.classList.add("new-badge"); 
     }
 }
