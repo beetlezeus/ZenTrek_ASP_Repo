@@ -1,29 +1,29 @@
 // Sketch that creates a canvas and draws day badges  on it
 let sketch1 = function(p5) {
     let canvasDays;
+    let timestampData;
+    let standardizedTimestamps;
+    let unique;
+    let uniqueThisWeek;
+    let days;
+    const streakDays = ['Monday', 'Tuesday', 'Wednesday', 'Tuesday', 'Friday', 'Saturday', 'Sunday'];
+    let maxStreak;
+    
     p5.setup = function() {
         let containerDays = document.getElementById("dayContainer");
-
         // Get the width and height of the container
         let containerWidth = containerDays.offsetWidth;
         let containerHeight = containerDays.offsetHeight;
-
         // Create a canvas with the same size as the container
         canvasDays = p5.createCanvas(containerWidth, containerHeight); 
-
         // Move the canvas inside the container
         canvasDays.parent('dayContainer');
     }
 
-    // Draw fuction that draws the badges on the canvas and colors them according to the unique login dates in the last 7 days
-    p5.draw = function() {
-        dayBadges(canvasDays, unique);
-    }
-
-    // Dets canvas size and allows responsiveness
+    // Sets canvas size and allows responsiveness
     p5.setCanvasSize = function(width, height) {
-        // Set canvas size based on container size
-        p5.resizeCanvas(width, height);
+    // Set canvas size based on container size
+    p5.resizeCanvas(width, height);
     }
 
     // Listens for window resize event
@@ -31,7 +31,6 @@ let sketch1 = function(p5) {
         let containerDays = document.getElementById("dayContainer");
         p5.setCanvasSize(containerDays.offsetWidth, containerDays.offsetHeight);
     });
-
 
     // Function that reformats ISO timestamp into an array that contains day of the week and date
     function standardFormat(isoTimestamp) {
@@ -46,33 +45,14 @@ let sketch1 = function(p5) {
         };
     }
 
-    // Function that formats todays's date and day and returns an array 
-    function todayFunc(){
-        const today = new Date();
-        const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-        const dayIndex = today.getDay();
-        const dayOfWeek = daysOfWeek[dayIndex];
-        const formattedDate = today.toISOString().split('T')[0];
-        const result = {
-            date: formattedDate,
-            day: dayOfWeek
-        };
-        // console.log(result); 
-    }
-    todayFunc();
-
-
     // Function that returns a set of unique dates in an array of login timestamps
     function uniqueDates(array){
         let unique = [];
         let uniqueSet = new Set(); 
 
-
         array.forEach(item => {
-        
         // Converts the date string into a Date object
         const date = new Date(item.date);
-        
         // Creates a unique key by connecting  date and day
         const key = date.toISOString() + item.day;
 
@@ -86,11 +66,27 @@ let sketch1 = function(p5) {
     return unique;
     };
 
-   
+    // Function that returns only the last n values
+    function  getLastNValues(array, n) {
+        const startIndex = Math.max(0, array.length - n); 
+        return array.slice(startIndex); 
+    }
+
+    // Function that returns how many days since last Sunday
+    function daysOfThisWeek(){
+        let week = getLastSevenDays();
+        let indexCounter = 0;
+        for(let i=0; i<7; i++){
+            if(week[i].day != 'Sunday'){
+                indexCounter++;
+            } else 
+             return indexCounter;
+        }
+    }
+
+
     // Fetches the timestamps
-    let timestampData;
-    let standardizedTimestamps;
-    let unique;
+    function fetchAndDraw(){
     fetch('/users/timestamps')
     .then(response => {
         if (!response.ok) {
@@ -99,21 +95,42 @@ let sketch1 = function(p5) {
         return response.json();
     })
     .then(data => {
+
+        // Values from the logged login timestamps
        timestampData = data.timestamps;
-    //    console.log('This is original format: ',timestampData);
+        // console.log('This is original format: ',timestampData);
 
+        // Standardizes the time stamps
        standardizedTimestamps = timestampData.map(standardFormat);
-    //    console.log('This is in standardized format: ', standardizedTimestamps);
+        // console.log('This is in standardized format: ', standardizedTimestamps);
 
+        // Unique dates (only keeps one of each date)
        unique = uniqueDates(standardizedTimestamps);
-    //    console.log('This is last seven unique values: ', unique);
+       console.log('This are all unique values: ', unique);
+    
+        // Number of days since last sunday
+       days = daysOfThisWeek();
+        // console.log('This many days since sunday: ', days);
 
-       lastWeek = getLastNValues(unique, 7);
-    //    console.log('These are the last (up to) 7 timestamps: ', lastWeek);
+        // Unique values this week (since last Sunday)
+       uniqueThisWeek = getLastNValues(unique, days);
+       console.log('These are the last (up to) 7 timestamps: ', uniqueThisWeek);
+
+        // Draw function that draws the badges on the canvas and colors them according to the unique login dates in the last 7 days
+        p5.draw = function() {
+        dayBadges(canvasDays, uniqueThisWeek);
+        };
+
+        maxStreak = streakFunc(uniqueThisWeek); // Calculate max streak
+        updateStreakValue();
     })
     .catch(error => {
         console.error('Fetch error:', error.message);
     });
+
+
+    };
+
 
 
     // Function that returns an array fo the last seven days//
@@ -133,7 +150,7 @@ let sketch1 = function(p5) {
         }
         return lastSevenDays;
     }
-    //  console.log('Last seven days are: ', getLastSevenDays());
+     console.log('Last seven days are: ', getLastSevenDays());
 
     
     // Colors of the badges
@@ -143,9 +160,7 @@ let sketch1 = function(p5) {
 
 
     // Logic for drawing and creating the day streak badges 
-    function dayBadges(canvas, timestamps) {
-        let streakDays = ['Monday', 'Tuesday', 'Wednesday', 'Tuesday', 'Friday', 'Saturday', 'Sunday'];
-    
+    function dayBadges(canvas, dates) {
         // Buffer is 1% of the canvas, on each side of the badge
         let buffer = canvas.width * 0.1;
     
@@ -164,16 +179,13 @@ let sketch1 = function(p5) {
             let xPos = buffer + (badgeSlot * i) + badgeRadius;
 
             // Get color based on timestamp data
-            let badgeColor = colorPick(timestamps, i);
-    
+            let badgeColor = colorPick(dates, i);
             p5.push();
             p5.fill(badgeColor[0], badgeColor[1], badgeColor[2], badgeColor[3]);
             p5.strokeWeight(1);
             p5.stroke(108, 70, 250);
-    
             // Draw the badge
             p5.ellipse(xPos, yPos, badgeArea * 2);
-    
             // Draw the streak day letter at the center of the ellipse
             p5.textAlign(p5.CENTER, p5.CENTER); 
             p5.textSize(badgeSlot * 0.4); 
@@ -183,88 +195,80 @@ let sketch1 = function(p5) {
         };
     };
 
-    // Function that returns how many days since last Sunday
-    function daysOfThisWeek(){
-        let lastSeven = getLastSevenDays();
-        let indexCounter = 0;
-        for(let i=0; i<7; i++){
-            if(lastSeven[i].day != 'Sunday'){
-                indexCounter++;
-            } else 
-             return indexCounter;
-        }
-    }
-    // let daysSinceSun = daysOfThisWeek();
-    // console.log('This many days since sunday: ', daysSinceSun);
-
-
     // Function that returns only the last n values
     function  getLastNValues(array, n) {
         const startIndex = Math.max(0, array.length - n); 
         return array.slice(startIndex); 
     }
-
-    // variable that stores the logged days (streak)
-    let streak = 1;
-
-
+    
     // Function that colors the badges
-    function colorPick(unique, currentBadge) {
-        let daysSinceSunday = daysOfThisWeek();
+    // It takes all the unique login times this week and the current iteration through the badges sketch as variables
+    function colorPick(dates, currentBadge) {
+        // Last seven calendar days
         let lastSeven = getLastSevenDays();
-        let isConsecutive = true;
+        let superFound = false;
+        // Only colors the days that have happened this week (since Sunday)
+        if (currentBadge < days) {
 
-        // Only colors the days that have passed this week (since Sunday)
-        if (currentBadge <= daysSinceSunday - 1) {
-            // Converts the dates to Date object for comparison
-            let uniqueDates = unique.map(item => new Date(item.date)); 
-            let lastSevenDates = lastSeven.map(item => new Date(item.date)); 
+            let dayName = streakDays[currentBadge];
 
             // Compares dates
-            for (let i = 0; i < uniqueDates.length; i++) {
+            for (let i = 0; i < dates.length; i++) {
                 let found = false;
-                for (let j = 0; j < lastSevenDates.length; j++) {
-                    if (uniqueDates[i].getTime() === lastSevenDates[j].getTime()) { 
-                        found = true;
+                for (let j = 0; j < lastSeven.length; j++) {
+                    if (dates[i].date === lastSeven[j].date 
+                    && dayName === dates[i].day
+                    ) { 
+                    found = true;
                         break;
                     }
                 }
-                if (!found) {
-                    isConsecutive = false;
-                    break;
+                if (found) {
+                    superFound = true;
+                }  else {
                 }
             }
-
-            if (isConsecutive) {
-                streak++;
-            } else {
-                streak = 1;
-            }   
-            return isConsecutive ? loggedDay : missedDay;
-
+            return superFound ? loggedDay : missedDay;   
         } else {
             return futureDay;
         }
     }
+    
+    function streakFunc(dates){
+       let streak = 0;
+        maxStreak = 0;
+        for(i=0; i < dates.length; i++){
+            let found = false;
+            for(j=0; j<streakDays.length; j++){
+                if(dates[i].day === streakDays[j]){
+                    streak++;
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                maxStreak = Math.max(streak, maxStreak);
+                streak = 0;
+            }
+        } 
+        maxStreak = Math.max(streak, maxStreak);
+    
+        return maxStreak;
+    }
 
-
-    // Code for updating the current streak value text underneath the day badges.
-        document.addEventListener("DOMContentLoaded", function() {
-       
+    // Function to update streak value in the DOM
+    function updateStreakValue() {
         let currentStreakSpan = document.getElementById("currentStreak");
         let finish = document.getElementById("finalS");
-        let oneDay = false;
-        // value that will place the final 's' if the number of days if higher than one.
-        let final = 's.';
-        if(streak === 1){
-            oneDay = true;
-            final = '.'
-        }
-        
-        // Updates the content of the span element with the current streak value
-        currentStreakSpan.textContent = streak;
-        finish.textContent = final;
+        let final = (maxStreak === 1) ? '.' : 's.'; // Determine if plural 's' is needed
+        currentStreakSpan.textContent = maxStreak; // Update streak value
+        finish.textContent = final; // Update 's' or '.' based on streak value
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        fetchAndDraw(); // Call fetchAndDraw to initiate the process
     });
+
 };
 
 let sketch2 = function(p5) {
@@ -296,8 +300,6 @@ let sketch2 = function(p5) {
                 activityArray = data;
             })
             .catch(error => console.error('Error fetching activity array:', error));
-
-        
     }
 
     p5.draw = function() {
@@ -361,7 +363,6 @@ let sketch2 = function(p5) {
         }
 
 
-
         let boxHeight = rowHeight - textHeight;
         let boxWidth = rowWidth / maxDays;
 
@@ -383,15 +384,11 @@ let sketch2 = function(p5) {
             p5.textAlign(p5.CENTER, p5.BASELINE);
             p5.text(activityText[i],  rowWidth /2, rowHeight * i + boxHeight + textHeight);
         }
-
     }
-    
 };
 
 new p5(sketch1);
 new p5(sketch2);
-
-
 
 
 
