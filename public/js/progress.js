@@ -6,7 +6,7 @@ let sketch1 = function(p5) {
     let unique;
     let uniqueThisWeek;
     let days;
-    const streakDays = ['Monday', 'Tuesday', 'Wednesday', 'Tuesday', 'Friday', 'Saturday', 'Sunday'];
+    const streakDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
     let maxStreak;
     
     p5.setup = function() {
@@ -114,7 +114,7 @@ let sketch1 = function(p5) {
 
         // Unique values this week (since last Sunday)
        uniqueThisWeek = getLastNValues(unique, days);
-       console.log('These are the last (up to) 7 timestamps: ', uniqueThisWeek);
+       console.log('These are the last (up to 7) timestamps: ', uniqueThisWeek);
 
         // Draw function that draws the badges on the canvas and colors them according to the unique login dates in the last 7 days
         p5.draw = function() {
@@ -200,6 +200,7 @@ let sketch1 = function(p5) {
         const startIndex = Math.max(0, array.length - n); 
         return array.slice(startIndex); 
     }
+
     
     // Function that colors the badges
     // It takes all the unique login times this week and the current iteration through the badges sketch as variables
@@ -216,11 +217,10 @@ let sketch1 = function(p5) {
             for (let i = 0; i < dates.length; i++) {
                 let found = false;
                 for (let j = 0; j < lastSeven.length; j++) {
-                    if (dates[i].date === lastSeven[j].date 
-                    && dayName === dates[i].day
-                    ) { 
+                    if (dates[i].date === lastSeven[j].date
+                    && dayName === dates[i].day) { 
                     found = true;
-                        break;
+                    break;
                     }
                 }
                 if (found) {
@@ -228,6 +228,7 @@ let sketch1 = function(p5) {
                 }  else {
                 }
             }
+
             return superFound ? loggedDay : missedDay;   
         } else {
             return futureDay;
@@ -237,9 +238,9 @@ let sketch1 = function(p5) {
     function streakFunc(dates){
        let streak = 0;
         maxStreak = 0;
-        for(i=0; i < dates.length; i++){
+        for(let i=0; i < dates.length; i++){
             let found = false;
-            for(j=0; j<streakDays.length; j++){
+            for(let j=0; j<streakDays.length; j++){
                 if(dates[i].day === streakDays[j]){
                     streak++;
                     found = true;
@@ -252,6 +253,7 @@ let sketch1 = function(p5) {
             }
         } 
         maxStreak = Math.max(streak, maxStreak);
+
     
         return maxStreak;
     }
