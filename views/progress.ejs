@@ -15,12 +15,12 @@
 <div class="container mt-3">
     <div class="row align-items-stretch"> 
         <div class="col-md-7 mb-3">
-            <div class="p-3 h-100 d-flex align-items-center justify-content-center" style="max-height:10rem;">
+            <div class="p-3 h-100 d-flex align-items-center justify-content-center" style="max-height:10rem;" title="Welcome">
                 <h1>Welcome to your progress dashboard</h1>
             </div>
         </div>
         <div class="col-md-5 mb-3">
-            <div class="h-100 d-flex flex-column justify-content-between" style="position: relative; margin: 10px 0;">    
+            <div class="h-100 d-flex flex-column justify-content-between" style="position: relative; margin: 10px 0;" title="Current Streak">    
                 <div class="top" id="dayContainer">
                 </div>
                 <div class="bottom">
@@ -32,30 +32,31 @@
         </div>
     </div>
     <div class="row align-items-justify"> 
-        <div class="col-md-5 mb-3">
-            <div class="h-100 d-flex flex-column justify-content-between" style="position: relative; min-height: 200px" id="streakContainer">
+        <a href="userDetails" class="col-md-5 mb-3">
+            <div class="h-100 d-flex flex-column justify-content-between" style="position: relative; min-height: 200px" id="streakContainer" title="Weekly Goals">
             </div>
-        </div>
-        <div class="col-md-7 mb-3">
-            <div class="p-3 fs-5 border h-100 d-flex align-items-center justify-content-center canvas-container "style="background-color:white;">
+        </a>
+        <a href="dailyReflections" class="col-md-7 mb-3">
+            <div class="p-3 fs-5 border h-100 d-flex align-items-center justify-content-center canvas-container "style="background-color:white;" title="Mood Chart">
                 <canvas id="myChart" style="background-color:white;"></canvas>
             </div>
-        </div>
+        </a>
     </div>
     <div class="row d-flex align-items-stretch justify-content-center"> 
         
-        <div class="col-md-6 mb-3 totals">
+        <a href="/dailyReflections" class="col-md-6 mb-3 totals" title="Reflection Badges">
             <div class="h-100 badgeBox">
                 <h5>Total reflections</h5>
                 <div class="h-100 d-flex flex-row" id="reflectionsContainer"></div>
             </div>
-        </div>  
-        <div class="col-md-6 mb-3 totals">
+        </a>  
+        
+        <a href="/nutrition" class="col-md-6 mb-3 totals" title="Nutrition Badges">
             <div class="h-100 badgeBox">
                 <h5>Total nutrition</h5>
                 <div class="h-100 d-flex flex-row" id="nutritionContainer"></div>
-            </div>
-        </div>
+            </div>  
+        </a>
     </div>
 </div>
 <script src="/js/progress.js"></script>
