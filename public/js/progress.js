@@ -303,16 +303,21 @@ let sketch2 = function(p5) {
             .then(response => response.json())
             .then(data => {
                 // Update the activityArray with the fetched data
+                if (data && data.length > 0) {
+                    console.log(data);
+                    activityArray = data;
 
-                // console.log(data);
-                activityArray = data;
-            })
+                    p5.draw = function() {
+                        streak(activityArray, canvasStreaks); 
+                    }
+                } else {
+                    noSetGoals();
+            }
+        })
             .catch(error => console.error('Error fetching activity array:', error));
     }
 
-    p5.draw = function() {
-        streak(activityArray, canvasStreaks); // Call the streak function to draw the rectangles
-    }
+   
 
     // Listen for window resize event
     window.addEventListener('resize', function() {
@@ -389,7 +394,59 @@ let sketch2 = function(p5) {
             p5.text(activityText[i],  rowWidth /2, rowHeight * i + boxHeight + textHeight);
         }
     }
-};
+
+    function noSetGoals(){
+        const streakContainer = document.getElementById('streakContainer');
+
+        // Removes the existing canvas element
+        const existingCanvas = streakContainer.querySelector('.p5Canvas');
+        if (existingCanvas) {
+            existingCanvas.remove();
+        }
+
+        // Creates the div 
+        const messageDiv = document.createElement('div');
+        messageDiv.textContent = 'Click here to set your weekly goals';
+        messageDiv.style.cursor = 'pointer';
+        messageDiv.style.color = 'blue';
+        messageDiv.style.color = 'white';
+        messageDiv.style.backgroundColor = 'rgba(0, 0, 0, 0.4)';
+
+        messageDiv.style.height = '100%';
+        messageDiv.style.position = 'absolute';
+        messageDiv.style.top = '0';
+        messageDiv.style.left = '0';
+        messageDiv.style.right = '0';
+        messageDiv.style.bottom = '0';
+        messageDiv.style.padding = '20px';
+
+        // Centers the text 
+        messageDiv.style.display = 'flex';
+        messageDiv.style.alignItems = 'center';
+        messageDiv.style.justifyContent = 'center';
+
+
+        // Add event listeners for hover
+        messageDiv.addEventListener('mouseenter', function() {
+        messageDiv.style.backgroundColor = 'rgba(0, 0, 0, 0.7)'; // Darker background color on hover
+        });
+
+        messageDiv.addEventListener('mouseleave', function() {
+            messageDiv.style.backgroundColor = 'rgba(0, 0, 0, 0.4)'; // Original background color on mouse leave
+        });
+
+
+        // Add an event listener to handle click
+        messageDiv.addEventListener('click', function() {
+            window.location.href = '/userDetails/edit';
+        });
+
+        // Append the messageDiv to the streakContainer
+        streakContainer.appendChild(messageDiv);
+                        
+    };
+}
+
 
 new p5(sketch1);
 new p5(sketch2);

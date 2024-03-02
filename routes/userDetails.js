@@ -339,6 +339,11 @@ router.get('/activities', ensureAuthenticated, async (req, res) => {
     try {
         const userDetails = await UserDetails.findOne({ user: req.user._id });
 
+        // Returns an empty array if user still hasn't introduced the data
+        if (!userDetails) {
+            return res.json([]); 
+        }
+
         const activityArray = [
             { name: "Strength", value: userDetails.strength, days: userDetails.strength_frequency },
             { name: "Cardio", value: userDetails.cardio, days: userDetails.cardio_frequency },
