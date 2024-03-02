@@ -7,7 +7,7 @@ let sketch1 = function(p5) {
     let uniqueThisWeek;
     let days;
     const streakDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-    let maxStreak;
+    let currentStreak;
     
     p5.setup = function() {
         let containerDays = document.getElementById("dayContainer");
@@ -106,22 +106,22 @@ let sketch1 = function(p5) {
 
         // Unique dates (only keeps one of each date)
        unique = uniqueDates(standardizedTimestamps);
-       console.log('This are all unique values: ', unique);
+    //    console.log('This are all unique values: ', unique);
     
-        // Number of days since last sunday
+        // Number of days since last Sunday
        days = daysOfThisWeek();
         // console.log('This many days since sunday: ', days);
 
         // Unique values this week (since last Sunday)
        uniqueThisWeek = getLastNValues(unique, days);
-       console.log('These are the last (up to 7) timestamps: ', uniqueThisWeek);
+    //    console.log('These are the last (up to 7) timestamps: ', uniqueThisWeek);
 
         // Draw function that draws the badges on the canvas and colors them according to the unique login dates in the last 7 days
         p5.draw = function() {
         dayBadges(canvasDays, uniqueThisWeek);
         };
 
-        maxStreak = streakFunc(uniqueThisWeek); // Calculate max streak
+        currentStreak = streakFunc(uniqueThisWeek); // Calculate max streak
         updateStreakValue();
     })
     .catch(error => {
@@ -150,7 +150,7 @@ let sketch1 = function(p5) {
         }
         return lastSevenDays;
     }
-     console.log('Last seven days are: ', getLastSevenDays());
+    //  console.log('Last seven days are: ', getLastSevenDays());
 
     
     // Colors of the badges
@@ -225,10 +225,8 @@ let sketch1 = function(p5) {
                 }
                 if (found) {
                     superFound = true;
-                }  else {
-                }
+                }  
             }
-
             return superFound ? loggedDay : missedDay;   
         } else {
             return futureDay;
@@ -236,34 +234,42 @@ let sketch1 = function(p5) {
     }
     
     function streakFunc(dates){
-       let streak = 0;
-        maxStreak = 0;
-        for(let i=0; i < dates.length; i++){
-            let found = false;
-            for(let j=0; j<streakDays.length; j++){
-                if(dates[i].day === streakDays[j]){
-                    streak++;
-                    found = true;
-                    break;
-                }
-            }
-            if (!found) {
-                maxStreak = Math.max(streak, maxStreak);
-                streak = 0;
-            }
-        } 
-        maxStreak = Math.max(streak, maxStreak);
+        let streak = 0;
 
-    
-        return maxStreak;
+    // Iterate through the dates array, starting from today
+    for (let i = 0; i < dates.length; i++) {
+        let currentStreak = 0;
+
+        // Check if the current date is in the streakDays array
+        while (streakDays.includes(dates[i].day)) {
+            currentStreak++;
+            // Moves to the previous day
+            i--;
+
+            // Breaks if we reach the beginning of the dates array
+            if (i < 0) break;
+        }
+
+        // Updates the overall streak if the current streak is larger
+        if (currentStreak > streak) {
+            streak = currentStreak;
+        }
+
+        // Breaks the loop if the streak ends or we reach the beginning of the dates array
+        if (currentStreak === 0 || i < 0) {
+            break;
+        }
+    }
+
+    return streak;
     }
 
     // Function to update streak value in the DOM
     function updateStreakValue() {
         let currentStreakSpan = document.getElementById("currentStreak");
         let finish = document.getElementById("finalS");
-        let final = (maxStreak === 1) ? '.' : 's.'; // Determine if plural 's' is needed
-        currentStreakSpan.textContent = maxStreak; // Update streak value
+        let final = (currentStreak === 1) ? '.' : 's.'; // Determine if plural 's' is needed
+        currentStreakSpan.textContent = currentStreak; // Update streak value
         finish.textContent = final; // Update 's' or '.' based on streak value
     }
 
@@ -341,8 +347,6 @@ let sketch2 = function(p5) {
             }
         });
 
-    
-
         // buffer is 1% of the canvas, on each side of the badge
         let bufferX = canvas.width * 0.05;
         let bufferY = canvas.height * 0.05;
@@ -362,7 +366,7 @@ let sketch2 = function(p5) {
 
         if(textHeight > maxTextHeight){
             textHeight = maxTextHeight;
-        }
+        };
 
 
         let boxHeight = rowHeight - textHeight;
@@ -376,9 +380,7 @@ let sketch2 = function(p5) {
                 // p5.noStroke();
                 p5.strokeWeight(1);
                 p5.stroke(240);
-
                 p5.rect(bufferX + boxWidth*j, bufferY + rowHeight * i, boxWidth - bufferX/2, boxHeight - textHeight, 7);
-
                 p5.pop();
             }
             p5.textSize(textHeight);
