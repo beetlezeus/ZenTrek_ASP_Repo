@@ -329,10 +329,8 @@ let sketch2 = function(p5) {
         let containerStreaks = document.getElementById("streakContainer");
         let containerWidth = containerStreaks.offsetWidth;
         let containerHeight = containerStreaks.offsetHeight;
-
         // Resize canvas
         canvasStreaks.resize(containerWidth, containerHeight);
-
         // // Redraw elements
         p5.redraw();
     }
@@ -342,8 +340,6 @@ let sketch2 = function(p5) {
         let chosenActivities = [];
         let daysArray = [];
         let activityText = [];
-    
-    
         activities.forEach(item => {
             if (item.value === true) {
                 chosenActivities.push(item.name);
@@ -361,7 +357,6 @@ let sketch2 = function(p5) {
 
         let maxDays = Math.max(...daysArray); // Find the maximum number of days among all categories
 
-
         let rowHeight = (canvas.height - bufferY * 2) / rows; 
         let rowWidth = canvas.width - bufferY * 2;
 
@@ -373,10 +368,8 @@ let sketch2 = function(p5) {
             textHeight = maxTextHeight;
         };
 
-
         let boxHeight = rowHeight - textHeight;
         let boxWidth = rowWidth / maxDays;
-
 
         for(let i=0; i<rows; i++){
             for (let j = 0; j < daysArray[i]; j++){
@@ -428,13 +421,12 @@ let sketch2 = function(p5) {
 
         // Add event listeners for hover
         messageDiv.addEventListener('mouseenter', function() {
-        messageDiv.style.backgroundColor = 'rgba(0, 0, 0, 0.7)'; // Darker background color on hover
+        messageDiv.style.backgroundColor = 'rgba(0, 0, 0, 0.7)'; 
         });
 
         messageDiv.addEventListener('mouseleave', function() {
-            messageDiv.style.backgroundColor = 'rgba(0, 0, 0, 0.4)'; // Original background color on mouse leave
+            messageDiv.style.backgroundColor = 'rgba(0, 0, 0, 0.4)';
         });
-
 
         // Add an event listener to handle click
         messageDiv.addEventListener('click', function() {
