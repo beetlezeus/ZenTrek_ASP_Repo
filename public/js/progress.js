@@ -391,6 +391,11 @@ let sketch2 = function(p5) {
     function noSetGoals(){
         const streakContainer = document.getElementById('streakContainer');
 
+        // Changes the path of the parent element
+        const parentAnchor = streakContainer.parentElement;
+        parentAnchor.href = '/userDetails/edit';
+
+
         // Removes the existing canvas element
         const existingCanvas = streakContainer.querySelector('.p5Canvas');
         if (existingCanvas) {
@@ -426,11 +431,6 @@ let sketch2 = function(p5) {
 
         messageDiv.addEventListener('mouseleave', function() {
             messageDiv.style.backgroundColor = 'rgba(0, 0, 0, 0.4)';
-        });
-
-        // Add an event listener to handle click
-        messageDiv.addEventListener('click', function() {
-            window.location.href = '/userDetails/edit';
         });
 
         // Append the messageDiv to the streakContainer
