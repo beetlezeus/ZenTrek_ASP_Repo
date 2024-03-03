@@ -16,6 +16,4 @@ Backbone of the Project
 Node.js With Passport Authentication | Full Project
 https://www.youtube.com/watch?v=6FOq4cUdH8k&ab_channel=TraversyMedias
 
-Link to GitHub repo: https://github.com/beetlezeus/ZenTrek_ASP_Repo
-
 Link to Figma design file: https://www.figma.com/file/WsvTa9GviIsOzWwyVScvyh/Wellness-App-Design-File?type=design&node-id=2316-728&mode=design&t=BKdhPKZzjy5NKJCu-0
