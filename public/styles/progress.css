@@ -29,7 +29,6 @@
     margin: 0;
 }
 
-
 .totals {
     max-height:20rem;
     min-height: 15rem;
@@ -40,12 +39,8 @@
     margin: 20px 0 0 0;
 }
 
-
-
-
 #nutritionContainer, #reflectionsContainer {
     max-width: 90%;
-    /* max-height: 95%; */
     display: flex;
     justify-content:space-around;
 } 
@@ -55,7 +50,6 @@
     flex-direction: column; 
     align-items: center; 
     justify-content: space-around;
-    /* max-height: 80%; */
     margin: 0;
     background-color: rgb(123, 150, 250, 0.3);
 }
@@ -80,13 +74,11 @@
      filter: brightness(80%) saturate(50%) invert(13%) sepia(72%) saturate(995%) hue-rotate(224deg) brightness(95%) contrast(200%);
 }
 
-
 a {
     display: block;
     text-decoration: none; 
     color: inherit; 
 }
-
 
 a:hover {
     text-decoration: none; 
