@@ -1,68 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Progress</title>
     <!-- Add your stylesheets or other head elements here -->
-    <link rel="stylesheet" href="/styles/progress.css">
+    <link rel="stylesheet" href="/styles/progress.css" />
     <!-- <script src="/js/progress.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.js"></script>
-</head>
+  </head>
 
-<body>
-<div class="container mt-3">
-    <div class="row align-items-stretch"> 
+  <body>
+    <div class="container mt-3">
+      <div class="row align-items-stretch">
         <div class="col-md-7 mb-3">
-            <div class="p-3 h-100 d-flex align-items-center justify-content-center" style="max-height:10rem;">
-                <h1>Welcome to your progress dashboard</h1>
-            </div>
+          <div
+            class="p-3 h-100 d-flex align-items-center justify-content-center"
+            style="max-height: 10rem"
+          >
+            <h1>Welcome to your progress dashboard</h1>
+          </div>
         </div>
         <div class="col-md-5 mb-3">
-            <div class="h-100 d-flex flex-column justify-content-between" style="position: relative;">    
-                <div class="top" id="dayContainer">
-                </div>
-                <div class="bottom">
-                    <p class="text-center">
-                        Current streak is <span id="currentStreak">0</span> day<span id="finalS">.</span>
-                    </p>   
-                </div>
+          <div
+            class="h-100 d-flex flex-column justify-content-between"
+            style="position: relative"
+          >
+            <div class="top" id="dayContainer"></div>
+            <div class="bottom">
+              <p class="text-center">
+                Current streak is <span id="currentStreak">0</span> day<span
+                  id="finalS"
+                  >.</span
+                >
+              </p>
             </div>
+          </div>
         </div>
-    </div>
-    <div class="row align-items-justify"> 
+      </div>
+      <div class="row align-items-justify">
         <div class="col-md-5 mb-3">
-            <div class="h-100 d-flex flex-column justify-content-between" style="position: relative;" id="streakContainer">
-            </div>
+          <div
+            class="h-100 d-flex flex-column justify-content-between"
+            style="position: relative"
+            id="streakContainer"
+          ></div>
         </div>
         <div class="col-md-7 mb-3">
-            <div class="p-3 fs-5 border h-100 d-flex align-items-center justify-content-center canvas-container "style="background-color:white;">
-                <canvas id="myChart" style="background-color:white;"></canvas>
-            </div>
+          <div
+            class="p-3 fs-5 border h-100 d-flex align-items-center justify-content-center canvas-container"
+            style="background-color: white"
+          >
+            <canvas id="myChart" style="background-color: white"></canvas>
+          </div>
         </div>
-    </div>
-    <div class="row d-flex align-items-stretch justify-content-center"> 
-        
+      </div>
+      <div class="row d-flex align-items-stretch justify-content-center">
         <div class="col-md-6 mb-3 totals">
-            <div class="h-100 badgeBox">
-                <h5>Total reflections</h5>
-                <div class="h-100 d-flex flex-row" id="reflectionsContainer"></div>
-            </div>
-        </div>  
-        <div class="col-md-6 mb-3 totals">
-            <div class="h-100 badgeBox">
-                <h5>Total nutrition</h5>
-                <div class="h-100 d-flex flex-row" id="nutritionContainer"></div>
-            </div>
+          <div class="h-100 badgeBox">
+            <h5>Total reflections</h5>
+            <div class="h-100 d-flex flex-row" id="reflectionsContainer"></div>
+          </div>
         </div>
+        <div class="col-md-6 mb-3 totals">
+          <div class="h-100 badgeBox">
+            <h5>Total nutrition</h5>
+            <div class="h-100 d-flex flex-row" id="nutritionContainer"></div>
+          </div>
+        </div>
+      </div>
     </div>
-</div>
-<script src="/js/progress.js"></script>
-<script src="/js/chart.js"></script>
-<script src="/js/badges.js"></script>
-
-
-
-</body>
+    <script src="/js/progress.js"></script>
+    <script src="/js/chart.js"></script>
+    <script src="/js/badges.js"></script>
+  </body>
 </html>
