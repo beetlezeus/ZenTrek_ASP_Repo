@@ -321,13 +321,12 @@ let sketch2 = function(p5) {
                 } else {
                     noSetGoals();
                 };
-        })
+             })
             .catch(error => console.error('Error fetching activity array:', error));
     }
 
    
-
-    // Listen for window resize event
+    // Listens for window resize
     window.addEventListener('resize', function() {
         resizeCanvasAndRedraw();
     });
@@ -337,38 +336,42 @@ let sketch2 = function(p5) {
         let containerStreaks = document.getElementById("streakContainer");
         let containerWidth = containerStreaks.offsetWidth;
         let containerHeight = containerStreaks.offsetHeight;
-        // Resize canvas
+        // Resizes canvas
         canvasStreaks.resize(containerWidth, containerHeight);
-        // // Redraw elements
+        // Redraws elements
         p5.redraw();
-    }
+    };
 
 
+    // Function that draws the boxes according to the data
     function streak(activities, canvas) {
         let chosenActivities = [];
         let daysArray = [];
         let activityText = [];
+        // Populates the array with user defined values
         activities.forEach(item => {
             if (item.value === true) {
                 chosenActivities.push(item.name);
                 daysArray.push(item.days);
                 activityText.push(item.name);
-            }
+            };
         });
 
-        // buffer is 1% of the canvas, on each side of the badge
+        // Buffer is 1% of the canvas, on each side of the badge
         let bufferX = canvas.width * 0.05;
         let bufferY = canvas.height * 0.05;
 
-        // number of rows according to the number of activities selected
+        // Number of rows according to the number of activities selected
         let rows = chosenActivities.length;
 
-        let maxDays = Math.max(...daysArray); // Find the maximum number of days among all categories
+        // Finds the maximum number of days among all categories
+        let maxDays = Math.max(...daysArray); 
 
+        // calculates row height and width
         let rowHeight = (canvas.height - bufferY * 2) / rows; 
         let rowWidth = canvas.width - bufferY * 2;
 
-        // define max text size so it doesn't go higher  than 26 regardless off the screen size
+        // Defines max text size so it doesn't go higher than 26 regardless off the screen size
         let maxTextHeight = 26;
         let textHeight = rowHeight * 0.2;
 
@@ -376,9 +379,11 @@ let sketch2 = function(p5) {
             textHeight = maxTextHeight;
         };
 
+        // Defines box dimensions
         let boxHeight = rowHeight - textHeight;
         let boxWidth = rowWidth / maxDays;
 
+        // Draws the boxes
         for(let i=0; i<rows; i++){
             for (let j = 0; j < daysArray[i]; j++){
                 p5.push();
@@ -390,25 +395,25 @@ let sketch2 = function(p5) {
                 p5.pop();
             }
             p5.textSize(textHeight);
-            // p5.fill(0);
             p5.textAlign(p5.CENTER, p5.BASELINE);
             p5.text(activityText[i],  rowWidth /2, rowHeight * i + boxHeight + textHeight);
-        }
-    }
+        };
+    };
 
+    // Function that creates a clickable div and attaches it to the parent element
     function noSetGoals(){
+        // Defines the container
         const streakContainer = document.getElementById('streakContainer');
 
         // Changes the path of the parent element
         const parentAnchor = streakContainer.parentElement;
         parentAnchor.href = '/userDetails/edit';
 
-
         // Removes the existing canvas element
         const existingCanvas = streakContainer.querySelector('.p5Canvas');
         if (existingCanvas) {
             existingCanvas.remove();
-        }
+        };
 
         // Creates the div 
         const messageDiv = document.createElement('div');
@@ -417,7 +422,6 @@ let sketch2 = function(p5) {
         messageDiv.style.color = 'blue';
         messageDiv.style.color = 'white';
         messageDiv.style.backgroundColor = 'rgba(0, 0, 0, 0.4)';
-
         messageDiv.style.height = '100%';
         messageDiv.style.position = 'absolute';
         messageDiv.style.top = '0';
@@ -431,23 +435,21 @@ let sketch2 = function(p5) {
         messageDiv.style.alignItems = 'center';
         messageDiv.style.justifyContent = 'center';
 
-
-        // Add event listeners for hover
+        // Adds event listeners for hover
         messageDiv.addEventListener('mouseenter', function() {
-        messageDiv.style.backgroundColor = 'rgba(0, 0, 0, 0.7)'; 
+            messageDiv.style.backgroundColor = 'rgba(0, 0, 0, 0.7)'; 
         });
 
         messageDiv.addEventListener('mouseleave', function() {
             messageDiv.style.backgroundColor = 'rgba(0, 0, 0, 0.4)';
         });
 
-        // Append the messageDiv to the streakContainer
-        streakContainer.appendChild(messageDiv);
-                        
+        // Appends the messageDiv to the streakContainer
+        streakContainer.appendChild(messageDiv);            
     };
-}
+};
 
-
+// initializes the sketches
 new p5(sketch1);
 new p5(sketch2);
 
