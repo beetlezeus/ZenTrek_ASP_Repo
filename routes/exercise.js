@@ -1,57 +1,3 @@
-// // Import necessary modules
-// const express = require('express');
-// const router = express.Router();
-
-
-// /// Exercise Page Route
-// router.get('/', (req, res) => {
-//     const exerciseData = {
-//         exerciseName: 'Sample Exercise',
-//         difficulty: 'Medium',
-//         // Add more exercise details as needed
-//     };
-
-//     res.render('exercise', exerciseData);
-// });
-
-// // Exercise Submission Route (this is just an example; adjust based on your application logic)
-// router.post('/submitExercise', (req, res) => {
-//     const { exerciseName, difficulty } = req.body;
-
-//     // Process and save exercise data as needed
-
-//     res.redirect('/exercise');
-// });
-
-// // Export the router to use in your main app file
-// module.exports = router;
-
-// const express = require('express');
-// const router = express.Router();
-// const { ensureAuthenticated } = require('../config/auth');
-
-// // Exercise Page Route
-// router.get('/', ensureAuthenticated, (req, res) => {
-//     const exerciseData = {
-//         exerciseName: 'Sample Exercise',
-//         difficulty: 'Medium',
-//         // Add more exercise details as needed
-//     };
-
-//     res.render('exercise', exerciseData);
-// });
-
-// // Exercise Submission Route (this is just an example; adjust based on your application logic)
-// router.post('/submitExercise', ensureAuthenticated, (req, res) => {
-//     const { exerciseName, difficulty } = req.body;
-
-//     // Process and save exercise data as needed
-
-//     res.redirect('/exercise');
-// });
-
-// // Export the router to use in your main app file
-// module.exports = router;
 
 const express = require('express');
 const router = express.Router();
@@ -73,7 +19,7 @@ router.get('/', ensureAuthenticated, (req, res) => {
     res.render('exercise' , {layout: 'layoutLoggedIn'});
 });
 
-// Exercise Submission Route (this is just an example; adjust based on your application logic)
+// Exercise Submission Route (this is just an example; not implemented)
 router.post('/submitExercise', ensureAuthenticated, (req, res) => {
     const { exerciseName, difficulty } = req.body;
 

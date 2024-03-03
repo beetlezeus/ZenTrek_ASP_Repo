@@ -88,27 +88,6 @@
             margin-bottom: 5px;
         }
         
-
-        /* .btn-primary:hover {
-            background-color: #0056b3;
-        }
-
-        .btn-secondary {
-            background-color: #6c757d;
-            border: none;
-        }
-
-
-        .btn-secondary:hover {
-            background-color: #545b62;
-        } 
-
-        .btn{
-            color: #f8f9fa;
-        }
-        .btn:hover{
-            color:#f8f9fa
-        } */
         .log-section{
             display: flex;
             flex-direction: column;
@@ -325,9 +304,6 @@
     document.getElementById(category + '-category').style.display = 'block';
 }
 
-// Function to handle exercise button click
-
-
 // Function to fetch and display Exercise 2 data
 function showExercise2() {
     // Exercise data for Exercise 2
@@ -434,8 +410,6 @@ function showCardioExercise1() {
     fetchData('https://api.api-ninjas.com/v1/exercises', 'cardioCategory', { type: 'cardio' });
 }
 document.getElementById('cardioButton1').addEventListener('click', showCardioExercise1);
-
-
 
 
 function toggleExercise(timerId, startButtonId) {
