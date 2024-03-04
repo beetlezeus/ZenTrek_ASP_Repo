@@ -250,9 +250,18 @@ let sketch1 = function(p5) {
     // Function that calculates the current streak of consecutive login dates
     function streakFunc(dates) {
         let consecutive = 0;
+        let  thisWeek = [];
+        let days = daysOfThisWeek();
+        let lastSeven = getLastSevenDays();
+
+        for(i=0; i<days; i++){
+            thisWeek.push(lastSeven[i]);
+        };
+        console.log(thisWeek);
+
 
         // Starts iterating through streakDays
-        for (let i = 0; i < streakDays.length; i++) {
+        for (let i = thisWeek.length - 1; i >= 0; i--) {
             let currentDay = streakDays[i];
             // Checks if the current day from streakDays is present in dates
             if (dates.some(date => date.day === currentDay)) {
