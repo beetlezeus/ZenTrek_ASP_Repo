@@ -2,7 +2,7 @@ let moodData;
 let dateData;
 
 document.addEventListener('DOMContentLoaded', function () {
-    const DATA_COUNT = 7;
+    // const DATA_COUNT = 7;
     const skipped = (ctx, value) => ctx.p0.skip || ctx.p1.skip ? value : undefined;
     let ctx = document.getElementById("myChart").getContext('2d');
     let moodChart = new Chart(ctx, {

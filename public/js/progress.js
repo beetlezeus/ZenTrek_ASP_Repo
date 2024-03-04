@@ -156,7 +156,7 @@ let sketch1 = function(p5) {
 
             // Exclusively this week's logins
             thisWeekLogins = uniqueThisWeek(lastNumUnique);
-            // console.log('Unique login timestamps this week: ', thisWeekLogins);
+            console.log('Unique login timestamps this week: ', thisWeekLogins);
         
             // Current streak
             currentStreak = streakFunc(thisWeekLogins); 
@@ -252,14 +252,14 @@ let sketch1 = function(p5) {
         let consecutive = 0;
 
         // Starts iterating through streakDays
-        for (let i = streakDays.length - 1; i >= 0; i--) {
+        for (let i = 0; i < streakDays.length; i++) {
             let currentDay = streakDays[i];
             // Checks if the current day from streakDays is present in dates
             if (dates.some(date => date.day === currentDay)) {
                 consecutive++; // Increment streak count
-                // console.log('MATCHING DAY ', currentDay);
+                console.log('MATCHING DAY ', currentDay);
             } else {
-                // console.log('NO MATCH: ', currentDay);
+                console.log('NO MATCH: ', currentDay);
                 break;
             };
         };
