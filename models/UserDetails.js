@@ -21,7 +21,7 @@ const userDetailsSchema = new mongoose.Schema({
         type: Number,
         default: 50,
         min: 15,
-        max: 250,
+        max: 750,
     },
     height: {
         type: Number,

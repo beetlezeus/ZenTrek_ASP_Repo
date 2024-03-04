@@ -75,6 +75,7 @@ router.get('/edit', async (req, res) => {
 router.post('/edit', async (req, res) => {
     const name = req.user ? req.user.name : '';
     let { first_name, last_name, age, weight, height, gender, fitness_level, general_health, strength, cardio, yoga, meditation, strength_frequency, cardio_frequency, yoga_frequency, meditation_frequency} = req.body;
+    
 
     if (!first_name || !last_name) {
         errors.push({ msg: 'Please fill in all fields' });
@@ -232,6 +233,11 @@ router.post('/edit', async (req, res) => {
 router.get('/activities', ensureAuthenticated, async (req, res) => {
     try {
         const userDetails = await UserDetails.findOne({ user: req.user._id });
+
+        // Returns an empty array if user still hasn't introduced the data
+        if (!userDetails) {
+            return res.json([]); 
+        }
 
         const activityArray = [
             { name: "Strength", value: userDetails.strength, days: userDetails.strength_frequency },

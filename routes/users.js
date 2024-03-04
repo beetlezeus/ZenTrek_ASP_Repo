@@ -173,7 +173,9 @@ router.get('/timestamps', async (req, res) => {
         // Check if user exists
         if (!user) {
             return res.status(404).json({ error: 'User not found' });
-        }
+        };
+
+        res.set('Cache-Control', 'no-store, no-cache, must-revalidate, private');
 
         // Print the lastLogin date to the console
         console.log('All logins:', user.timestamps);
