@@ -140,14 +140,14 @@
         </p>
       </div>
 
-      <div class="menu-placeholder">
-        <select id="breathing-selector" onchange="changeBreathingAnimation()">
-            <option value="meditation1">Meditation- Calm</option>
-            <option value="meditation2">Meditation- anxiety attack</option>
-            <option value="meditation3">Meditation - Energizing Breath</option>
-            <option value="meditation4">Meditation - Grounding Breath</option>
-        </select>
-      </div>
+      <!-- <div class="menu-placeholder"> -->
+      <select id="breathing-selector" onchange="changeBreathingAnimation()">
+        <option value="meditation1">Meditation- Calm</option>
+        <option value="meditation2">Meditation- anxiety attack</option>
+        <option value="meditation3">Meditation - Energizing Breath</option>
+        <option value="meditation4">Meditation - Grounding Breath</option>
+      </select>
+      <!-- </div> -->
 
       <div class="inner-rectangle" id="breathing-container"></div>
 
@@ -157,135 +157,149 @@
       </div>
     </div>
 
-<script>
-    let scene, camera, renderer, sphere, animationId;
-    let radius = 50;
-  
-    let breathingText = document.createElement('div');
-    breathingText.id = 'breathing-text';
-    breathingText.style.position = 'absolute';
-    breathingText.style.top = '10px'; // Adjust as needed
-    breathingText.style.left = '10px'; // Adjust as needed
-    breathingText.style.color = '#ffffff'; // Text color
-    breathingText.style.fontFamily = 'Arial, sans-serif'; // Font family
-    breathingText.style.fontSize = '24px'; // Font size
+    <script>
+      let scene, camera, renderer, sphere, animationId;
+      let radius = 50;
 
-    function goBack() {
+      let breathingText = document.createElement("div");
+      breathingText.id = "breathing-text";
+      breathingText.style.position = "absolute";
+      breathingText.style.top = "10px"; // Adjust as needed
+      breathingText.style.left = "10px"; // Adjust as needed
+      breathingText.style.color = "#ffffff"; // Text color
+      breathingText.style.fontFamily = "Arial, sans-serif"; // Font family
+      breathingText.style.fontSize = "24px"; // Font size
+
+      function goBack() {
         window.history.back();
-    }
+      }
 
-    function init() {
+      function init() {
         scene = new THREE.Scene();
-        camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera = new THREE.PerspectiveCamera(
+          75,
+          window.innerWidth / window.innerHeight,
+          0.1,
+          1000
+        );
         camera.position.z = 200;
-        renderer = new THREE.WebGLRenderer({ alpha: true }); 
+        renderer = new THREE.WebGLRenderer({ alpha: true });
         renderer.setSize(window.innerWidth * 0.6, window.innerHeight * 0.6);
-        document.getElementById('breathing-container').appendChild(renderer.domElement);
-        document.getElementById('breathing-container').appendChild(breathingText); // Append text element
+        document
+          .getElementById("breathing-container")
+          .appendChild(renderer.domElement);
+        document
+          .getElementById("breathing-container")
+          .appendChild(breathingText); // Append text element
         let geometry = new THREE.SphereGeometry(radius, 32, 32);
-        let material = new THREE.MeshBasicMaterial({ color: 0x3498db, wireframe: true });
+        let material = new THREE.MeshBasicMaterial({
+          color: 0x3498db,
+          wireframe: true,
+        });
         sphere = new THREE.Mesh(geometry, material);
         scene.add(sphere);
         startBreathingAnimation1();
-        document.getElementById('start-button').addEventListener('click', startBreathing);
-        document.getElementById('stop-button').addEventListener('click', stopBreathing);
-    }
+        document
+          .getElementById("start-button")
+          .addEventListener("click", startBreathing);
+        document
+          .getElementById("stop-button")
+          .addEventListener("click", stopBreathing);
+      }
 
-    function animate() {
+      function animate() {
         animationId = requestAnimationFrame(animate);
         sphere.scale.set(
-            map(Math.sin(Date.now() / inhaleTime), -1, 1, 1, 1.5),
-            map(Math.sin(Date.now() / inhaleTime), -1, 1, 1, 1.5),
-            map(Math.sin(Date.now() / inhaleTime), -1, 1, 1, 1.5)
+          map(Math.sin(Date.now() / inhaleTime), -1, 1, 1, 1.5),
+          map(Math.sin(Date.now() / inhaleTime), -1, 1, 1, 1.5),
+          map(Math.sin(Date.now() / inhaleTime), -1, 1, 1, 1.5)
         );
         setTimeout(() => {
-            sphere.scale.set(
-                map(Math.sin(Date.now() / exhaleTime), -1, 1, 1.5, 1),
-                map(Math.sin(Date.now() / exhaleTime), -1, 1, 1.5, 1),
-                map(Math.sin(Date.now() / exhaleTime), -1, 1, 1.5, 1)
-            );
+          sphere.scale.set(
+            map(Math.sin(Date.now() / exhaleTime), -1, 1, 1.5, 1),
+            map(Math.sin(Date.now() / exhaleTime), -1, 1, 1.5, 1),
+            map(Math.sin(Date.now() / exhaleTime), -1, 1, 1.5, 1)
+          );
         }, pauseTime);
         renderer.render(scene, camera);
-    }
+      }
 
-    function startBreathing() {
+      function startBreathing() {
         if (!animationId) {
-            animate();
+          animate();
         }
-    }
+      }
 
-    function stopBreathing() {
+      function stopBreathing() {
         if (animationId) {
-            cancelAnimationFrame(animationId);
-            animationId = null;
+          cancelAnimationFrame(animationId);
+          animationId = null;
         }
-    }
+      }
 
-    function map(value, start1, stop1, start2, stop2) {
-        return (value - start1) / (stop1 - start1) * (stop2 - start2) + start2;
-    }
+      function map(value, start1, stop1, start2, stop2) {
+        return (
+          ((value - start1) / (stop1 - start1)) * (stop2 - start2) + start2
+        );
+      }
 
-
-
-    function changeBreathingAnimation() {
-        var selector = document.getElementById('breathing-selector');
+      function changeBreathingAnimation() {
+        var selector = document.getElementById("breathing-selector");
         var selectedValue = selector.options[selector.selectedIndex].value;
 
-        stopBreathing(); 
+        stopBreathing();
 
         switch (selectedValue) {
-            case 'meditation1':
-                startBreathingAnimation1();
-                break;
-            case 'meditation2':
-                startBreathingAnimation2();
-                break;
-            case 'meditation3':
-                startBreathingAnimation3();
-                break;
-            case 'meditation4':
-                startBreathingAnimation4();
-                break;
-            default:
-                break;
+          case "meditation1":
+            startBreathingAnimation1();
+            break;
+          case "meditation2":
+            startBreathingAnimation2();
+            break;
+          case "meditation3":
+            startBreathingAnimation3();
+            break;
+          case "meditation4":
+            startBreathingAnimation4();
+            break;
+          default:
+            break;
         }
-    }
+      }
 
-    function startBreathingAnimation1() {
-                
-        inhaleTime = 3000; 
-        exhaleTime = 3000; 
-        pauseTime = 1500; 
-        sphere.material.color.set(0x3498db); 
+      function startBreathingAnimation1() {
+        inhaleTime = 3000;
+        exhaleTime = 3000;
+        pauseTime = 1500;
+        sphere.material.color.set(0x3498db);
         startBreathing();
-    }
+      }
 
-    function startBreathingAnimation2() {
-        inhaleTime = 5000; 
-        exhaleTime = 5000; 
-        pauseTime = 1000; 
-        sphere.material.color.set(0xff5733); 
+      function startBreathingAnimation2() {
+        inhaleTime = 5000;
+        exhaleTime = 5000;
+        pauseTime = 1000;
+        sphere.material.color.set(0xff5733);
         startBreathing();
-    }
+      }
 
-    function startBreathingAnimation3() {
-        inhaleTime = 2000; 
-        exhaleTime = 2000; 
-        pauseTime = 800; 
+      function startBreathingAnimation3() {
+        inhaleTime = 2000;
+        exhaleTime = 2000;
+        pauseTime = 800;
         sphere.material.color.set(0x2ecc71);
         startBreathing();
-    }
+      }
 
-    function startBreathingAnimation4() {
-        inhaleTime = 4000; 
-        exhaleTime = 4000; 
-        pauseTime = 2000; 
+      function startBreathingAnimation4() {
+        inhaleTime = 4000;
+        exhaleTime = 4000;
+        pauseTime = 2000;
         sphere.material.color.set(0xff00ff);
         startBreathing();
-    }
+      }
 
-    init();
-</script>
-
-</body>
+      init();
+    </script>
+  </body>
 </html>
